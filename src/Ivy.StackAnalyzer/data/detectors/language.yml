@@ -59,6 +59,12 @@
   match:
     extensions: [.css]
   confidence: high
+- id: fsharp
+  name: "F#"
+  category: language
+  match:
+    extensions: [.fs, .fsi, .fsx]
+  confidence: high
 - id: dart
   name: Dart
   category: language
