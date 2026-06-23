@@ -174,6 +174,11 @@ components:
     evidence: nuget dep 'Microsoft.AspNetCore.OpenApi'; Sdk=Microsoft.NET.Sdk.Web
     confidence: high
     componentPath: src/Api
+  - name: MS SQL
+    category: database
+    evidence: nuget dep 'Microsoft.EntityFrameworkCore.SqlServer'
+    confidence: high
+    componentPath: src/Api
   - name: Entity Framework Core
     category: orm
     evidence: nuget dep 'Microsoft.EntityFrameworkCore.SqlServer'
@@ -214,6 +219,11 @@ technologies:
   evidence: npm dep 'next'; next.config.mjs
   confidence: high
   componentPath: apps/web
+- name: MS SQL
+  category: database
+  evidence: nuget dep 'Microsoft.EntityFrameworkCore.SqlServer'
+  confidence: high
+  componentPath: src/Api
 - name: Entity Framework Core
   category: orm
   evidence: nuget dep 'Microsoft.EntityFrameworkCore.SqlServer'

@@ -227,7 +227,7 @@
   confidence: high
 - id: aws.secretsmanager
   name: AWS Secrets Manager
-  category: database
+  category: saas        # secrets/config store, not a database (was: database)
   match:
     deps:
       - { ecosystem: npm, name: "@aws-cdk/aws-secretsmanager" }
@@ -455,6 +455,8 @@
       - { ecosystem: terraform, name: airbyte_destination_bigquery }
       - { ecosystem: pypi, name: google-cloud-bigquery-logging }
       - { ecosystem: pypi, name: google-cloud-bigquery-datatransfer }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Google.Cloud.BigQuery" }
     depsRegex:
       - { ecosystem: terraform, pattern: ^google_bigquery_ }
   confidence: high
@@ -496,7 +498,7 @@
   confidence: high
 - id: gcp.secretmanager
   name: Cloud Secret Manager
-  category: database
+  category: saas        # secrets/config store, not a database (was: database)
   match:
     deps:
       - { ecosystem: npm, name: "@google-cloud/secret-manager" }
@@ -532,7 +534,7 @@
   confidence: high
 - id: hashicorp_vault
   name: Vault
-  category: database
+  category: saas        # secrets/config store, not a database (was: database)
   match:
     deps:
       - { ecosystem: npm, name: "@pulumi/vault" }
@@ -662,6 +664,19 @@
       - { ecosystem: rubygems, name: jdbc-mssql }
       - { ecosystem: npm, name: mssql }
       - { ecosystem: npm, name: "@opentelemetry/instrumentation-tedious" }
+      # --- NuGet (.NET / Azure SQL) ---
+      - { ecosystem: nuget, name: Microsoft.EntityFrameworkCore.SqlServer }
+      - { ecosystem: nuget, name: Microsoft.Data.SqlClient }
+      - { ecosystem: nuget, name: System.Data.SqlClient }
+      - { ecosystem: nuget, name: Dapper.SqlBuilder }
+      # --- Go / Rust / pypi drivers ---
+      - { ecosystem: go, name: github.com/denisenkom/go-mssqldb }
+      - { ecosystem: go, name: github.com/microsoft/go-mssqldb }
+      - { ecosystem: cargo, name: tiberius }
+      - { ecosystem: pypi, name: pyodbc }
+      - { ecosystem: pypi, name: pymssql }
+    depsRegex:
+      - { ecosystem: nuget, pattern: "\\.EntityFrameworkCore\\.SqlServer$" }
   confidence: high
 - id: mysql
   name: Mysql
@@ -770,6 +785,17 @@
       - { ecosystem: rubygems, name: pg }
       - { ecosystem: composer, name: martin-georgiev/postgresql-for-doctrine }
       - { ecosystem: terraform, name: airbyte_destination_postgres }
+      # --- Go drivers ---
+      - { ecosystem: go, name: github.com/jackc/pgx/v5 }
+      - { ecosystem: go, name: github.com/jackc/pgx/v4 }
+      - { ecosystem: go, name: github.com/jackc/pgconn }
+      - { ecosystem: go, name: github.com/lib/pq }
+      # --- async Rust drivers ---
+      - { ecosystem: cargo, name: tokio-postgres }
+      - { ecosystem: cargo, name: bb8-postgres }
+      - { ecosystem: cargo, name: deadpool-postgres }
+      - { ecosystem: cargo, name: postgres-protocol }
+      - { ecosystem: cargo, name: sqlx-postgres }
     depsRegex:
       - { ecosystem: deno, pattern: "\\/x\\/postgres@" }
     dotenv: [POSTGRES_]
@@ -872,7 +898,7 @@
   confidence: high
 - id: scaleway.secretmanager
   name: Scaleway Secret Manager
-  category: database
+  category: saas        # secrets/config store, not a database (was: database)
   match:
     deps:
       - { ecosystem: terraform, name: scaleway_secret }
@@ -901,8 +927,19 @@
       - { ecosystem: cargo, name: rusqlite }
       - { ecosystem: cargo, name: libsqlite3-sys }
       - { ecosystem: rubygems, name: sqlite3 }
+      # --- NuGet (.NET) ---
+      - { ecosystem: nuget, name: Microsoft.EntityFrameworkCore.Sqlite }
+      - { ecosystem: nuget, name: Microsoft.Data.Sqlite }
+      - { ecosystem: nuget, name: Microsoft.Data.Sqlite.Core }
+      - { ecosystem: nuget, name: System.Data.SQLite }
+      - { ecosystem: nuget, name: sqlite-net-pcl }
+      # --- pypi (pysqlite3/sqlite3 are stdlib; aiosqlite is the safe signal) ---
+      - { ecosystem: pypi, name: aiosqlite }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "SQLitePCLRaw." }
     depsRegex:
       - { ecosystem: deno, pattern: "\\/x\\/sqlite3@" }
+      - { ecosystem: nuget, pattern: "\\.EntityFrameworkCore\\.Sqlite$" }
     files: [schema.sqlite]
   confidence: high
 - id: supabase.postgres
