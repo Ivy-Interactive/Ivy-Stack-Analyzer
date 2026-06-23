@@ -1,0 +1,77 @@
+# Technology detectors (category: testing) seeded from specfy/stack-analyser (MIT).
+- id: jest
+  name: Jest
+  category: testing
+  match:
+    deps:
+      - { ecosystem: npm, name: jest }
+      - { ecosystem: npm, name: babel-jest }
+      - { ecosystem: npm, name: jest-cli }
+    filesRegex: ["jest.config.(js|ts|mjs|cjs|json)"]
+  confidence: high
+- id: k6
+  name: Grafana K6
+  category: testing
+  match:
+    deps:
+      - { ecosystem: npm, name: k6 }
+      - { ecosystem: go, name: go.k6.io/xk6/cmd/xk6ver }
+      - { ecosystem: docker, name: grafana/k6 }
+  confidence: high
+- id: lighthouse
+  name: Lighthouse
+  category: testing
+  match:
+    deps:
+      - { ecosystem: npm, name: lighthouse }
+      - { ecosystem: githubAction, name: jakejarvis/lighthouse-action }
+      - { ecosystem: githubAction, name: foo-software/lighthouse-check-action }
+      - { ecosystem: githubAction, name: treosh/lighthouse-ci-action }
+      - { ecosystem: docker, name: femtopixel/google-lighthouse }
+  confidence: high
+- id: mochajs
+  name: Mocha
+  category: testing
+  match:
+    deps:
+      - { ecosystem: npm, name: mocha }
+    filesRegex: [".mocharc.(js|cjs|json|jsonc|yaml|yml)"]
+  confidence: high
+- id: phppest
+  name: PHP Pest
+  category: testing
+  match:
+    deps:
+      - { ecosystem: composer, name: pestphp/pest }
+  confidence: high
+- id: phpunit
+  name: PHPUnit
+  category: testing
+  match:
+    deps:
+      - { ecosystem: composer, name: phpunit/phpunit }
+    files: [phpunit.xml.dist]
+  confidence: high
+- id: storybook
+  name: Storybook
+  category: testing
+  match:
+    deps:
+      - { ecosystem: npm, name: storybook }
+    files: [.storybook]
+  confidence: high
+- id: testinglibrary
+  name: Testing Library
+  category: testing
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@testing-library\\/" }
+  confidence: high
+- id: vitest
+  name: Vitest
+  category: testing
+  match:
+    deps:
+      - { ecosystem: npm, name: vitest }
+    files: [vitest.config.js, vitest.config.ts]
+  confidence: high

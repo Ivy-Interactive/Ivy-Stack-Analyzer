@@ -1,0 +1,38 @@
+# Technology detectors (category: runtime) seeded from specfy/stack-analyser (MIT).
+- id: apacheCordova
+  name: Cordova
+  category: runtime
+  match:
+    deps:
+      - { ecosystem: npm, name: cordova }
+      - { ecosystem: npm, name: cordova-android }
+      - { ecosystem: npm, name: cordova-ios }
+      - { ecosystem: npm, name: cordova-windows }
+      - { ecosystem: npm, name: cordova-browser }
+      - { ecosystem: npm, name: cordova-electron }
+      - { ecosystem: npm, name: cordova-plugin-camera }
+      - { ecosystem: npm, name: cordova-plugin-file }
+      - { ecosystem: npm, name: "@types/cordova" }
+  confidence: high
+- id: bunsh
+  name: Bun
+  category: runtime
+  match:
+    files: [bun.lock]
+  confidence: high
+- id: capacitorjs
+  name: Capacitor
+  category: runtime
+  match:
+    deps:
+      - { ecosystem: npm, name: "@capacitor/app" }
+    files: [capacitor.config.ts]
+  confidence: high
+- id: electron
+  name: Electron
+  category: runtime
+  match:
+    deps:
+      - { ecosystem: npm, name: electron }
+      - { ecosystem: githubAction, name: samuelmeuli/action-electron-builder }
+  confidence: high

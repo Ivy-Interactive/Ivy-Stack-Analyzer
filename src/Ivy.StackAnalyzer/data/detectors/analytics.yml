@@ -1,0 +1,185 @@
+# Technology detectors (category: analytics) seeded from specfy/stack-analyser (MIT).
+- id: adobe.analytics
+  name: Adobe Analytics
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: "@adobe/aio-lib-analytics" }
+    dotenv: [ADOBE_ANALYTICS_]
+  confidence: high
+- id: amplitude
+  name: Amplitude Analytics
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: amplitude-js }
+      - { ecosystem: npm, name: "@amplitude/analytics-browser" }
+      - { ecosystem: npm, name: "@analytics/amplitude" }
+      - { ecosystem: composer, name: zumba/amplitude-php }
+      - { ecosystem: terraform, name: airbyte_source_amplitude }
+    dotenv: [AMPLITUDE_]
+  confidence: high
+- id: databuddy
+  name: Databuddy
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: "@databuddy/sdk" }
+    dotenv: [DATABUDDY_]
+  confidence: high
+- id: fathom
+  name: Fathom
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: fathom-client }
+    dotenv: [FATHOM_]
+  confidence: high
+- id: google.analytics
+  name: Google Analytics
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: universal-analytics }
+      - { ecosystem: npm, name: react-ga }
+      - { ecosystem: npm, name: react-ga4 }
+      - { ecosystem: npm, name: "@types/google.analytics" }
+      - { ecosystem: npm, name: "@docusaurus/plugin-google-analytics" }
+      - { ecosystem: npm, name: "@analytics/google-analytics" }
+      - { ecosystem: npm, name: nextjs-google-analytics }
+      - { ecosystem: npm, name: "@nuxtjs/google-analytics" }
+      - { ecosystem: npm, name: gatsby-plugin-google-analytics }
+      - { ecosystem: composer, name: google/analytics-data }
+      - { ecosystem: composer, name: spatie/laravel-analytics }
+      - { ecosystem: composer, name: theiconic/php-ga-measurement-protocol }
+      - { ecosystem: composer, name: google/analytics-admin }
+      - { ecosystem: terraform, name: airbyte_source_google_analytics_data_api }
+      - { ecosystem: pypi, name: google-analytics-data }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@google-analytics\\\\" }
+    dotenv: [GOOGLE_ANALYTICS]
+  confidence: high
+- id: hotjar
+  name: Hotjar
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: "@hotjar/browser" }
+    dotenv: [HOTJAR_]
+  confidence: high
+- id: koalaanalytics
+  name: Koala Analytics
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: "@getkoala/browser" }
+  confidence: high
+- id: logsnag
+  name: LogSnag
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: logsnag }
+    dotenv: [LOGSNAG_]
+  confidence: high
+- id: matomo
+  name: Matomo
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: docker, name: matomo }
+      - { ecosystem: docker, name: bitnami/matomo }
+    dotenv: [MATOMO]
+  confidence: high
+- id: mixpanel
+  name: Mixpanel
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: composer, name: mixpanel/mixpanel-php }
+      - { ecosystem: npm, name: mixpanel-browser }
+      - { ecosystem: pypi, name: mixpanel }
+      - { ecosystem: npm, name: mixpanel }
+      - { ecosystem: rubygems, name: mixpanel-ruby }
+      - { ecosystem: go, name: github.com/mixpanel/mixpanel-go }
+      - { ecosystem: terraform, name: airbyte_source_mixpanel }
+      - { ecosystem: npm, name: "@analytics/mixpanel" }
+    dotenv: [MIXPANEL_]
+  confidence: high
+- id: pirschanalytics
+  name: Pirsch Analytics
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: pirsch-sdk }
+      - { ecosystem: rubygems, name: pirsch_api }
+      - { ecosystem: composer, name: pirsch-analytics/sdk }
+      - { ecosystem: go, name: github.com/pirsch-analytics/pirsch-go-sdk/v2 }
+  confidence: high
+- id: plausible
+  name: Plausible
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: docker, name: plausible/analytics }
+      - { ecosystem: docker, name: ghcr.io/plausible/community-edition }
+      - { ecosystem: npm, name: plausible-tracker }
+      - { ecosystem: composer, name: prestashop_plausible }
+      - { ecosystem: rubygems, name: plausible_api }
+      - { ecosystem: composer, name: vincentbean/laravel-plausible }
+      - { ecosystem: go, name: github.com/andrerfcsantos/go-plausible/plausible }
+    dotenv: [PLAUSIBLE_]
+  confidence: high
+- id: posthog
+  name: PostHog
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: posthog-js }
+      - { ecosystem: go, name: github.com/posthog/posthog-go }
+      - { ecosystem: npm, name: posthog-node }
+      - { ecosystem: composer, name: posthog/posthog-php }
+      - { ecosystem: rubygems, name: posthog-ruby }
+      - { ecosystem: cargo, name: posthog-rs }
+      - { ecosystem: npm, name: posthog-react-native }
+      - { ecosystem: pypi, name: posthog }
+    dotenv: [POSTHOG_]
+  confidence: high
+- id: segment
+  name: Segment
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: analytics-node }
+      - { ecosystem: pypi, name: analytics-python }
+      - { ecosystem: rubygems, name: segment-analytics }
+      - { ecosystem: composer, name: segmentio/analytics-php }
+      - { ecosystem: go, name: github.com/segmentio/analytics-go }
+      - { ecosystem: npm, name: "@analytics/segment" }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@segment\\/" }
+    dotenv: [SEGMENT_]
+  confidence: high
+- id: simpleanalytics
+  name: Simple Analytics
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: "@analytics/simple-analytics" }
+    dotenv: [SIMPLEANALYTICS_]
+  confidence: high
+- id: tinybird
+  name: Tinybird
+  category: analytics
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@tinybirdco\\/" }
+    dotenv: [TINYBIRD]
+  confidence: high
+- id: vercel.analytics
+  name: Vercel Analytics
+  category: analytics
+  match:
+    deps:
+      - { ecosystem: npm, name: "@vercel/analytics" }
+  confidence: high

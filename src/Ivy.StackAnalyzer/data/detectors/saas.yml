@@ -1,0 +1,1008 @@
+# Technology detectors (category: saas) seeded from specfy/stack-analyser (MIT).
+- id: aircall
+  name: Aircall
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: aircall-everywhere }
+      - { ecosystem: npm, name: aircall }
+      - { ecosystem: terraform, name: airbyte_source_aircall }
+    dotenv: [AIRCALL_]
+  confidence: high
+- id: airtable
+  name: Airtable
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: airtable }
+      - { ecosystem: composer, name: sleiman/airtable-php }
+    dotenv: [AIRTABLE_]
+  confidence: high
+- id: asana
+  name: Asana
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: asana }
+      - { ecosystem: pypi, name: asana }
+      - { ecosystem: rubygems, name: asana }
+      - { ecosystem: composer, name: asana/asana }
+      - { ecosystem: go, name: github.com/Asana/go-asana }
+      - { ecosystem: terraform, name: airbyte_source_asana }
+    dotenv: [ASANA_]
+  confidence: high
+- id: atlassian.bitbucket
+  name: Atlassian Bitbucket
+  category: saas
+  match:
+    deps:
+      - { ecosystem: composer, name: bitbucket/client }
+  confidence: high
+- id: atlassian.confluence
+  name: Confluence
+  category: saas
+  match:
+    deps:
+      - { ecosystem: githubAction, name: Bhacaz/docs-as-code-confluence }
+      - { ecosystem: docker, name: atlassian/confluence-server }
+      - { ecosystem: docker, name: atlassian/confluence }
+      - { ecosystem: npm, name: confluence.js }
+      - { ecosystem: npm, name: confluence-api }
+  confidence: high
+- id: atlassian.jira
+  name: Jira
+  category: saas
+  match:
+    deps:
+      - { ecosystem: githubAction, name: atlassian/gajira-todo }
+      - { ecosystem: githubAction, name: github/ghas-jira-integration }
+      - { ecosystem: githubAction, name: atlassian/gajira-transition }
+      - { ecosystem: githubAction, name: atlassian/gajira-create }
+      - { ecosystem: githubAction, name: atlassian/gajira-cli }
+      - { ecosystem: githubAction, name: atlassian/gajira-find-issue-key }
+      - { ecosystem: githubAction, name: atlassian/gajira-comment }
+      - { ecosystem: docker, name: atlassian/jira-software }
+      - { ecosystem: npm, name: jira.js }
+      - { ecosystem: composer, name: lesstif/php-jira-rest-client }
+      - { ecosystem: rubygems, name: jira-ruby }
+      - { ecosystem: terraform, name: gitlab_integration_jira }
+      - { ecosystem: terraform, name: airbyte_source_jira }
+  confidence: high
+- id: atlassian.opsgenie
+  name: Atlassian OpsGenie
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: opsgenie-sdk }
+      - { ecosystem: npm, name: "@pulumi/opsgenie" }
+  confidence: high
+- id: atlassian.trello
+  name: Atlassian Trello
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: trello }
+      - { ecosystem: npm, name: react-trello }
+      - { ecosystem: npm, name: node-trello }
+      - { ecosystem: rubygems, name: ruby-trello }
+      - { ecosystem: composer, name: cdaguerre/php-trello-api }
+      - { ecosystem: githubAction, name: jessicazu/trello-github-actions }
+  confidence: high
+- id: aws.ses
+  name: AWS Simple Email Service
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-ses" }
+      - { ecosystem: npm, name: aws-ses-v2-local }
+      - { ecosystem: npm, name: nodemailer-ses-transport }
+      - { ecosystem: npm, name: "@aws-sdk/client-ses" }
+      - { ecosystem: cargo, name: aws-sdk-ses }
+      - { ecosystem: cargo, name: aws-sdk-sesv2 }
+      - { ecosystem: rubygems, name: aws-ses }
+      - { ecosystem: rubygems, name: aws-sdk-ses }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/ses }
+      - { ecosystem: composer, name: async-aws/ses }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_ses }
+  confidence: high
+- id: aws.sns
+  name: AWS Notification Service
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-sns" }
+      - { ecosystem: npm, name: "@aws-sdk/client-sns" }
+      - { ecosystem: cargo, name: aws-sdk-sns }
+      - { ecosystem: rubygems, name: aws-sdk-sns }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/sns }
+      - { ecosystem: composer, name: aws/aws-php-sns-message-validator }
+      - { ecosystem: composer, name: async-aws/sns }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_sns }
+  confidence: high
+- id: azure.maps
+  name: Bing Maps
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@azure/maps-control" }
+      - { ecosystem: npm, name: bingmaps }
+      - { ecosystem: npm, name: azure-maps-control }
+      - { ecosystem: npm, name: "@azure-rest/maps-search" }
+      - { ecosystem: terraform, name: azurerm_maps_account }
+    dotenv: [AZURE_MAPS_]
+  confidence: high
+- id: base44
+  name: Base44
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@base44/sdk" }
+  confidence: high
+- id: beehiiv
+  name: Beehiiv
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@beehiiv/sdk" }
+    dotenv: [BEEHIIV_]
+  confidence: high
+- id: box
+  name: Box
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: box-node-sdk }
+      - { ecosystem: pypi, name: boxsdk }
+      - { ecosystem: composer, name: box/box-php-sdk }
+  confidence: high
+- id: brevo
+  name: Brevo
+  category: saas
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/getbrevo/brevo-go }
+      - { ecosystem: npm, name: "@getbrevo/brevo" }
+      - { ecosystem: composer, name: getbrevo/brevo-php }
+      - { ecosystem: composer, name: sendinblue/api-v3-sdk }
+      - { ecosystem: rubygems, name: sib-api-v3-sdk }
+      - { ecosystem: npm, name: "@sendinblue/client" }
+    dotenv: [BREVO_]
+  confidence: high
+- id: calcom
+  name: Cal.com
+  category: saas
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@calcom\\/" }
+  confidence: high
+- id: calendly
+  name: Calendly
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: react-calendly }
+    dotenv: [CALENDLY_]
+  confidence: high
+- id: clicksend
+  name: ClickSend
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: clicksend }
+    dotenv: [CLICKSEND_]
+  confidence: high
+- id: clickup
+  name: ClickUp
+  category: saas
+  match:
+    dotenv: [CLICKUP_]
+  confidence: high
+- id: cloudinary
+  name: Cloudinary
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: cloudinary }
+      - { ecosystem: pypi, name: cloudinary }
+      - { ecosystem: composer, name: cloudinary/cloudinary_php }
+      - { ecosystem: rubygems, name: cloudinary }
+      - { ecosystem: go, name: github.com/cloudinary/cloudinary-go/v2 }
+    dotenv: [CLOUDINARY_]
+  confidence: high
+- id: crowdin
+  name: Crowdin
+  category: saas
+  match:
+    deps:
+      - { ecosystem: composer, name: crowdin/crowdin-api-client }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@crowdin\\/" }
+    files: [crowdin.yml, crowdin.yaml]
+  confidence: high
+- id: discord
+  name: Discord
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: discord.js }
+      - { ecosystem: npm, name: discord-interactions }
+      - { ecosystem: githubAction, name: Ilshidur/action-discord }
+    dotenv: [DISCORD_]
+  confidence: high
+- id: docusign
+  name: Docusign
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: docusign-esign }
+      - { ecosystem: rubygems, name: docusign_esign }
+      - { ecosystem: composer, name: docusign/esign-client }
+    dotenv: [DOCUSIGN_]
+  confidence: high
+- id: dropbox
+  name: Dropbox
+  category: saas
+  match:
+    deps:
+      - { ecosystem: composer, name: spatie/dropbox-api }
+    dotenv: [DROPBOX_]
+  confidence: high
+- id: facebook
+  name: Facebook
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: facebook-nodejs-business-sdk }
+      - { ecosystem: npm, name: passport-facebook }
+    dotenv: [FACEBOOK_]
+  confidence: high
+- id: figma
+  name: Figma
+  category: saas
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@figma\\/" }
+    dotenv: [FIGMA_]
+  confidence: high
+- id: freshdesk
+  name: Freshdesk
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: freshdesk-api }
+      - { ecosystem: npm, name: freshdesk }
+      - { ecosystem: pypi, name: freshdesk }
+      - { ecosystem: rubygems, name: freshdesk_api }
+      - { ecosystem: composer, name: freshdesk/freshdesk-php }
+      - { ecosystem: go, name: github.com/freshdesk/freshdesk-go }
+    dotenv: [FRESHDESK_]
+  confidence: high
+- id: gcp.maps
+  name: Google Maps
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/maps" }
+      - { ecosystem: rubygems, name: google_maps_service }
+      - { ecosystem: go, name: cloud.google.com/go/maps }
+      - { ecosystem: pypi, name: google-maps-mapsplatformdatasets }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@googlemaps\\/" }
+    dotenv: [GOOGLE_MAPS_]
+  confidence: high
+- id: github
+  name: GitHub
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: octokit }
+      - { ecosystem: terraform, name: registry.terraform.io/integrations/github }
+      - { ecosystem: rubygems, name: octokit }
+      - { ecosystem: composer, name: knplabs/github-api }
+      - { ecosystem: npm, name: "@pulumi/github" }
+      - { ecosystem: pypi, name: PyGithub }
+      - { ecosystem: terraform, name: airbyte_source_github }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@octokit\\/" }
+    files: [.github]
+  confidence: high
+- id: google.calendar
+  name: Google Calendar
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@googleapis/calendar" }
+      - { ecosystem: composer, name: spatie/laravel-google-calendar }
+      - { ecosystem: rubygems, name: google-apis-calendar_v3 }
+      - { ecosystem: rubygems, name: google_calendar }
+      - { ecosystem: pypi, name: langchain-google-calendar-tools }
+  confidence: high
+- id: google.chat
+  name: Google Chat
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@googleapis/chat" }
+      - { ecosystem: terraform, name: airbyte_source_google_calendar }
+      - { ecosystem: rubygems, name: google-apis-chat_v1 }
+      - { ecosystem: rubygems, name: google-apps-chat-v1 }
+      - { ecosystem: rubygems, name: google-apps-chat }
+  confidence: high
+- id: google.docs
+  name: Google Docs
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@googleapis/docs" }
+      - { ecosystem: rubygems, name: google-apis-docs_v1 }
+  confidence: high
+- id: google.drive
+  name: Google Drive
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@googleapis/drive" }
+      - { ecosystem: npm, name: react-google-drive-picker }
+      - { ecosystem: npm, name: "@uppy/google-drive-picker" }
+      - { ecosystem: terraform, name: airbyte_source_google_drive }
+      - { ecosystem: rubygems, name: google-apis-drive_v2 }
+      - { ecosystem: rubygems, name: google-apis-drive_v3 }
+      - { ecosystem: cargo, name: google-drive }
+  confidence: high
+- id: google.forms
+  name: Google Forms
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@googleapis/forms" }
+      - { ecosystem: terraform, name: airbyte_source_google_forms }
+      - { ecosystem: rubygems, name: google-apis-forms_v1 }
+  confidence: high
+- id: google.gmail
+  name: Gmail
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@googleapis/gmail" }
+      - { ecosystem: rubygems, name: google-apis-gmail_v1 }
+  confidence: high
+- id: google.keep
+  name: Google Keep
+  category: saas
+  match:
+    deps:
+      - { ecosystem: rubygems, name: google-apis-keep_v1 }
+  confidence: high
+- id: google.meet
+  name: Google Meet
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-apps/meet" }
+      - { ecosystem: rubygems, name: google-apis-meet_v2 }
+      - { ecosystem: rubygems, name: google-apps-meet-v2 }
+      - { ecosystem: rubygems, name: google-apps-meet }
+  confidence: high
+- id: google.sheets
+  name: Google Sheets
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@googleapis/sheets" }
+      - { ecosystem: npm, name: google-spreadsheet }
+      - { ecosystem: composer, name: revolution/laravel-google-sheets }
+      - { ecosystem: rubygems, name: google-apis-sheets_v4 }
+      - { ecosystem: cargo, name: sheets }
+      - { ecosystem: terraform, name: airbyte_destination_google_sheets }
+  confidence: high
+- id: google.slides
+  name: Google Slides
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@googleapis/slides" }
+      - { ecosystem: rubygems, name: google-apis-slides_v1 }
+  confidence: high
+- id: google.tasks
+  name: Google Tasks
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@googleapis/tasks" }
+      - { ecosystem: rubygems, name: google-apis-tasks_v1 }
+  confidence: high
+- id: heremaps
+  name: HERE Maps
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@types/heremaps" }
+    dotenv: [HERE_MAPS_]
+  confidence: high
+- id: hubspot
+  name: HubSpot
+  category: saas
+  match:
+    deps:
+      - { ecosystem: composer, name: hubspot/hubspot-php }
+      - { ecosystem: composer, name: hubspot/api-client }
+      - { ecosystem: npm, name: "@analytics/hubspot" }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@hubpost\\/" }
+  confidence: high
+- id: hypertune
+  name: Hypertune
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: hypertune }
+  confidence: high
+- id: ifttt
+  name: ifttt
+  category: saas
+  match:
+    dotenv: [IFTTT]
+  confidence: high
+- id: instagram
+  name: Instagram
+  category: saas
+  match:
+    dotenv: [INSTAGRAM_]
+  confidence: high
+- id: intercom
+  name: Intercom
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: react-use-intercom }
+      - { ecosystem: npm, name: intercom-client }
+      - { ecosystem: npm, name: "@intercom/intercom-react-native" }
+      - { ecosystem: npm, name: ng-intercom }
+      - { ecosystem: composer, name: intercom/intercom-php }
+      - { ecosystem: composer, name: intercom/oauth2-intercom }
+      - { ecosystem: rubygems, name: intercom }
+      - { ecosystem: rubygems, name: intercom-rails }
+      - { ecosystem: npm, name: "@analytics/intercom" }
+    dotenv: [INTERCOM_]
+  confidence: high
+- id: klaviyo
+  name: Klaviyo
+  category: saas
+  match:
+    deps:
+      - { ecosystem: composer, name: klaviyo/magento2-extension }
+      - { ecosystem: terraform, name: airbyte_source_klaviyo }
+  confidence: high
+- id: lago
+  name: Lago
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: lago-javascript-client }
+      - { ecosystem: go, name: github.com/getlago/lago-go-client }
+      - { ecosystem: rubygems, name: lago-ruby-client }
+      - { ecosystem: pypi, name: lago-python-client }
+      - { ecosystem: docker, name: getlago/front }
+      - { ecosystem: docker, name: getlago/api }
+      - { ecosystem: docker, name: getlago/lago-gotenberg }
+    dotenv: [LAGO_]
+  confidence: high
+- id: launchdarkly
+  name: LaunchDarkly
+  category: saas
+  match:
+    deps:
+      - { ecosystem: rubygems, name: launchdarkly-server-sdk }
+      - { ecosystem: rubygems, name: ldclient-rb }
+      - { ecosystem: cargo, name: launchdarkly-server-sdk }
+      - { ecosystem: terraform, name: registry.terraform.io/launchdarkly/launchdarkly }
+      - { ecosystem: composer, name: launchdarkly/server-sdk }
+      - { ecosystem: composer, name: launchdarkly/launchdarkly-php }
+      - { ecosystem: githubAction, name: launchdarkly/find-code-references }
+    depsRegex:
+      - { ecosystem: npm, pattern: launchdarkly-.+-client-sdk }
+      - { ecosystem: npm, pattern: "^@launchdarkly\\/" }
+      - { ecosystem: go, pattern: "github.com\\/launchdarkly\\/" }
+    dotenv: [LAUNCHDARKLY_, LAUNCH_DARKLY_]
+  confidence: high
+- id: linear
+  name: Linear
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@linear/sdk" }
+      - { ecosystem: pypi, name: linear-cli }
+    dotenv: [LINEAR_]
+  confidence: high
+- id: linkedin
+  name: Linkedin
+  category: saas
+  match:
+    dotenv: [LINKEDIN_]
+  confidence: high
+- id: logrocket
+  name: LogRocket
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: logrocket }
+  confidence: high
+- id: lovable
+  name: Lovable
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: lovable-tagger }
+  confidence: high
+- id: mailchimp
+  name: Mailchimp
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@mailchimp/mailchimp_marketing" }
+      - { ecosystem: npm, name: "@mailchimp/mailchimp_transactional" }
+      - { ecosystem: rubygems, name: MailchimpMarketing }
+      - { ecosystem: rubygems, name: MailchimpTransactional }
+      - { ecosystem: composer, name: drewm/mailchimp-api }
+      - { ecosystem: composer, name: mailchimp/transactional }
+      - { ecosystem: composer, name: mailchimp/makerting }
+      - { ecosystem: terraform, name: airbyte_source_mailchimp }
+    dotenv: [MAILCHIMP_]
+  confidence: high
+- id: mailgun
+  name: Mailgun
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: mailgun.js }
+      - { ecosystem: npm, name: nodemailer-mailgun-transport }
+      - { ecosystem: composer, name: mailgun/mailgun-php }
+      - { ecosystem: rubygems, name: mailgun-ruby }
+      - { ecosystem: go, name: github.com/mailgun/mailgun-go/v4 }
+      - { ecosystem: terraform, name: airbyte_source_mailgun }
+  confidence: high
+- id: mailjet
+  name: Mailjet
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: node-mailjet }
+      - { ecosystem: cargo, name: mailjet-rs }
+      - { ecosystem: rubygems, name: mailjet }
+      - { ecosystem: composer, name: mailjet/mailjet-apiv3-php }
+      - { ecosystem: composer, name: mailjet/laravel-mailjet }
+    dotenv: [MAILJET_]
+  confidence: high
+- id: mapbox
+  name: Mapbox
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: mapbox-gl }
+      - { ecosystem: npm, name: "@mapbox/mapbox-sdk" }
+      - { ecosystem: npm, name: "@mapbox/mapbox-gl-geocoder" }
+      - { ecosystem: cargo, name: mapboxgl }
+      - { ecosystem: rubygems, name: mapbox-sdk }
+      - { ecosystem: rubygems, name: mapbox-rails }
+      - { ecosystem: rubygems, name: mapbox-gl-rails }
+      - { ecosystem: pypi, name: mapbox-tilesets }
+      - { ecosystem: composer, name: geocoder-php/mapbox-provider }
+    dotenv: [MAPBOX_]
+  confidence: high
+- id: mattermost
+  name: Mattermost
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: mattermost-client }
+      - { ecosystem: npm, name: "@mattermost/client" }
+      - { ecosystem: npm, name: hubot-matteruser }
+  confidence: high
+- id: metabase
+  name: Metabase
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@metabase/embedding-sdk-react" }
+      - { ecosystem: docker, name: metabase/metabase }
+  confidence: high
+- id: microsoft.onedrive
+  name: OneDrive
+  category: saas
+  match:
+    deps:
+      - { ecosystem: cargo, name: onedrive-api }
+      - { ecosystem: composer, name: krizalys/onedrive-php-sdk }
+      - { ecosystem: npm, name: "@uppy/onedrive" }
+      - { ecosystem: terraform, name: airbyte_source_microsoft_onedrive }
+  confidence: high
+- id: miro
+  name: Miro
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@mirohq/miro-api" }
+    dotenv: [MIRO_]
+  confidence: high
+- id: monday
+  name: Monday
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: monday-sdk-js }
+  confidence: high
+- id: notion
+  name: Notion
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@notionhq/client" }
+      - { ecosystem: npm, name: notion-to-md }
+      - { ecosystem: composer, name: fiveam-code/laravel-notion-api }
+      - { ecosystem: rubygems, name: notion-ruby-client }
+      - { ecosystem: cargo, name: notion }
+    dotenv: [NOTION_]
+  confidence: high
+- id: novu
+  name: Novy
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@novu/notification-center-vue" }
+      - { ecosystem: npm, name: "@novu/notification-center" }
+      - { ecosystem: npm, name: "@novu/notification-center-angular" }
+      - { ecosystem: npm, name: "@novu/node" }
+      - { ecosystem: composer, name: unicodeveloper/novu }
+      - { ecosystem: composer, name: novu/novu-laravel }
+      - { ecosystem: pypi, name: novu }
+      - { ecosystem: rubygems, name: novu }
+      - { ecosystem: go, name: github.com/novuhq/go-novu }
+      - { ecosystem: docker, name: ghcr.io/novuhq/novu/api }
+      - { ecosystem: docker, name: ghcr.io/novuhq/novu/ws }
+      - { ecosystem: docker, name: ghcr.io/novuhq/novu/widget }
+      - { ecosystem: docker, name: ghcr.io/novuhq/novu/web }
+  confidence: high
+- id: optimizely
+  name: Optimizely
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@optimizely/optimizely-sdk" }
+      - { ecosystem: npm, name: "@optimizely/react-sdk" }
+      - { ecosystem: npm, name: "@optimizely/js-sdk-utils" }
+      - { ecosystem: npm, name: "@optimizely/js-sdk-logging" }
+      - { ecosystem: npm, name: "@optimizely/js-sdk-event-processor" }
+      - { ecosystem: rubygems, name: optimizely-sdk }
+      - { ecosystem: rubygems, name: optimizely }
+      - { ecosystem: rubygems, name: optimizely_server_side }
+      - { ecosystem: composer, name: optimizely/optimizely-sdk }
+      - { ecosystem: githubAction, name: optimizely/upload-custom-code-action }
+      - { ecosystem: go, name: github.com/optimizely/go-sdk }
+    dotenv: [OPTIMIZELY_]
+  confidence: high
+- id: pagerduty
+  name: Pagerduty
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@pagerduty/pdjs" }
+      - { ecosystem: terraform, name: registry.terraform.io/PagerDuty/pagerduty }
+      - { ecosystem: cargo, name: pagerduty-rs }
+      - { ecosystem: rubygems, name: pagerduty }
+      - { ecosystem: composer, name: adilbaig/pagerduty }
+      - { ecosystem: npm, name: "@pulumi/pagerduty" }
+    dotenv: [PAGERDUTY_]
+  confidence: high
+- id: placekit
+  name: PlaceKit
+  category: saas
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@placekit\\/" }
+  confidence: high
+- id: postman
+  name: Postman
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: postman-collection }
+      - { ecosystem: npm, name: postman-request }
+      - { ecosystem: npm, name: newman }
+  confidence: high
+- id: postmark
+  name: Postmark
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: postmark }
+      - { ecosystem: npm, name: postman-cli }
+      - { ecosystem: rubygems, name: postmark-rails }
+      - { ecosystem: rubygems, name: postmark }
+      - { ecosystem: composer, name: wildbit/postmark-php }
+  confidence: high
+- id: prismacloud
+  name: Prisma Cloud
+  category: saas
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/PaloAltoNetworks/prismacloud }
+  confidence: high
+- id: reddit
+  name: Reddit
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: snoowrap }
+    dotenv: [REDDIT_]
+  confidence: high
+- id: resend
+  name: Resend
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: resend }
+      - { ecosystem: composer, name: resend/resend-php }
+      - { ecosystem: composer, name: resend/resend-laravel }
+      - { ecosystem: pypi, name: resend }
+      - { ecosystem: rubygems, name: resend }
+      - { ecosystem: go, name: github.com/resend/resend-go/v2 }
+      - { ecosystem: cargo, name: resend-rs }
+    dotenv: [RESEND_]
+  confidence: high
+- id: salesforce
+  name: Salesforce
+  category: saas
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/hashicorp/salesforce }
+      - { ecosystem: npm, name: jsforce }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@salesforce\\/" }
+    dotenv: [SALESFORCE_]
+  confidence: high
+- id: sap
+  name: SAP
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@sap/hana-client" }
+  confidence: high
+- id: sas
+  name: SAS
+  category: saas
+  match:
+    deps:
+      - { ecosystem: pypi, name: sasviya }
+  confidence: high
+- id: sendgrid
+  name: Sendgrid
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: nodemailer-sendgrid }
+      - { ecosystem: npm, name: nodemailer-sendgrid-transport }
+      - { ecosystem: composer, name: sendgrid/sendgrid }
+      - { ecosystem: rubygems, name: sendgrid-ruby }
+      - { ecosystem: rubygems, name: sendgrid-rails }
+      - { ecosystem: rubygems, name: sendgrid }
+      - { ecosystem: go, name: github.com/sendgrid/sendgrid-go }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@sendgrid\\/" }
+  confidence: high
+- id: servicenow
+  name: ServiceNow
+  category: saas
+  match:
+    deps:
+      - { ecosystem: rubygems, name: servicenow-api }
+  confidence: high
+- id: slack
+  name: Slack
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@slack/web-api" }
+      - { ecosystem: terraform, name: registry.terraform.io/pablovarela/slack }
+      - { ecosystem: cargo, name: slack-morphism }
+      - { ecosystem: rubygems, name: slack-ruby-client }
+      - { ecosystem: composer, name: laravel/slack-notification-channel }
+      - { ecosystem: githubAction, name: slackapi/slack-github-action }
+      - { ecosystem: githubAction, name: "8398a7/action-slack" }
+      - { ecosystem: composer, name: jolicode/slack-php-api }
+      - { ecosystem: composer, name: maknz/slack }
+      - { ecosystem: composer, name: alek13/slack }
+      - { ecosystem: go, name: github.com/slack-go/slack }
+      - { ecosystem: docker, name: kasmweb/slack }
+      - { ecosystem: npm, name: "@pulumi/slack" }
+    dotenv: [SLACK_]
+  confidence: high
+- id: splitio
+  name: Split
+  category: saas
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/splitio/go-client/v6 }
+      - { ecosystem: rubygems, name: splitclient-rb }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@splitsoftware\\/" }
+  confidence: high
+- id: splunk
+  name: Splunk
+  category: saas
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/splunk/splunk }
+      - { ecosystem: terraform, name: registry.terraform.io/splunk/splunkconfig }
+    dotenv: [SPLUNK_]
+  confidence: high
+- id: spotify
+  name: Spotify
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: spotify-web-api-node }
+    dotenv: [SPOTIFY_]
+  confidence: high
+- id: tailscale
+  name: Tailscale
+  category: saas
+  match:
+    deps:
+      - { ecosystem: githubAction, name: tailscale/github-action }
+      - { ecosystem: githubAction, name: tailscale/gitops-acl-action }
+      - { ecosystem: npm, name: "@pulumi/tailscale" }
+  confidence: high
+- id: telegram
+  name: Telegram
+  category: saas
+  match:
+    deps:
+      - { ecosystem: docker, name: kasmweb/telegram }
+      - { ecosystem: go, name: github.com/go-telegram-bot-api/telegram-bot-api/v5 }
+      - { ecosystem: githubAction, name: appleboy/telegram-action }
+      - { ecosystem: npm, name: telegram }
+      - { ecosystem: npm, name: telegraf }
+      - { ecosystem: npm, name: node-telegram-bot-api }
+      - { ecosystem: npm, name: grammy }
+      - { ecosystem: composer, name: longman/telegram-bot }
+      - { ecosystem: composer, name: laravel-notification-channels/telegram }
+      - { ecosystem: composer, name: irazasyed/telegram-bot-sdk }
+      - { ecosystem: composer, name: telegram-bot/api }
+      - { ecosystem: rubygems, name: telegram-bot }
+      - { ecosystem: rubygems, name: telegram-bot-ruby }
+      - { ecosystem: cargo, name: teloxide }
+    dotenv: [TELEGRAM_]
+  confidence: high
+- id: twentycrm
+  name: Twenty CRM
+  category: saas
+  match:
+    deps:
+      - { ecosystem: docker, name: twentycrm/twenty }
+  confidence: high
+- id: twilio
+  name: Twilio
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: twilio }
+      - { ecosystem: composer, name: twilio/sdk }
+      - { ecosystem: githubAction, name: twilio-labs/actions-sms }
+      - { ecosystem: go, name: github.com/twilio/twilio-go }
+      - { ecosystem: rubygems, name: twilio-ruby }
+      - { ecosystem: terraform, name: airbyte_source_twilio }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@twilio\\/" }
+    dotenv: [TWILIO_]
+  confidence: high
+- id: twitch
+  name: Twitch
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: tmi.js }
+      - { ecosystem: npm, name: passport-twitch-strategy }
+    dotenv: [TWITCH_]
+  confidence: high
+- id: twitter
+  name: X
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: twitter-api-v2 }
+      - { ecosystem: pypi, name: tweepy }
+      - { ecosystem: npm, name: passport-twitter }
+      - { ecosystem: terraform, name: airbyte_source_twitter }
+    dotenv: [TWITTER_]
+  confidence: high
+- id: veriff
+  name: Veriff
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@veriff/js-sdk" }
+      - { ecosystem: npm, name: "@veriff/incontext-sdk" }
+      - { ecosystem: rubygems, name: veriff }
+  confidence: high
+- id: whatsapp
+  name: WhatsApp
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: whatsapp-web.js }
+      - { ecosystem: npm, name: "@neoxr/wb" }
+      - { ecosystem: npm, name: whatsapp-business }
+    dotenv: [WHATSAPP_]
+  confidence: high
+- id: wikipedia
+  name: Wikipedia
+  category: saas
+  match:
+    deps:
+      - { ecosystem: pypi, name: wikipedia }
+      - { ecosystem: npm, name: wikipedia }
+    dotenv: [WIKIPEDIA_]
+  confidence: high
+- id: withorb
+  name: Orb
+  category: saas
+  match:
+    deps:
+      - { ecosystem: pypi, name: orb-billing }
+      - { ecosystem: npm, name: orb-billing }
+      - { ecosystem: go, name: github.com/orbcorp/orb-go }
+  confidence: high
+- id: wolframalpha
+  name: Wolfram Alpha
+  category: saas
+  match:
+    deps:
+      - { ecosystem: pypi, name: wolframalpha }
+    dotenv: [WOLFRAM_]
+  confidence: high
+- id: yousign
+  name: Yousign
+  category: saas
+  match:
+    deps:
+      - { ecosystem: composer, name: androk/yousign-api }
+  confidence: high
+- id: youtube
+  name: Youtube
+  category: saas
+  match:
+    deps:
+      - { ecosystem: pypi, name: youtube-transcript-api }
+      - { ecosystem: pypi, name: pytube }
+    dotenv: [YOUTUBE_]
+  confidence: high
+- id: zapier
+  name: Zapier
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: zapier-platform-core }
+      - { ecosystem: npm, name: zapier-platform-cli }
+    dotenv: [ZAPIER_]
+  confidence: high
+- id: zendesk
+  name: Zendesk
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: node-zendesk }
+      - { ecosystem: rubygems, name: zendesk_api }
+      - { ecosystem: composer, name: zendesk/zendesk_api_client_php }
+    dotenv: [ZENDESK_]
+  confidence: high
+- id: zoom
+  name: Zoom
+  category: saas
+  match:
+    deps:
+      - { ecosystem: npm, name: "@zoom/meetingsdk" }
+      - { ecosystem: terraform, name: airbyte_source_zoom }
+    dotenv: [ZOOM_]
+  confidence: high

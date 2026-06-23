@@ -1,0 +1,104 @@
+# Technology detectors (category: security) seeded from specfy/stack-analyser (MIT).
+- id: aws.kms
+  name: AWS Kms
+  category: security
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-kms" }
+      - { ecosystem: npm, name: "@aws-cdk/aws-kms" }
+      - { ecosystem: cargo, name: aws-sdk-kms }
+      - { ecosystem: rubygems, name: aws-sdk-kms }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/kms }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_kms_ }
+  confidence: high
+- id: checkov
+  name: Checkov
+  category: security
+  match:
+    deps:
+      - { ecosystem: githubAction, name: bridgecrewio/checkov-action }
+      - { ecosystem: docker, name: bridgecrew/checkov }
+  confidence: high
+- id: datadome
+  name: DataDome
+  category: security
+  match:
+    deps:
+      - { ecosystem: npm, name: "@datadome/fraud-sdk-node" }
+      - { ecosystem: npm, name: "@datadome/node-module" }
+      - { ecosystem: npm, name: "@datadome/react-native-datadome" }
+      - { ecosystem: npm, name: "@datadome/datadome-react-native-navigation" }
+      - { ecosystem: pypi, name: datadome-fraud-sdk-python }
+      - { ecosystem: composer, name: datadome/fraud-sdk-symfony }
+      - { ecosystem: composer, name: datadome/fraud-sdk-laravel }
+      - { ecosystem: rubygems, name: datadome_fraud_sdk_ruby }
+      - { ecosystem: go, name: github.com/datadome/fraud-sdk-go-package }
+      - { ecosystem: composer, name: DataDomeServiceProvider }
+  confidence: high
+- id: gcp.kms
+  name: Cloud KMS
+  category: security
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/kms" }
+      - { ecosystem: go, name: cloud.google.com/go/kms }
+      - { ecosystem: composer, name: google/cloud-kms }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_kms_ }
+      - { ecosystem: rubygems, pattern: ^google-cloud-kms }
+  confidence: high
+- id: gitguardian
+  name: GitGuardian
+  category: security
+  match:
+    deps:
+      - { ecosystem: githubAction, name: GitGuardian/ggshield-action }
+      - { ecosystem: go, name: github.com/Gaardsholt/go-gitguardian }
+      - { ecosystem: docker, name: gitguardian/ggshield }
+  confidence: high
+- id: infisical
+  name: Infisical
+  category: security
+  match:
+    deps:
+      - { ecosystem: npm, name: infisical }
+      - { ecosystem: docker, name: infisical/infisical }
+    files: [.infisical.json]
+    dotenv: [INFISICAL_]
+  confidence: high
+- id: snyk
+  name: Snyk
+  category: security
+  match:
+    deps:
+      - { ecosystem: npm, name: snyk }
+      - { ecosystem: terraform, name: registry.terraform.io/snyk-terraform-assets/snyk }
+      - { ecosystem: docker, name: snyk/snyk-cli }
+      - { ecosystem: docker, name: snyk/broker }
+      - { ecosystem: docker, name: snyk/kubernetes-monitor }
+      - { ecosystem: docker, name: snyk/kubernetes-operator }
+      - { ecosystem: docker, name: snyk/code-agent }
+      - { ecosystem: docker, name: snyk/driftctl }
+    depsRegex:
+      - { ecosystem: githubAction, pattern: "^snyk\\/actions\\/" }
+    files: [.snyk]
+    dotenv: [SNYK_]
+  confidence: high
+- id: sqreen
+  name: Sqreen
+  category: security
+  match:
+    deps:
+      - { ecosystem: npm, name: sqreen }
+      - { ecosystem: rubygems, name: sqreen }
+    dotenv: [SQREEN_]
+  confidence: high
+- id: wiz
+  name: Wiz
+  category: security
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/AxtonGrams/wiz }
+    dotenv: [WIZ_]
+  confidence: high

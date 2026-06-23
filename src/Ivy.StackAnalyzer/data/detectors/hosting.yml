@@ -1,0 +1,459 @@
+# Technology detectors (category: hosting) seeded from specfy/stack-analyser (MIT).
+- id: aws.amplifyhosting
+  name: AWS Amplify Hosting
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: aws-amplify }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@aws-amplify\\/" }
+      - { ecosystem: terraform, pattern: ^aws_amplify_ }
+  confidence: high
+- id: aws.apigateway
+  name: AWS Api Gateway
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-apigateway" }
+      - { ecosystem: npm, name: "@aws-sdk/client-apigateway" }
+      - { ecosystem: cargo, name: aws-sdk-apigateway }
+      - { ecosystem: rubygems, name: aws-sdk-apigateway }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/apigateway }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_api_gateway_ }
+  confidence: high
+- id: aws.ec2
+  name: AWS Compute
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-ec2" }
+      - { ecosystem: npm, name: "@aws-sdk/client-ec2" }
+      - { ecosystem: cargo, name: aws-sdk-ec2 }
+      - { ecosystem: rubygems, name: aws-sdk-ec2 }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/ec2 }
+      - { ecosystem: githubAction, name: bitovi/github-actions-deploy-docker-to-ec2 }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_ec2 }
+  confidence: high
+- id: aws.ecs
+  name: AWS Container
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-ecs" }
+      - { ecosystem: npm, name: "@aws-sdk/client-ecs" }
+      - { ecosystem: cargo, name: aws-sdk-ecs }
+      - { ecosystem: rubygems, name: aws-sdk-ecs }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/ecs }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_ecs }
+  confidence: high
+- id: aws.eks
+  name: AWS Kubernetes
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-eks" }
+      - { ecosystem: npm, name: "@aws-sdk/client-eks" }
+      - { ecosystem: npm, name: "@pulumi/eks" }
+      - { ecosystem: cargo, name: aws-sdk-eks }
+      - { ecosystem: rubygems, name: aws-sdk-eks }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/eks }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_eks_ }
+  confidence: high
+- id: aws.fargate
+  name: AWS Fargate
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: githubAction, name: aws-actions/amazon-eks-fargate }
+  confidence: high
+- id: aws.lambda
+  name: AWS Lambda
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: is-lambda }
+      - { ecosystem: npm, name: "@aws-cdk/aws-lambda" }
+      - { ecosystem: npm, name: "@types/aws-lambda" }
+      - { ecosystem: npm, name: "@aws-sdk/client-lambda" }
+      - { ecosystem: npm, name: aws-lambda }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-aws-lambda" }
+      - { ecosystem: cargo, name: aws-sdk-lambda }
+      - { ecosystem: cargo, name: lambda_runtime }
+      - { ecosystem: rubygems, name: aws-sdk-lambda }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/lambda }
+      - { ecosystem: composer, name: async-aws/lambda }
+      - { ecosystem: githubAction, name: appleboy/lambda-action }
+    depsRegex:
+      - { ecosystem: docker, pattern: "^amazon\\/aws-lambda" }
+      - { ecosystem: terraform, pattern: ^aws_lambda }
+  confidence: high
+- id: aws.lightsail
+  name: AWS Lightsail
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-lightsail" }
+      - { ecosystem: npm, name: "@aws-sdk/client-lightsail" }
+      - { ecosystem: cargo, name: aws-sdk-lightsail }
+      - { ecosystem: rubygems, name: aws-sdk-lightsail }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/lightsail }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_lightsail }
+  confidence: high
+- id: azure.aks
+  name: Azure Kubernetes
+  category: hosting
+  match:
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^azurerm_kubernetes_ }
+  confidence: high
+- id: azure.functions
+  name: Azure Functions
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@azure/functions" }
+      - { ecosystem: npm, name: durable-functions }
+      - { ecosystem: npm, name: azure-functions-core-tools }
+      - { ecosystem: rubygems, name: fluent-plugin-azurefunctions }
+      - { ecosystem: cargo, name: azure-functions }
+      - { ecosystem: cargo, name: azure-functions-shared }
+      - { ecosystem: githubAction, name: Azure/functions-container-action }
+      - { ecosystem: githubAction, name: Azure/functions-action }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^azurerm_function_ }
+      - { ecosystem: terraform, pattern: ^azurerm_linux_function_ }
+      - { ecosystem: terraform, pattern: ^azurerm_windows_function_ }
+  confidence: high
+- id: azure.staticwebapps
+  name: Azure Static Web Apps
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@azure/static-web-apps-cli" }
+      - { ecosystem: rubygems, name: azure_mgmt_web }
+      - { ecosystem: githubAction, name: Azure/webapps-deploy }
+      - { ecosystem: githubAction, name: Azure/static-web-apps-deploy }
+      - { ecosystem: githubAction, name: Azure/appservice-build }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^azurerm_app_service }
+      - { ecosystem: terraform, pattern: ^azurerm_linux_web_app }
+      - { ecosystem: terraform, pattern: ^azurerm_windows_web_app }
+  confidence: high
+- id: cloudflare.pages
+  name: Cloudflare Pages
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: githubAction, name: cloudflare/pages-action }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^cloudflare_pages_ }
+  confidence: high
+- id: cloudflare.workers
+  name: Cloudflare Workers
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: wrangler }
+      - { ecosystem: npm, name: "@miniflare/cache" }
+      - { ecosystem: npm, name: miniflare }
+      - { ecosystem: npm, name: "@cfworker/json-schema" }
+      - { ecosystem: githubAction, name: cloudflare/wrangler-action }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^cloudflare_workers_ }
+    files: [wrangler.toml]
+  confidence: high
+- id: denodeploy
+  name: Deno Deploy
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: githubAction, name: denoland/deployctl }
+    depsRegex:
+      - { ecosystem: deno, pattern: "\\/x\\/deploy(@[0-9.]+)?\\/deployctl.ts" }
+  confidence: high
+- id: digitalocean
+  name: DigitalOcean
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/digitalocean/digitalocean }
+      - { ecosystem: githubAction, name: digitalocean/app_action }
+      - { ecosystem: githubAction, name: digitalocean/action-doctl }
+      - { ecosystem: npm, name: "@pulumi/digitalocean" }
+  confidence: high
+- id: elasticcloud
+  name: Elastic Cloud
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/elastic/ec }
+  confidence: high
+- id: expodev
+  name: Expo.dev
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: githubAction, name: expo/expo-github-action }
+    files: [expo.dev]
+  confidence: high
+- id: fastly
+  name: Fastly
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: cargo, name: fastly-api }
+      - { ecosystem: rubygems, name: fastly }
+      - { ecosystem: npm, name: fastly }
+      - { ecosystem: npm, name: fastly/fastly }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@fastly\\/" }
+    dotenv: [FASTLY_]
+  confidence: high
+- id: gcp.appengine
+  name: Google App Engine
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/appengine-admin" }
+      - { ecosystem: rubygems, name: appengine }
+      - { ecosystem: go, name: cloud.google.com/go/appengine }
+      - { ecosystem: composer, name: google/appengine-php-sdk }
+      - { ecosystem: githubAction, name: google-github-actions/deploy-appengine }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_app_engine_ }
+  confidence: high
+- id: gcp.cloudrun
+  name: Cloud Run
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/run" }
+      - { ecosystem: go, name: cloud.google.com/go/run }
+      - { ecosystem: composer, name: google/cloud-run }
+      - { ecosystem: githubAction, name: google-github-actions/deploy-cloudrun }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_cloud_run_ }
+      - { ecosystem: rubygems, pattern: ^google-cloud-run-v }
+      - { ecosystem: rubygems, pattern: ^google-cloud-run_v }
+  confidence: high
+- id: gcp.functions
+  name: Cloud Functions
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/functions-framework" }
+      - { ecosystem: rubygems, name: "functions_framework " }
+      - { ecosystem: go, name: cloud.google.com/go/functions }
+      - { ecosystem: composer, name: google/cloud-functions-framework }
+      - { ecosystem: composer, name: google/cloud-functions }
+      - { ecosystem: githubAction, name: google-github-actions/deploy-cloud-functions }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_cloudfunctions }
+      - { ecosystem: rubygems, pattern: ^google-cloud-functions }
+  confidence: high
+- id: gcp.gce
+  name: Google Compute
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/compute" }
+      - { ecosystem: rubygems, name: google-cloud-compute }
+      - { ecosystem: go, name: cloud.google.com/go/compute }
+      - { ecosystem: composer, name: google/cloud-compute }
+      - { ecosystem: githubAction, name: google-github-actions/ssh-compute }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_compute_ }
+  confidence: high
+- id: gcp.gke
+  name: Google Kubernetes
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: githubAction, name: google-github-actions/get-gke-credentials }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_container_ }
+  confidence: high
+- id: gcp.tasks
+  name: Cloud Tasks
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/tasks" }
+      - { ecosystem: go, name: cloud.google.com/go/tasks }
+      - { ecosystem: composer, name: google/cloud-tasks }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_cloud_tasks_ }
+      - { ecosystem: rubygems, pattern: ^google-cloud-tasks }
+  confidence: high
+- id: github.pages
+  name: Github Pages
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: githubAction, name: actions/upload-pages-artifact }
+      - { ecosystem: githubAction, name: actions/deploy-pages }
+      - { ecosystem: githubAction, name: peaceiris/actions-gh-pages }
+      - { ecosystem: githubAction, name: JamesIves/github-pages-deploy-action }
+    files: [_config.yml, _config.yaml]
+  confidence: high
+- id: koyeb
+  name: Koyeb
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: koyeb-api-client }
+    files: [.koyeb.yaml, Dockerfile.koyeb]
+  confidence: high
+- id: kubernetes
+  name: Kubernetes
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/hashicorp/kubernetes }
+      - { ecosystem: cargo, name: k8s-openapi }
+      - { ecosystem: rubygems, name: kubeclient }
+      - { ecosystem: npm, name: "@kubernetes/client-node" }
+      - { ecosystem: composer, name: kubernetes/php-client }
+      - { ecosystem: githubAction, name: azure/setup-kubectl }
+      - { ecosystem: githubAction, name: azure/k8s-set-context }
+      - { ecosystem: githubAction, name: azure/k8s-deploy }
+      - { ecosystem: githubAction, name: azure/k8s-create-secret }
+      - { ecosystem: npm, name: "@pulumi/kubernetes" }
+      - { ecosystem: pypi, name: kubernetes }
+    files: [kustomization.yaml]
+  confidence: high
+- id: mongodbatlas
+  name: MongoDB Atlas
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/mongodb/mongodbatlas }
+      - { ecosystem: npm, name: "@pulumi/mongodbatlas" }
+  confidence: high
+- id: ovh.dedicated
+  name: OVH Dedicated Server
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: ovh_dedicated_server_install_task }
+      - { ecosystem: terraform, name: ovh_me_installation_template }
+      - { ecosystem: terraform, name: ovh_dedicated_server_update }
+  confidence: high
+- id: ovh.kubernetes
+  name: OVH Kubernetes
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: ovh_cloud_project_kube }
+  confidence: high
+- id: ovh.vps
+  name: OVH VPS
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: ovh_vps }
+  confidence: high
+- id: platformsh
+  name: Platform.sh
+  category: hosting
+  match:
+    files: [.platform.app.yaml]
+  confidence: high
+- id: qovery.cluster
+  name: Qovery Cluster
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: qovery_cluster }
+  confidence: high
+- id: render
+  name: Render
+  category: hosting
+  match:
+    files: [render.yaml]
+  confidence: high
+- id: replit
+  name: Replit
+  category: hosting
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "@replit\\/" }
+    files: [.replit, replit.nix]
+  confidence: high
+- id: scaleway.container
+  name: Scaleway Container
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: scaleway_container }
+      - { ecosystem: terraform, name: scaleway_container_cron }
+  confidence: high
+- id: scaleway.elasticmetal
+  name: Scaleway Elastic Metal
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: scaleway_baremetal_server }
+  confidence: high
+- id: scaleway.function
+  name: Scaleway Function
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: scaleway_function }
+      - { ecosystem: terraform, name: scaleway_function_cron }
+  confidence: high
+- id: scaleway.kubernetes
+  name: Scaleway Kubernetes
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: scaleway_k8s_cluster }
+  confidence: high
+- id: sitecore
+  name: Sitecore
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@sitecore-jss/sitecore-jss" }
+  confidence: high
+- id: supabase.functions
+  name: Supabase Functions
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@supabase/functions-js" }
+      - { ecosystem: npm, name: supabase/functions-php }
+  confidence: high
+- id: tencentcloud
+  name: Tencent Cloud
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/tencentcloudstack/tencentcloud }
+      - { ecosystem: composer, name: encentcloud/tencentcloud-sdk-php }
+      - { ecosystem: pypi, name: tencentcloud-sdk-python }
+  confidence: high
+- id: vercel.edge
+  name: Vercel Edge
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@vercel/edge" }
+      - { ecosystem: npm, name: "@vercel/edge-config" }
+      - { ecosystem: npm, name: "@vercel/edge-functions-ui" }
+      - { ecosystem: npm, name: "@edge-runtime/primitives" }
+  confidence: high
+- id: vercel.functions
+  name: Vercel Functions
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: npm, name: "@vercel/functions" }
+      - { ecosystem: npm, name: "@vercel/og" }
+  confidence: high

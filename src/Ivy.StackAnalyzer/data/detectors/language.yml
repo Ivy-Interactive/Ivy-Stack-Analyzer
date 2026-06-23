@@ -1,0 +1,186 @@
+# Technology detectors (category: language) seeded from specfy/stack-analyser (MIT).
+- id: ada
+  name: Ada
+  category: language
+  match:
+    extensions: [.ada, .adb, .ads]
+  confidence: high
+- id: aspnet
+  name: ASP.NET
+  category: language
+  match:
+    extensions: [.asax, .ascx, .ashx, .asmx, .aspx, .axd]
+  confidence: high
+- id: bash
+  name: Bash
+  category: language
+  match:
+    extensions: [.sh]
+  confidence: high
+- id: c
+  name: C
+  category: language
+  match:
+    extensions: [.c, .h, .idc]
+  confidence: high
+- id: clojure
+  name: Clojure
+  category: language
+  match:
+    extensions: [.clj]
+  confidence: high
+- id: cobol
+  name: COBOL
+  category: language
+  match:
+    extensions: [.cob, .cbl, .ccp, .cobol, .cpy]
+  confidence: high
+- id: coffeescript
+  name: CoffeeScript
+  category: language
+  match:
+    extensions: [.coffee, ._coffee, .cake, .cjsx, .iced]
+  confidence: high
+- id: cplusplus
+  name: C++
+  category: language
+  match:
+    extensions: [.cpp, .c++, .cc, .cp, .cppm, .h++, .hh, .hpp]
+  confidence: high
+- id: csharp
+  name: "C#"
+  category: language
+  match:
+    extensions: [.cs, .cake, .csx, .linq]
+  confidence: high
+- id: css
+  name: CSS
+  category: language
+  match:
+    extensions: [.css]
+  confidence: high
+- id: dart
+  name: Dart
+  category: language
+  match:
+    extensions: [.dart]
+  confidence: high
+- id: elixir
+  name: Elixir
+  category: language
+  match:
+    extensions: [.ex, .exs]
+  confidence: high
+- id: glsl
+  name: GLSL
+  category: language
+  match:
+    extensions: [.glsl]
+  confidence: high
+- id: haskell
+  name: Haskell
+  category: language
+  match:
+    extensions: [.hs]
+  confidence: high
+- id: java
+  name: Java
+  category: language
+  match:
+    extensions: [.java, .jav, .jsh]
+  confidence: high
+- id: javascript
+  name: JavaScript
+  category: language
+  match:
+    extensions: [.js, .mjs, .cjs]
+  confidence: high
+- id: jsx
+  name: JSX
+  category: language
+  match:
+    extensions: [.jsx, .tsx]
+  confidence: high
+- id: kotlin
+  name: Kotlin
+  category: language
+  match:
+    extensions: [.kt, .ktm, .kts]
+  confidence: high
+- id: lua
+  name: Lua
+  category: language
+  match:
+    extensions: [.lua]
+  confidence: high
+- id: matlab
+  name: MATLAB
+  category: language
+  match:
+    extensions: [.matlab, .m]
+  confidence: high
+- id: objectivec
+  name: Objective-C
+  category: language
+  match:
+    extensions: [.m, .mm, .h]
+  confidence: high
+- id: perl
+  name: Perl
+  category: language
+  match:
+    extensions: [.pl, .al, .cgi, .fcgi, .perl, .ph, .plx, .pm, .psgi, .t]
+  confidence: high
+- id: r
+  name: R
+  category: language
+  match:
+    extensions: [.r, .rd, .rsx]
+  confidence: high
+- id: scala
+  name: Scala
+  category: language
+  match:
+    extensions: [.scala]
+  confidence: high
+- id: scss
+  name: SCSS
+  category: language
+  match:
+    extensions: [.scss]
+  confidence: high
+- id: swift
+  name: Swift
+  category: language
+  match:
+    extensions: [.swift]
+  confidence: high
+- id: typescript
+  name: Typescript
+  category: language
+  match:
+    deps:
+      - { ecosystem: npm, name: typescript }
+    filesRegex: ["tsconfig(.[a-zA-Z0-9_-]+)?.json"]
+    extensions: [.ts, .tsx]
+  confidence: high
+- id: visualbasicnet
+  name: Visual Basic .NET
+  category: language
+  match:
+    extensions: [.vb, .vbhtml]
+  confidence: high
+- id: vuejs
+  name: Vue
+  category: language
+  match:
+    extensions: [.vue]
+  confidence: high
+- id: zig
+  name: Zig
+  category: language
+  match:
+    deps:
+      - { ecosystem: githubAction, name: goto-bus-stop/setup-zig }
+    extensions: [.zig]
+  confidence: high

@@ -1,0 +1,110 @@
+# Hand-curated .NET detectors. specfy is JavaScript-focused and ships no .NET
+# rules; these use the MatchSpec superset fields `sdk` and `depPrefix` that
+# specfy cannot express (see PLAN.md section 7b).
+- id: aspnetcore
+  name: ASP.NET Core
+  category: framework
+  match:
+    sdk: ["Microsoft.NET.Sdk.Web"]
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Microsoft.AspNetCore." }
+  confidence: high
+
+- id: blazor
+  name: Blazor
+  category: framework
+  match:
+    sdk: ["Microsoft.NET.Sdk.BlazorWebAssembly", "Microsoft.NET.Sdk.Razor"]
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Microsoft.AspNetCore.Components" }
+  supersedes: [aspnetcore]
+  confidence: high
+
+- id: efcore
+  name: Entity Framework Core
+  category: orm
+  match:
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Microsoft.EntityFrameworkCore" }
+  confidence: high
+
+- id: dapper
+  name: Dapper
+  category: orm
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Dapper" }
+  confidence: high
+
+- id: maui
+  name: .NET MAUI
+  category: framework
+  match:
+    sdk: ["Microsoft.NET.Sdk.Maui"]
+    deps:
+      - { ecosystem: nuget, name: "Microsoft.Maui.Controls" }
+  confidence: high
+
+- id: wpf
+  name: WPF
+  category: framework
+  match:
+    pathGlobs: ["**/*.xaml"]
+    deps:
+      - { ecosystem: nuget, name: "Microsoft.WindowsDesktop.App.WPF" }
+  confidence: medium
+
+- id: worker-service
+  name: .NET Worker Service
+  category: framework
+  match:
+    sdk: ["Microsoft.NET.Sdk.Worker"]
+  confidence: high
+
+- id: xunit
+  name: xUnit
+  category: testing
+  match:
+    depPrefix:
+      - { ecosystem: nuget, prefix: "xunit" }
+  confidence: high
+
+- id: nunit
+  name: NUnit
+  category: testing
+  match:
+    deps:
+      - { ecosystem: nuget, name: "NUnit" }
+  confidence: high
+
+- id: mstest
+  name: MSTest
+  category: testing
+  match:
+    depPrefix:
+      - { ecosystem: nuget, prefix: "MSTest" }
+  confidence: high
+
+- id: serilog
+  name: Serilog
+  category: monitoring
+  match:
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Serilog" }
+  confidence: high
+
+- id: mediatr
+  name: MediatR
+  category: library
+  match:
+    deps:
+      - { ecosystem: nuget, name: "MediatR" }
+  confidence: high
+
+- id: automapper
+  name: AutoMapper
+  category: library
+  match:
+    deps:
+      - { ecosystem: nuget, name: "AutoMapper" }
+  confidence: high

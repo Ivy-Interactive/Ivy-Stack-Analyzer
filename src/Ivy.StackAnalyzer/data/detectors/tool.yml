@@ -1,0 +1,214 @@
+# Technology detectors (category: tool) seeded from specfy/stack-analyser (MIT).
+- id: adonisjs
+  name: AdonisJS
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: adonisjs }
+      - { ecosystem: npm, name: "@adonisjs/core" }
+  confidence: high
+- id: apache_thrift
+  name: Apache Thrift
+  category: tool
+  match:
+    deps:
+      - { ecosystem: docker, name: apache/thrift }
+      - { ecosystem: npm, name: thrift }
+      - { ecosystem: go, name: github.com/apache/thrift }
+      - { ecosystem: cargo, name: thrift }
+      - { ecosystem: rubygems, name: thrift }
+  confidence: high
+- id: atlasgo
+  name: AtlasGo
+  category: tool
+  match:
+    deps:
+      - { ecosystem: docker, name: arigaio/atlas }
+      - { ecosystem: githubAction, name: ariga/setup-atlas }
+      - { ecosystem: githubAction, name: ariga/atlas-action/migrate/lint }
+      - { ecosystem: githubAction, name: ariga/atlas-action/migrate/push }
+      - { ecosystem: githubAction, name: ariga/atlas-action/migrate/apply }
+      - { ecosystem: terraform, name: registry.terraform.io/ariga/atlas }
+    files: [schema.hcl]
+  confidence: high
+- id: bytebase
+  name: Bytebase
+  category: tool
+  match:
+    deps:
+      - { ecosystem: docker, name: bytebase/bytebase }
+      - { ecosystem: githubAction, name: bytebase/sql-review-action }
+  confidence: high
+- id: effectjs
+  name: EffectJS
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: effect }
+  confidence: high
+- id: elysiajs
+  name: ElysiaJS
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: elysia }
+  confidence: high
+- id: express
+  name: Express
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: express }
+  confidence: high
+- id: fastify
+  name: Fastify
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: fastify }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-fastify" }
+  confidence: high
+- id: flyway
+  name: Flyway
+  category: tool
+  match:
+    deps:
+      - { ecosystem: docker, name: flyway/flyway }
+      - { ecosystem: githubAction, name: red-gate/flyway-hub-migration-test }
+      - { ecosystem: githubAction, name: joshuaavalon/flyway-action }
+  confidence: high
+- id: gitlab
+  name: Gitlab
+  category: tool
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/gitlabhq/gitlab }
+      - { ecosystem: cargo, name: gitlab }
+      - { ecosystem: rubygems, name: gitlab }
+      - { ecosystem: composer, name: m4tthumphrey/php-gitlab-api }
+      - { ecosystem: npm, name: "@pulumi/gitlab" }
+      - { ecosystem: terraform, name: airbyte_source_gitlab }
+      - { ecosystem: pypi, name: python-gitlab }
+  confidence: high
+- id: goacmelego
+  name: Lego
+  category: tool
+  match:
+    deps:
+      - { ecosystem: docker, name: goacme/lego }
+      - { ecosystem: go, name: github.com/go-acme/lego/v4/cmd/lego }
+    files: [.lego]
+  confidence: high
+- id: honojs
+  name: HonoJS
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: hono }
+  confidence: high
+- id: koa
+  name: Koa
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: koa }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-koa" }
+  confidence: high
+- id: liquibase
+  name: Liquibase
+  category: tool
+  match:
+    deps:
+      - { ecosystem: docker, name: liquibase/liquibase }
+      - { ecosystem: docker, name: webdevops/liquibase }
+      - { ecosystem: githubAction, name: liquibase/liquibase-github-action }
+      - { ecosystem: githubAction, name: liquibase-github-actions/init-start-h2 }
+      - { ecosystem: githubAction, name: liquibase-github-actions/update }
+  confidence: high
+- id: mailhog
+  name: Mailhog
+  category: tool
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/mailhog/MailHog }
+      - { ecosystem: docker, name: mailhog/mailhog }
+  confidence: high
+- id: mcp
+  name: MCP
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: "@modelcontextprotocol/sdk" }
+      - { ecosystem: pypi, name: mcp }
+      - { ecosystem: rubygems, name: mcp }
+  confidence: high
+- id: openapi
+  name: OpenAPI
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: openapi-types }
+      - { ecosystem: npm, name: openapi3-ts }
+      - { ecosystem: npm, name: "@asteasolutions/zod-to-openapi" }
+      - { ecosystem: npm, name: openapi-typescript }
+      - { ecosystem: npm, name: "@apidevtools/swagger-parser" }
+      - { ecosystem: go, name: github.com/go-openapi/runtime }
+      - { ecosystem: go, name: github.com/go-openapi/swag }
+      - { ecosystem: composer, name: swagger-api/swagger-ui }
+      - { ecosystem: pypi, name: openapi }
+      - { ecosystem: rubygems, name: openapi_parser }
+      - { ecosystem: cargo, name: openapi }
+    files: [openapi.yaml, openapi.json, openapi.yml]
+  confidence: high
+- id: pytorch
+  name: Pytorch
+  category: tool
+  match:
+    deps:
+      - { ecosystem: pypi, name: pytorch }
+  confidence: high
+- id: reactemail
+  name: React Email
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: react-email }
+  confidence: high
+- id: socketio
+  name: Socket.io
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: socket.io }
+      - { ecosystem: pypi, name: python-socketio }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-socket.io" }
+  confidence: high
+- id: tensorflow
+  name: Tensorflow
+  category: tool
+  match:
+    deps:
+      - { ecosystem: docker, name: tensorflow/tensorflow }
+      - { ecosystem: npm, name: "@tensorflow/tfjs-core" }
+      - { ecosystem: npm, name: "@tensorflow/tfjs" }
+      - { ecosystem: npm, name: face-api.js }
+      - { ecosystem: go, name: github.com/wamuir/graft/tensorflow }
+      - { ecosystem: pypi, name: tensorflow }
+  confidence: high
+- id: trpc
+  name: TRPC
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: "@trpc/server" }
+      - { ecosystem: npm, name: "@trpc/client" }
+      - { ecosystem: npm, name: "@trpc/react-query" }
+      - { ecosystem: npm, name: "@trpc/next" }
+  confidence: high
+- id: twigphp
+  name: Twig
+  category: tool
+  match:
+    deps:
+      - { ecosystem: composer, name: twig/twig }
+  confidence: high

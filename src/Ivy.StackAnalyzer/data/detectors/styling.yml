@@ -1,0 +1,217 @@
+# Technology detectors (category: styling) seeded from specfy/stack-analyser (MIT).
+- id: antd
+  name: Ant Design
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: antd }
+      - { ecosystem: npm, name: ant-design-vue }
+  confidence: high
+- id: ariakitui
+  name: AriaKit UI
+  category: styling
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@ariakit\\/" }
+  confidence: high
+- id: arkui
+  name: Ark UI
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: "@ark-ui/react" }
+      - { ecosystem: npm, name: "@ark-ui/svelte" }
+      - { ecosystem: npm, name: "@ark-ui/solid" }
+      - { ecosystem: npm, name: "@ark-ui/vue" }
+  confidence: high
+- id: baseui
+  name: Base UI
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: "@base-ui-components/react" }
+  confidence: high
+- id: bootstrap
+  name: Bootstrap
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: bootstrap }
+  confidence: high
+- id: chakraui
+  name: Chakra UI
+  category: styling
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@chakra-ui\\/" }
+  confidence: high
+- id: codemirror
+  name: CodeMirror
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: codemirror }
+    depsRegex:
+      - { ecosystem: npm, pattern: "@codemirror\\/" }
+  confidence: high
+- id: d3js
+  name: D3.js
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: d3 }
+      - { ecosystem: npm, name: d3-shape }
+      - { ecosystem: npm, name: "@types/d3" }
+      - { ecosystem: npm, name: "@types/d3-shape" }
+  confidence: high
+- id: daisyui
+  name: daisyUI
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: daisyui }
+  confidence: high
+- id: fluentui
+  name: Fluent UI
+  category: styling
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@fluentui\\/" }
+  confidence: high
+- id: gradio
+  name: Gradio
+  category: styling
+  match:
+    deps:
+      - { ecosystem: pypi, name: gradio }
+  confidence: high
+- id: headlessui
+  name: Headless UI
+  category: styling
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@headlessui\\/" }
+  confidence: high
+- id: heroui
+  name: Hero UI
+  category: styling
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@heroui\\/" }
+  confidence: high
+- id: lexicaleditor
+  name: Lexical Editor
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: lexical }
+  confidence: high
+- id: mantineui
+  name: Mantine UI
+  category: styling
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@mantine\\/" }
+  confidence: high
+- id: materialui
+  name: Material UI
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: "@mui/material" }
+      - { ecosystem: npm, name: "@mui/types" }
+  confidence: high
+- id: monacoeditor
+  name: Monaco Editor
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: monaco-editor }
+      - { ecosystem: npm, name: "@monaco-editor/loader" }
+      - { ecosystem: npm, name: "@monaco-editor/react" }
+  confidence: high
+- id: phaserjs
+  name: Phaser
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: phaser }
+  confidence: high
+- id: radixui
+  name: Radix UI
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: "@radix-ui/react-context" }
+      - { ecosystem: npm, name: "@radix-ui/react-slot" }
+      - { ecosystem: npm, name: "@radix-ui/react-label" }
+      - { ecosystem: npm, name: radix-ui }
+  confidence: high
+- id: reactrouterdom
+  name: React Router
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: react-router-dom }
+      - { ecosystem: npm, name: react-router }
+  confidence: high
+- id: refinedev
+  name: Refine
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: "@refinedev/core" }
+      - { ecosystem: npm, name: "@refinedev/antd" }
+      - { ecosystem: npm, name: "@refinedev/cli" }
+  confidence: high
+- id: rekaui
+  name: Reka UI
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: reka-ui }
+  confidence: high
+- id: remixrouter
+  name: Remix Router
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: "@remix-run/router" }
+      - { ecosystem: npm, name: "@remix-run/react" }
+  confidence: high
+- id: sandpackeditor
+  name: Sandpack
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: "@codesandbox/sandpack-react" }
+  confidence: high
+- id: shopify.hydrogen
+  name: Shopify Hydrogen
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: "@shopify/hydrogen" }
+  confidence: high
+- id: tailwind
+  name: Tailwind
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: tailwindcss }
+    files: [tailwind.config.js]
+  confidence: high
+- id: tanstackrouter
+  name: TanStack Router
+  category: styling
+  match:
+    deps:
+      - { ecosystem: npm, name: "@tanstack/react-router" }
+  confidence: high
+- id: tiptap
+  name: Tiptap
+  category: styling
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@tiptap\\/" }
+  confidence: high

@@ -1,0 +1,255 @@
+﻿summary:
+  totalFiles: 8
+  analyzedFiles: 8
+  primaryLanguages:
+  - TypeScript
+  - C#
+  - JavaScript
+  - TSX
+  componentCount: 3
+languages:
+- name: XML
+  type: data
+  files: 1
+  bytes: 337
+  percent: 26.8
+- name: JSON
+  type: data
+  files: 1
+  bytes: 250
+  percent: 19.9
+- name: TypeScript
+  type: programming
+  files: 1
+  bytes: 171
+  percent: 13.6
+- name: C#
+  type: programming
+  files: 1
+  bytes: 120
+  percent: 9.5
+- name: Markdown
+  type: prose
+  files: 1
+  bytes: 110
+  percent: 8.8
+- name: YAML
+  type: data
+  files: 1
+  bytes: 98
+  percent: 7.8
+- name: JavaScript
+  type: programming
+  files: 1
+  bytes: 91
+  percent: 7.2
+- name: TSX
+  type: programming
+  files: 1
+  bytes: 80
+  percent: 6.4
+components:
+- relativePath: .
+  languages:
+  - name: Markdown
+    type: prose
+    files: 1
+    bytes: 110
+    percent: 52.9
+  - name: YAML
+    type: data
+    files: 1
+    bytes: 98
+    percent: 47.1
+  manifests: []
+  technologies: []
+  fileCount: 2
+  sizeBytes: 208
+  isWorkspaceRoot: false
+  isAuxiliary: false
+- relativePath: apps/web
+  languages:
+  - name: JSON
+    type: data
+    files: 1
+    bytes: 250
+    percent: 42.2
+  - name: TypeScript
+    type: programming
+    files: 1
+    bytes: 171
+    percent: 28.9
+  - name: JavaScript
+    type: programming
+    files: 1
+    bytes: 91
+    percent: 15.4
+  - name: TSX
+    type: programming
+    files: 1
+    bytes: 80
+    percent: 13.5
+  manifests:
+  - path: apps/web/package.json
+    ecosystem: npm
+    dependencies:
+    - name: next
+      version: 14.2.0
+      scope: runtime
+    - name: react
+      version: 18.3.0
+      scope: runtime
+    - name: react-dom
+      version: 18.3.0
+      scope: runtime
+    - name: typescript
+      version: 5.4.0
+      scope: dev
+    - name: tailwindcss
+      version: 3.4.0
+      scope: dev
+    - name: autoprefixer
+      version: 10.4.0
+      scope: dev
+  technologies:
+  - name: JSX
+    category: language
+    evidence: '*.tsx'
+    confidence: high
+    componentPath: apps/web
+  - name: JavaScript
+    category: language
+    evidence: '*.mjs'
+    confidence: high
+    componentPath: apps/web
+  - name: Typescript
+    category: language
+    evidence: npm dep 'typescript'; *.ts; *.tsx
+    confidence: high
+    componentPath: apps/web
+  - name: Next.js
+    category: framework
+    evidence: npm dep 'next'; next.config.mjs
+    confidence: high
+    componentPath: apps/web
+  - name: Tailwind
+    category: styling
+    evidence: npm dep 'tailwindcss'
+    confidence: high
+    componentPath: apps/web
+  fileCount: 4
+  sizeBytes: 592
+  isWorkspaceRoot: false
+  isAuxiliary: false
+- relativePath: src/Api
+  languages:
+  - name: XML
+    type: data
+    files: 1
+    bytes: 337
+    percent: 73.7
+  - name: C#
+    type: programming
+    files: 1
+    bytes: 120
+    percent: 26.3
+  manifests:
+  - path: src/Api/Api.csproj
+    ecosystem: nuget
+    dependencies:
+    - name: Microsoft.AspNetCore.OpenApi
+      version: 10.0.0
+      scope: runtime
+    - name: Microsoft.EntityFrameworkCore.SqlServer
+      version: 9.0.0
+      scope: runtime
+  technologies:
+  - name: C#
+    category: language
+    evidence: '*.cs'
+    confidence: high
+    componentPath: src/Api
+  - name: ASP.NET Core
+    category: framework
+    evidence: nuget dep 'Microsoft.AspNetCore.OpenApi'; Sdk=Microsoft.NET.Sdk.Web
+    confidence: high
+    componentPath: src/Api
+  - name: Entity Framework Core
+    category: orm
+    evidence: nuget dep 'Microsoft.EntityFrameworkCore.SqlServer'
+    confidence: high
+    componentPath: src/Api
+  fileCount: 2
+  sizeBytes: 457
+  isWorkspaceRoot: false
+  isAuxiliary: false
+technologies:
+- name: C#
+  category: language
+  evidence: '*.cs'
+  confidence: high
+  componentPath: src/Api
+- name: JSX
+  category: language
+  evidence: '*.tsx'
+  confidence: high
+  componentPath: apps/web
+- name: JavaScript
+  category: language
+  evidence: '*.mjs'
+  confidence: high
+  componentPath: apps/web
+- name: Typescript
+  category: language
+  evidence: npm dep 'typescript'; *.ts; *.tsx
+  confidence: high
+  componentPath: apps/web
+- name: ASP.NET Core
+  category: framework
+  evidence: nuget dep 'Microsoft.AspNetCore.OpenApi'; Sdk=Microsoft.NET.Sdk.Web
+  confidence: high
+  componentPath: src/Api
+- name: Next.js
+  category: framework
+  evidence: npm dep 'next'; next.config.mjs
+  confidence: high
+  componentPath: apps/web
+- name: Entity Framework Core
+  category: orm
+  evidence: nuget dep 'Microsoft.EntityFrameworkCore.SqlServer'
+  confidence: high
+  componentPath: src/Api
+- name: Tailwind
+  category: styling
+  evidence: npm dep 'tailwindcss'
+  confidence: high
+  componentPath: apps/web
+infrastructure:
+- kind: Docker Compose
+  category: build
+  files:
+  - docker-compose.yml
+- kind: Postgres
+  category: database
+  files:
+  - docker-compose.yml
+  evidence: docker-compose image 'Postgres'
+- kind: Redis
+  category: database
+  files:
+  - docker-compose.yml
+  evidence: docker-compose image 'Redis'
+readme:
+  path: README.md
+  excerpt: >-
+    # Sample Monorepo
+
+
+    A Next.js frontend in `apps/web` and an ASP.NET Core API in `src/Api`,
+
+    backed by Postgres.
+metadata:
+  analyzerVersion: 0.1.0
+  rulesLoaded: 732
+  languageDefsLoaded: 815
+  ignoredDirectories: []

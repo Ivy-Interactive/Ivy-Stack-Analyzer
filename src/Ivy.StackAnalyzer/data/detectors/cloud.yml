@@ -1,0 +1,309 @@
+# Technology detectors (category: cloud) seeded from specfy/stack-analyser (MIT).
+- id: akamai
+  name: Akamai
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/akamai/akamai }
+      - { ecosystem: npm, name: akamai-edgegrid }
+    dotenv: [AKAMAI_]
+  confidence: high
+- id: alibabacloud
+  name: Alibaba Cloud
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/aliyun/alicloud }
+      - { ecosystem: composer, name: alibabacloud/sdk }
+      - { ecosystem: composer, name: alibabacloud/client }
+      - { ecosystem: githubAction, name: aliyun/acr-login }
+  confidence: high
+- id: apple
+  name: Apple
+  category: cloud
+  match:
+    dotenv: [APPLE_ID]
+  confidence: high
+- id: atlassian
+  name: Atlassian
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: pypi, name: atlassian-python-api }
+  confidence: high
+- id: aws
+  name: AWS
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: npm, name: aws-sdk }
+      - { ecosystem: npm, name: aws4fetch }
+      - { ecosystem: npm, name: "@pulumi/aws" }
+      - { ecosystem: npm, name: "@pulumi/awsx" }
+      - { ecosystem: terraform, name: registry.terraform.io/hashicorp/aws }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2 }
+      - { ecosystem: docker, name: amazon/aws-cli }
+      - { ecosystem: composer, name: aws/aws-sdk-php }
+      - { ecosystem: githubAction, name: aws-actions/configure-aws-credentials }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@aws-sdk\\/" }
+      - { ecosystem: cargo, pattern: ^aws-sdk }
+      - { ecosystem: rubygems, pattern: ^aws-sdk }
+  confidence: high
+- id: azure
+  name: Azure
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/hashicorp/azurerm }
+      - { ecosystem: go, name: github.com/Azure/azure-sdk-for-go }
+      - { ecosystem: cargo, name: azure_core }
+      - { ecosystem: rubygems, name: azure-armrest }
+      - { ecosystem: githubAction, name: azure/login }
+      - { ecosystem: githubAction, name: azure/CLI }
+      - { ecosystem: githubAction, name: azure/powershell }
+      - { ecosystem: docker, name: bitnami/azure-cli }
+      - { ecosystem: docker, name: cimg/azure }
+      - { ecosystem: docker, name: webdevops/azure-devops-exporter }
+      - { ecosystem: docker, name: webdevops/azure-metrics-exporter }
+      - { ecosystem: npm, name: "@pulumi/azure" }
+      - { ecosystem: pypi, name: azure-identity }
+      - { ecosystem: npm, name: "@azure/identity" }
+      - { ecosystem: npm, name: "@azure/msal-browser" }
+      - { ecosystem: npm, name: "@azure/msal-node" }
+  confidence: high
+- id: cloudbees
+  name: CloudBees
+  category: cloud
+  match:
+    dotenv: [CLOUDBEES_]
+  confidence: high
+- id: cloudflare
+  name: Cloudflare
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: npm, name: "@pulumi/cloudflare" }
+      - { ecosystem: terraform, name: registry.terraform.io/cloudflare/cloudflare }
+      - { ecosystem: cargo, name: cloudflare }
+      - { ecosystem: rubygems, name: cloudflare-rails }
+      - { ecosystem: composer, name: cloudflare/sdk }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@cloudflare\\/" }
+    dotenv: [CLOUDFLARE_]
+  confidence: high
+- id: dokku
+  name: Dokku
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: githubAction, name: dokku/github-action }
+      - { ecosystem: docker, name: dokku/ci-docker-image }
+      - { ecosystem: docker, name: dokku/dokku }
+    dotenv: [DOKKU_]
+  confidence: high
+- id: equinix
+  name: Equinix
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/equinix/equinix }
+      - { ecosystem: terraform, name: registry.terraform.io/equinix/metal }
+  confidence: high
+- id: firebase
+  name: Firebase
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: rubygems, name: fastlane-plugin-firebase_app_distribution }
+      - { ecosystem: cargo, name: firebase-rs }
+      - { ecosystem: npm, name: firebase }
+      - { ecosystem: githubAction, name: w9jds/firebase-action }
+      - { ecosystem: githubAction, name: wzieba/Firebase-Distribution-Github-Action }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@firebase\\/" }
+    files: [.firebaserc]
+    dotenv: [FIREBASE_]
+  confidence: high
+- id: flyio
+  name: Flyio
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/fly-apps/fly }
+      - { ecosystem: githubAction, name: superfly/flyctl-actions/setup-flyctl }
+    files: [fly.toml]
+  confidence: high
+- id: gcp
+  name: GCP
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: npm, name: googleapis }
+      - { ecosystem: terraform, name: registry.terraform.io/hashicorp/google }
+      - { ecosystem: composer, name: google/cloud }
+      - { ecosystem: githubAction, name: google-github-actions/auth }
+      - { ecosystem: githubAction, name: google-github-actions/setup-gcloud }
+      - { ecosystem: npm, name: "@pulumi/gcp" }
+      - { ecosystem: npm, name: google-auth-library }
+      - { ecosystem: npm, name: passport-google-oauth20 }
+      - { ecosystem: npm, name: passport-google-oauth }
+      - { ecosystem: pypi, name: google-api-python-client }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@google-cloud\\/" }
+    dotenv: [GOOGLE_CLOUD_CREDENTIALS, GOOGLE_CLOUD_PROJECT]
+  confidence: high
+- id: heroku
+  name: Heroku
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/heroku/heroku }
+      - { ecosystem: rubygems, name: platform-api }
+      - { ecosystem: composer, name: heroku/heroku-buildpack-php }
+      - { ecosystem: githubAction, name: akhileshns/heroku-deploy }
+  confidence: high
+- id: hetzner
+  name: Hetzner
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/hetznercloud/hcloud }
+      - { ecosystem: go, name: github.com/hetznercloud/hcloud-go/v2/hcloud }
+      - { ecosystem: pypi, name: hcloud }
+      - { ecosystem: composer, name: lkdevelopment/hetzner-cloud-php-sdk }
+      - { ecosystem: rubygems, name: hetznercloud }
+  confidence: high
+- id: hostinger
+  name: Hostinger
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: composer, name: hostinger/api-php-sdk }
+      - { ecosystem: pypi, name: hostinger_api }
+      - { ecosystem: npm, name: hostinger-api-sdk }
+  confidence: high
+- id: ibmcloud
+  name: IBM Cloud
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/IBM-Cloud/ibm }
+  confidence: high
+- id: netlify
+  name: Netlify
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: npm, name: netlify }
+      - { ecosystem: npm, name: netlify-cli }
+      - { ecosystem: npm, name: "@netlify/build" }
+      - { ecosystem: npm, name: "@netlify/plugin-emails" }
+      - { ecosystem: npm, name: "@netlify/config" }
+      - { ecosystem: npm, name: "@netlify/functions-utils" }
+      - { ecosystem: npm, name: "@netlify/cache-utils" }
+      - { ecosystem: npm, name: "@netlify/run-utils" }
+      - { ecosystem: githubAction, name: nwtgck/actions-netlify }
+    files: [netlify.toml]
+  confidence: high
+- id: nextcloud
+  name: Nextcloud
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: docker, name: nextcloud/all-in-one }
+      - { ecosystem: docker, name: nextcloud }
+      - { ecosystem: docker, name: nextcloud/aio-nextcloud }
+  confidence: high
+- id: oraclecloud
+  name: Oracle Cloud
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/oracle/oci }
+      - { ecosystem: rubygems, name: oci }
+      - { ecosystem: composer, name: oracle/oci-php-sdk }
+    depsRegex:
+      - { ecosystem: npm, pattern: ^oci- }
+  confidence: high
+- id: ovh
+  name: OVH
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/ovh/ovh }
+      - { ecosystem: npm, name: "@ovh-api/api" }
+      - { ecosystem: npm, name: "@ovhcloud/pulumi-ovh" }
+      - { ecosystem: composer, name: ovh/ovh }
+    dotenv: [OVH_]
+  confidence: high
+- id: qovery
+  name: Qovery
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/Qovery/qovery }
+      - { ecosystem: npm, name: qovery-typescript-axios }
+      - { ecosystem: npm, name: qovery/qovery-client-javascript }
+      - { ecosystem: npm, name: qovery_api }
+      - { ecosystem: npm, name: qovery-ws-typescript-axios }
+      - { ecosystem: docker, name: public.ecr.aws/r3m4q3r9/qovery-cli }
+      - { ecosystem: go, name: github.com/qovery/qovery-client-go }
+      - { ecosystem: githubAction, name: Qovery/qovery-action }
+  confidence: high
+- id: railway
+  name: Railway
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/terraform-community-providers/railway }
+      - { ecosystem: npm, name: railway }
+      - { ecosystem: npm, name: "@railway/cli" }
+      - { ecosystem: githubAction, name: bervProject/railway-deploy }
+    files: [railway.toml, railway.json]
+    dotenv: [RAILWAY_]
+  confidence: high
+- id: scaleway
+  name: Scaleway
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: npm, name: "@scaleway/sdk" }
+      - { ecosystem: terraform, name: registry.terraform.io/scaleway/scaleway }
+      - { ecosystem: githubAction, name: scaleway/action-scw }
+  confidence: high
+- id: supabase
+  name: Supabase
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: githubAction, name: supabase/setup-cli }
+      - { ecosystem: docker, name: supabase/studio }
+      - { ecosystem: pypi, name: supabase }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@supabase\\/" }
+    dotenv: [SUPABASE_]
+  confidence: high
+- id: upstash
+  name: Upstash
+  category: cloud
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@upstash\\/" }
+  confidence: high
+- id: vercel
+  name: Vercel
+  category: cloud
+  match:
+    deps:
+      - { ecosystem: npm, name: vercel }
+      - { ecosystem: npm, name: "@vercel/client" }
+      - { ecosystem: terraform, name: registry.terraform.io/vercel/vercel }
+      - { ecosystem: githubAction, name: snaplet/vercel-action }
+      - { ecosystem: githubAction, name: amondnet/vercel-action }
+      - { ecosystem: terraform, name: airbyte_source_vercel }
+    depsRegex:
+      - { ecosystem: cargo, pattern: ^vercel_ }
+    files: [.vercel, vercel.json]
+  confidence: high

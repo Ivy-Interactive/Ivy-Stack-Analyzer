@@ -1,0 +1,1043 @@
+# Technology detectors (category: database) seeded from specfy/stack-analyser (MIT).
+- id: algolia
+  name: Algolia
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: algoliasearch }
+      - { ecosystem: npm, name: instantsearch.js }
+      - { ecosystem: npm, name: vue-instantsearch }
+      - { ecosystem: npm, name: create-instantsearch-app }
+      - { ecosystem: npm, name: react-instantsearch }
+      - { ecosystem: npm, name: "@nuxtjs/algolia" }
+      - { ecosystem: npm, name: gatsby-plugin-algolia }
+      - { ecosystem: npm, name: docsearch.js }
+      - { ecosystem: npm, name: "@vuepress/plugin-docsearch" }
+      - { ecosystem: cargo, name: algoliasearch }
+      - { ecosystem: rubygems, name: algolia }
+      - { ecosystem: rubygems, name: algoliasearch-rails }
+      - { ecosystem: composer, name: algolia/algoliasearch-client-php }
+      - { ecosystem: composer, name: algolia/scout-extended }
+      - { ecosystem: githubAction, name: algolia/setup-algolia-cli }
+      - { ecosystem: githubAction, name: algolia/algoliasearch-crawler-github-actions }
+      - { ecosystem: pypi, name: algoliasearch }
+      - { ecosystem: pypi, name: algoliasearch-django }
+      - { ecosystem: terraform, name: airbyte_source_algolia }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@algolia\\/" }
+      - { ecosystem: npm, pattern: "^@docsearch\\/" }
+    dotenv: [ALGOLIA_]
+  confidence: high
+- id: apache_cassandra
+  name: Apache Cassandra
+  category: database
+  match:
+    deps:
+      - { ecosystem: cargo, name: discord-cassandra-cpp }
+      - { ecosystem: cargo, name: cassandra-cpp }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-cassandra-driver" }
+    depsRegex:
+      - { ecosystem: docker, pattern: cassandra }
+  confidence: high
+- id: apache_couchdb
+  name: Apache CouchDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: apache/couchdb }
+      - { ecosystem: composer, name: doctrine/couchdb }
+  confidence: high
+- id: apache_hadoop
+  name: Apache Hadoop
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: apache/hadoop }
+      - { ecosystem: rubygems, name: hadoop-metrics2 }
+  confidence: high
+- id: apache_hive
+  name: Apache Hive
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: apache/hive }
+  confidence: high
+- id: apache_iceberg
+  name: Apache Iceberg
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: apache/spark-iceberg }
+  confidence: high
+- id: apache_solr
+  name: Apache Solr
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: solr }
+      - { ecosystem: docker, name: bitnami/solr }
+  confidence: high
+- id: apache_spark
+  name: Apache Spark
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: apache/spark }
+  confidence: high
+- id: aws.athena
+  name: AWS Athena
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-athena" }
+      - { ecosystem: npm, name: "@aws-sdk/client-athena" }
+      - { ecosystem: cargo, name: aws-sdk-athena }
+      - { ecosystem: rubygems, name: aws-sdk-athena }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/athena }
+      - { ecosystem: terraform, name: airbyte_destination_aws_athena }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_athena }
+  confidence: high
+- id: aws.cloudsearch
+  name: AWS Cloudsearch
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-cloudsearch" }
+      - { ecosystem: npm, name: "@aws-sdk/client-cloudsearch" }
+      - { ecosystem: cargo, name: aws-sdk-cloudsearch }
+      - { ecosystem: rubygems, name: aws-sdk-cloudsearch }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/cloudsearch }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_cloudsearch }
+  confidence: high
+- id: aws.documentdb
+  name: AWS Document DB
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-docdb" }
+      - { ecosystem: npm, name: "@aws-cdk/aws-docdb" }
+      - { ecosystem: cargo, name: aws-sdk-docdb }
+      - { ecosystem: rubygems, name: aws-sdk-docdb }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/docdb }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_docdb_ }
+  confidence: high
+- id: aws.dynamodb
+  name: AWS DynamoDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-dynamodb" }
+      - { ecosystem: cargo, name: aws-sdk-dynamodb }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/dynamodb }
+      - { ecosystem: composer, name: baopham/dynamodb }
+      - { ecosystem: composer, name: async-aws/dynamo-db }
+      - { ecosystem: terraform, name: airbyte_destination_dynamodb }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@aws-sdk\\/client-dynamodb" }
+      - { ecosystem: docker, pattern: "amazon\\/dynamodb-local" }
+      - { ecosystem: rubygems, pattern: ^aws-sdk-dynamodb }
+      - { ecosystem: terraform, pattern: ^aws_dynamodb }
+  confidence: high
+- id: aws.elasticache
+  name: AWS ElastiCache
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-elasticache" }
+      - { ecosystem: npm, name: "@aws-sdk/client-elasticache" }
+      - { ecosystem: cargo, name: aws-sdk-elasticache }
+      - { ecosystem: rubygems, name: aws-sdk-elasticache }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/elasticache }
+      - { ecosystem: composer, name: atyagi/elasticache-laravel }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_elasticache }
+  confidence: high
+- id: aws.memorydb
+  name: AWS MemoryDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-memorydb" }
+      - { ecosystem: npm, name: "@aws-sdk/client-memorydb" }
+      - { ecosystem: cargo, name: aws-sdk-memorydb }
+      - { ecosystem: rubygems, name: aws-sdk-memorydb }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/memorydb }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_memorydb_ }
+  confidence: high
+- id: aws.neptune
+  name: AWS Neptune
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-neptune" }
+      - { ecosystem: npm, name: "@aws-sdk/client-neptune" }
+      - { ecosystem: cargo, name: aws-sdk-neptune }
+      - { ecosystem: rubygems, name: aws-sdk-neptune }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/neptune }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_neptune_ }
+  confidence: high
+- id: aws.opensearch
+  name: AWS Opensearch
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-opensearch" }
+      - { ecosystem: npm, name: "@aws-sdk/client-opensearch" }
+      - { ecosystem: cargo, name: aws-sdk-opensearch }
+      - { ecosystem: rubygems, name: aws-sdk-opensearch }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/opensearch }
+      - { ecosystem: pypi, name: opensearch-py }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_opensearch }
+  confidence: high
+- id: aws.rds
+  name: AWS RDS
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-rds" }
+      - { ecosystem: npm, name: "@aws-sdk/client-rds" }
+      - { ecosystem: npm, name: "@aws-sdk/middleware-sdk-rds" }
+      - { ecosystem: cargo, name: aws-sdk-rds }
+      - { ecosystem: rubygems, name: aws-sdk-rds }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/rds }
+      - { ecosystem: composer, name: async-aws/rds-data-service }
+      - { ecosystem: terraform, name: airbyte_destination_rds }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_rds }
+  confidence: high
+- id: aws.redshift
+  name: AWS Redshift
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-redshift" }
+      - { ecosystem: npm, name: "@aws-sdk/aws-redshift" }
+      - { ecosystem: cargo, name: aws-sdk-redshift }
+      - { ecosystem: rubygems, name: aws-sdk-redshift }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/redshift }
+      - { ecosystem: terraform, name: airbyte_destination_redshift }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_redshift_ }
+  confidence: high
+- id: aws.secretsmanager
+  name: AWS Secrets Manager
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-secretsmanager" }
+      - { ecosystem: npm, name: "@aws-sdk/client-secrets-manager" }
+      - { ecosystem: cargo, name: aws-sdk-secretsmanager }
+      - { ecosystem: rubygems, name: aws-sdk-secretsmanager }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/secretsmanager }
+      - { ecosystem: terraform, name: airbyte_destination_secretsmanager }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_secretsmanager_ }
+  confidence: high
+- id: aws.timestream
+  name: AWS Timestream
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-timestream" }
+      - { ecosystem: npm, name: "@aws-sdk/client-timestream" }
+      - { ecosystem: cargo, name: aws-sdk-timestream }
+      - { ecosystem: rubygems, name: aws-sdk-timestream }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/timestream }
+      - { ecosystem: terraform, name: airbyte_destination_timestream }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_timestream_ }
+  confidence: high
+- id: azure.cosmosdb
+  name: Azure Cosmos DB
+  category: database
+  match:
+    deps:
+      - { ecosystem: rubygems, name: azure_mgmt_cosmosdb }
+      - { ecosystem: cargo, name: azure_mgmt_cosmosdb }
+      - { ecosystem: npm, name: "@azure/arm-cosmosdb" }
+      - { ecosystem: npm, name: "@azure/cosmos" }
+      - { ecosystem: go, name: github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cosmos/armcosmos }
+      - { ecosystem: terraform, name: airbyte_destination_cosmosdb }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^azurerm_cosmosdb_ }
+  confidence: high
+- id: azure.mariadb
+  name: Azure MariaDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: rubygems, name: azure_mgmt_mariadb }
+      - { ecosystem: cargo, name: azure_mgmt_mariadb }
+      - { ecosystem: npm, name: "@azure/arm-mariadb" }
+      - { ecosystem: go, name: github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mariadb/armmariadb }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^azurerm_mariadb_ }
+  confidence: high
+- id: azure.mysql
+  name: Azure MySQL
+  category: database
+  match:
+    deps:
+      - { ecosystem: rubygems, name: azure_mgmt_mysql }
+      - { ecosystem: cargo, name: azure_mgmt_mysql }
+      - { ecosystem: npm, name: "@azure/arm-mysql" }
+      - { ecosystem: githubAction, name: azure/mysql }
+      - { ecosystem: go, name: github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mysql/armmysql }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^azurerm_mysql_ }
+  confidence: high
+- id: azure.postgres
+  name: Azure Postgres
+  category: database
+  match:
+    deps:
+      - { ecosystem: rubygems, name: azure_mgmt_postgresql }
+      - { ecosystem: cargo, name: azure_mgmt_postgresql }
+      - { ecosystem: npm, name: "@azure/arm-postgresql" }
+      - { ecosystem: githubAction, name: azure/postgresql }
+      - { ecosystem: go, name: github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/postgresql/armpostgresql }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^azurerm_postgresql_ }
+  confidence: high
+- id: azure.redis
+  name: Azure Redis
+  category: database
+  match:
+    deps:
+      - { ecosystem: rubygems, name: azure_mgmt_redis }
+      - { ecosystem: cargo, name: azure_mgmt_redis }
+      - { ecosystem: npm, name: "@azure/arm-redis" }
+      - { ecosystem: go, name: github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/redis/armredis/v2 }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^azurerm_redis_ }
+  confidence: high
+- id: azure.sql
+  name: Azure SQL
+  category: database
+  match:
+    deps:
+      - { ecosystem: githubAction, name: azure/sql-action }
+      - { ecosystem: rubygems, name: azure_mgmt_sql }
+      - { ecosystem: cargo, name: azure_mgmt_sql }
+      - { ecosystem: npm, name: "@azure/arm-sql" }
+      - { ecosystem: go, name: github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/sql/armsql }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^azurerm_sql_ }
+  confidence: high
+- id: chromadb
+  name: ChromaDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: pypi, name: chromadb }
+  confidence: high
+- id: clickhouse
+  name: ClickHouse
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: clickhouse/clickhouse-server }
+      - { ecosystem: go, name: github.com/ClickHouse/clickhouse-go }
+      - { ecosystem: go, name: github.com/ClickHouse/clickhouse-go/v2 }
+      - { ecosystem: terraform, name: registry.terraform.io/ClickHouse/clickhouse }
+      - { ecosystem: composer, name: smi2/phpclickhouse }
+      - { ecosystem: composer, name: glushkovds/phpclickhouse-laravel }
+      - { ecosystem: pypi, name: clickhouse-connect }
+      - { ecosystem: cargo, name: clickhouse }
+      - { ecosystem: rubygems, name: clickhouse-activerecord }
+      - { ecosystem: terraform, name: airbyte_destination_clickhouse }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@clickhouse\\/" }
+  confidence: high
+- id: cockroachdb
+  name: CockroachDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/cockroachdb/cockroach }
+      - { ecosystem: composer, name: nbj/cockroachdb-laravel }
+  confidence: high
+- id: convexdb
+  name: Convex
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: convex }
+      - { ecosystem: pypi, name: convex }
+      - { ecosystem: cargo, name: convex }
+      - { ecosystem: terraform, name: airbyte_destination_convex }
+      - { ecosystem: terraform, name: airbyte_source_convex }
+    dotenv: [CONVEX_]
+  confidence: high
+- id: couchbase
+  name: Couchbase
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: couchbase }
+      - { ecosystem: cargo, name: couchbase }
+      - { ecosystem: rubygems, name: couchbase }
+      - { ecosystem: terraform, name: registry.terraform.io/couchbasecloud/couchbasecapella }
+      - { ecosystem: composer, name: couchbase/couchbase }
+      - { ecosystem: terraform, name: airbyte_source_couchbase }
+    depsRegex:
+      - { ecosystem: docker, pattern: couchbase }
+  confidence: high
+- id: cratedb
+  name: CrateDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: cratedb }
+  confidence: high
+- id: datastax
+  name: Datastax
+  category: database
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/datastax/astra }
+      - { ecosystem: terraform, name: airbyte_destination_astra }
+      - { ecosystem: composer, name: datastax/php-driver }
+  confidence: high
+- id: duckdb
+  name: DuckDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: duckdb }
+      - { ecosystem: terraform, name: airbyte_destination_duckdb }
+  confidence: high
+- id: elasticsearch
+  name: Elasticsearch
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@elastic/elasticsearch" }
+      - { ecosystem: terraform, name: registry.terraform.io/phillbaker/elasticsearch }
+      - { ecosystem: cargo, name: elasticsearch }
+      - { ecosystem: rubygems, name: elasticsearch }
+      - { ecosystem: composer, name: elasticsearch/elasticsearch }
+      - { ecosystem: composer, name: ruflin/Elastica }
+      - { ecosystem: go, name: github.com/elastic/go-elasticsearch }
+      - { ecosystem: githubAction, name: elastic/elastic-github-actions/elasticsearch }
+      - { ecosystem: pypi, name: elasticsearch }
+      - { ecosystem: terraform, name: airbyte_destination_elasticsearch }
+    depsRegex:
+      - { ecosystem: docker, pattern: elasticsearch }
+    dotenv: [ELASTICSEARCH_]
+  confidence: high
+- id: firebase.firestore
+  name: Firebase Firestore
+  category: database
+  match:
+    deps:
+      - { ecosystem: composer, name: google/cloud-firestore }
+      - { ecosystem: terraform, name: airbyte_destination_firestore }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_firestore_ }
+  confidence: high
+- id: gcp.bigquery
+  name: Cloud BigQuery
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/bigquery" }
+      - { ecosystem: cargo, name: gcp-bigquery-client }
+      - { ecosystem: rubygems, name: google-cloud-bigquery }
+      - { ecosystem: go, name: cloud.google.com/go/bigquery }
+      - { ecosystem: composer, name: google/cloud-bigquery }
+      - { ecosystem: terraform, name: airbyte_destination_bigquery }
+      - { ecosystem: pypi, name: google-cloud-bigquery-logging }
+      - { ecosystem: pypi, name: google-cloud-bigquery-datatransfer }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_bigquery_ }
+  confidence: high
+- id: gcp.bigtable
+  name: Cloud BigTable
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/bigtable" }
+      - { ecosystem: rubygems, name: google-cloud-bigtable }
+      - { ecosystem: go, name: cloud.google.com/go/bigtable }
+      - { ecosystem: composer, name: google/cloud-bigtable }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_bigtable_ }
+  confidence: high
+- id: gcp.datastore
+  name: Cloud Datastore
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/datastore" }
+      - { ecosystem: rubygems, name: google-cloud-datastore }
+      - { ecosystem: go, name: cloud.google.com/go/datastore }
+      - { ecosystem: composer, name: google/cloud-datastore }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_datastore_ }
+  confidence: high
+- id: gcp.memorystore
+  name: Cloud Memorystore
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/redis" }
+      - { ecosystem: go, name: cloud.google.com/go/redis }
+      - { ecosystem: composer, name: google/cloud-redis }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_redis_ }
+      - { ecosystem: rubygems, pattern: ^google-cloud-redis }
+  confidence: high
+- id: gcp.secretmanager
+  name: Cloud Secret Manager
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/secret-manager" }
+      - { ecosystem: go, name: cloud.google.com/go/secretmanager }
+      - { ecosystem: composer, name: google/cloud-secret-manager }
+      - { ecosystem: githubAction, name: google-github-actions/get-secretmanager-secrets }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_secret_manager }
+      - { ecosystem: rubygems, pattern: ^google-cloud-secret_manager }
+  confidence: high
+- id: gcp.spanner
+  name: Cloud Spanner
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/spanner" }
+      - { ecosystem: go, name: cloud.google.com/go/spanner }
+      - { ecosystem: composer, name: google/cloud-spanner }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_spanner_ }
+      - { ecosystem: rubygems, pattern: ^google-cloud-spanner }
+  confidence: high
+- id: gcp.sql
+  name: Cloud SQL
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/cloud-sql-connector" }
+      - { ecosystem: composer, name: google/cloud-sql-admin }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_sql_ }
+      - { ecosystem: rubygems, pattern: ^google-apis-sql }
+  confidence: high
+- id: hashicorp_vault
+  name: Vault
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@pulumi/vault" }
+      - { ecosystem: docker, name: vault }
+      - { ecosystem: terraform, name: registry.terraform.io/hashicorp/vault }
+      - { ecosystem: cargo, name: hashicorp_vault }
+      - { ecosystem: rubygems, name: vault }
+      - { ecosystem: composer, name: csharpru/vault-php }
+      - { ecosystem: githubAction, name: hashicorp/vault-action }
+  confidence: high
+- id: influxdb
+  name: InfluxDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@influxdata/influxdb-client" }
+      - { ecosystem: cargo, name: influxdb }
+      - { ecosystem: cargo, name: influxdb2 }
+      - { ecosystem: rubygems, name: influxdb-client }
+      - { ecosystem: composer, name: influxdata/influxdb-client-php }
+    depsRegex:
+      - { ecosystem: docker, pattern: influxdb }
+  confidence: high
+- id: libsql
+  name: libSQL
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@libsql/client" }
+      - { ecosystem: go, name: github.com/tursodatabase/go-libsql }
+      - { ecosystem: go, name: github.com/tursodatabase/libsql-client-go/libsql }
+      - { ecosystem: pypi, name: libsql-experimental }
+      - { ecosystem: cargo, name: libsql }
+      - { ecosystem: composer, name: turso/libsql }
+      - { ecosystem: rubygems, name: turso_libsql }
+      - { ecosystem: rubygems, name: libsql_activerecord }
+  confidence: high
+- id: mariadb
+  name: MariaDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: mariadb }
+      - { ecosystem: rubygems, name: tencentcloud-sdk-mariadb }
+    depsRegex:
+      - { ecosystem: docker, pattern: mariadb }
+  confidence: high
+- id: meilisearch
+  name: Meilisearch
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: meilisearch }
+      - { ecosystem: npm, name: "@meilisearch/instant-meilisearch" }
+      - { ecosystem: docker, name: getmeili/meilisearch }
+      - { ecosystem: go, name: github.com/meilisearch/meilisearch-go }
+      - { ecosystem: cargo, name: meilisearch-sdk }
+      - { ecosystem: rubygems, name: meilisearch }
+      - { ecosystem: rubygems, name: meilisearch-rails }
+      - { ecosystem: composer, name: "meilisearch/meilisearch-php " }
+    dotenv: [MEILISEARCH_]
+  confidence: high
+- id: memcached
+  name: Memcached
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: memcached }
+      - { ecosystem: cargo, name: memcache-async }
+      - { ecosystem: cargo, name: memcache }
+      - { ecosystem: rubygems, name: dalli }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-memcached" }
+    depsRegex:
+      - { ecosystem: docker, pattern: memcached }
+    dotenv: [MEMCACHED_]
+  confidence: high
+- id: milvusdb
+  name: MilvusDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: milvusdb/milvus }
+      - { ecosystem: docker, name: milvusdb/milvus-dev }
+      - { ecosystem: docker, name: bitnami/milvus }
+      - { ecosystem: docker, name: bitnamicharts/milvus }
+      - { ecosystem: npm, name: "@zilliz/milvus2-sdk-node" }
+      - { ecosystem: go, name: github.com/milvus-io/milvus-sdk-go/v2 }
+      - { ecosystem: pypi, name: pymilvus }
+      - { ecosystem: pypi, name: langchain-milvus }
+      - { ecosystem: npm, name: genkitx-milvus }
+      - { ecosystem: npm, name: "@llamaindex/milvus" }
+      - { ecosystem: terraform, name: airbyte_destination_milvus }
+    dotenv: [MILVUS_]
+  confidence: high
+- id: mongodb
+  name: MongoDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: mongodb }
+      - { ecosystem: npm, name: "@mikro-orm/mongodb" }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-mongodb" }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-mongoose" }
+      - { ecosystem: docker, name: mongo }
+      - { ecosystem: docker, name: mongodb/mongodb-community-server }
+      - { ecosystem: docker, name: mongodb/mongodb-enterprise-server }
+      - { ecosystem: docker, name: bitnami/mongodb }
+      - { ecosystem: docker, name: mongodb/atlas }
+      - { ecosystem: docker, name: bitnami/mongodb-sharded }
+      - { ecosystem: docker, name: rapidfort/mongodb }
+      - { ecosystem: docker, name: circleci/mongo }
+      - { ecosystem: cargo, name: mongodb }
+      - { ecosystem: rubygems, name: mongo }
+      - { ecosystem: composer, name: mongodb/mongodb }
+      - { ecosystem: pypi, name: pymongo }
+      - { ecosystem: terraform, name: airbyte_destination_mongodb }
+      - { ecosystem: pypi, name: langchain-mongodb }
+    depsRegex:
+      - { ecosystem: npm, pattern: mongoose }
+    dotenv: [MONGODB_]
+  confidence: high
+- id: mssql
+  name: MS SQL
+  category: database
+  match:
+    deps:
+      - { ecosystem: rubygems, name: jdbc-mssql }
+      - { ecosystem: npm, name: mssql }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-tedious" }
+  confidence: high
+- id: mysql
+  name: Mysql
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: mysql }
+      - { ecosystem: npm, name: "@mikro-orm/mysql" }
+      - { ecosystem: npm, name: mysql2 }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-mysql" }
+      - { ecosystem: rubygems, name: ruby-mysql }
+      - { ecosystem: rubygems, name: mysql2 }
+      - { ecosystem: npm, name: "@pulumi/mysql" }
+      - { ecosystem: pypi, name: mysql-connector-python }
+      - { ecosystem: pypi, name: PyMySQL }
+      - { ecosystem: pypi, name: pymysql }
+      - { ecosystem: pypi, name: mysqlclient }
+      - { ecosystem: terraform, name: airbyte_destination_mysql }
+    depsRegex:
+      - { ecosystem: docker, pattern: mysql }
+      - { ecosystem: cargo, pattern: ^mysql }
+    dotenv: [MYSQL_]
+  confidence: high
+- id: neo4j
+  name: Neo4j
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: neo4j-driver }
+      - { ecosystem: cargo, name: neo4rs }
+      - { ecosystem: rubygems, name: neo4j-ruby-driver }
+    depsRegex:
+      - { ecosystem: docker, pattern: neo4j }
+  confidence: high
+- id: neondb
+  name: NeonDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@neondatabase/serverless" }
+      - { ecosystem: npm, name: "@neondatabase/api-client" }
+      - { ecosystem: npm, name: "@prisma/adapter-neon" }
+      - { ecosystem: docker, name: neondatabase/neon }
+      - { ecosystem: pypi, name: neon-api }
+  confidence: high
+- id: oceanbase
+  name: Oceanbase
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: oceanbase/oceanbase-ce }
+  confidence: high
+- id: ovh.database
+  name: OVH Database
+  category: database
+  match:
+    deps:
+      - { ecosystem: terraform, name: ovh_cloud_project_database }
+  confidence: high
+- id: percona
+  name: Percona
+  category: database
+  match:
+    depsRegex:
+      - { ecosystem: docker, pattern: percona }
+  confidence: high
+- id: pinecone
+  name: Pinecone
+  category: database
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/pinecone-io/pinecone }
+      - { ecosystem: pypi, name: pinecone }
+      - { ecosystem: npm, name: "@pinecone-database/pinecone" }
+      - { ecosystem: go, name: github.com/pinecone-io/go-pinecone/v3/pinecone }
+      - { ecosystem: cargo, name: pinecone-sdk }
+      - { ecosystem: terraform, name: airbyte_destination_pinecone }
+    dotenv: [PINECONE_]
+  confidence: high
+- id: planetscale
+  name: PlanetScale
+  category: database
+  match:
+    deps:
+      - { ecosystem: githubAction, name: planetscale/create-branch-action }
+  confidence: high
+- id: postgresql
+  name: Postgres
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: pg }
+      - { ecosystem: npm, name: postgres }
+      - { ecosystem: npm, name: postgres-interval }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-pg" }
+      - { ecosystem: npm, name: "@mikro-orm/postgresql" }
+      - { ecosystem: npm, name: pg-connection-string }
+      - { ecosystem: npm, name: "@pulumi/postgresql" }
+      - { ecosystem: docker, name: postgres }
+      - { ecosystem: docker, name: bitnami/postgresql }
+      - { ecosystem: docker, name: circleci/postgres }
+      - { ecosystem: docker, name: cimg/postgres }
+      - { ecosystem: docker, name: ubuntu/postgres }
+      - { ecosystem: docker, name: bitnamicharts/postgresql }
+      - { ecosystem: cargo, name: postgres }
+      - { ecosystem: rubygems, name: pg }
+      - { ecosystem: composer, name: martin-georgiev/postgresql-for-doctrine }
+      - { ecosystem: terraform, name: airbyte_destination_postgres }
+    depsRegex:
+      - { ecosystem: deno, pattern: "\\/x\\/postgres@" }
+    dotenv: [POSTGRES_]
+  confidence: high
+- id: qdrant
+  name: Qdrant
+  category: database
+  match:
+    deps:
+      - { ecosystem: cargo, name: qdrant-client }
+      - { ecosystem: pypi, name: qdrant-client }
+      - { ecosystem: docker, name: qdrant/qdrant }
+      - { ecosystem: go, name: github.com/qdrant/go-client }
+      - { ecosystem: npm, name: "@qdrant/js-client-rest" }
+      - { ecosystem: npm, name: "@qdrant/drant-js" }
+      - { ecosystem: npm, name: "@qdrant/js-client-grpc" }
+      - { ecosystem: composer, name: hkulekci/qdrant }
+      - { ecosystem: composer, name: qdrant-ruby }
+      - { ecosystem: terraform, name: airbyte_destination_qdrant }
+    dotenv: [QDRANT_]
+  confidence: high
+- id: qovery.database
+  name: Qovery Database
+  category: database
+  match:
+    deps:
+      - { ecosystem: terraform, name: qovery_database }
+  confidence: high
+- id: questdb
+  name: QuestDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: questdb/questdb }
+      - { ecosystem: npm, name: "@questdb/nodejs-client" }
+      - { ecosystem: go, name: github.com/questdb/go-questdb-client }
+      - { ecosystem: cargo, name: questdb-rs }
+  confidence: high
+- id: redis
+  name: Redis
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: redis }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-redis" }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-redis-4" }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-ioredis" }
+      - { ecosystem: npm, name: ioredis }
+      - { ecosystem: cargo, name: redis }
+      - { ecosystem: cargo, name: redis-async }
+      - { ecosystem: rubygems, name: redis }
+      - { ecosystem: rubygems, name: redis-client }
+      - { ecosystem: composer, name: predis/predis }
+      - { ecosystem: composer, name: snc/redis-bundle }
+      - { ecosystem: composer, name: colinmollenhour/cache-backend-redis }
+      - { ecosystem: terraform, name: registry.terraform.io/RedisLabs/rediscloud }
+      - { ecosystem: terraform, name: airbyte_destination_redis }
+    depsRegex:
+      - { ecosystem: docker, pattern: redis }
+    dotenv: [REDIS_]
+  confidence: high
+- id: replit.database
+  name: Replit Database
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@replit/database" }
+  confidence: high
+- id: rethinkdb
+  name: RethinkDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: rethinkdb }
+      - { ecosystem: npm, name: rethinkdb }
+      - { ecosystem: composer, name: danielmewes/php-rql }
+      - { ecosystem: rubygems, name: rethinkdb }
+      - { ecosystem: go, name: github.com/rethinkdb/rethinkdb-go }
+  confidence: high
+- id: scaleway.database
+  name: Scaleway Database
+  category: database
+  match:
+    deps:
+      - { ecosystem: terraform, name: scaleway_rdb_instance }
+  confidence: high
+- id: scaleway.documentdb
+  name: Scaleway DocumentDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: terraform, name: scaleway_documentdb_instance }
+  confidence: high
+- id: scaleway.redis
+  name: Scaleway Redis
+  category: database
+  match:
+    deps:
+      - { ecosystem: terraform, name: scaleway_redis_cluster }
+  confidence: high
+- id: scaleway.secretmanager
+  name: Scaleway Secret Manager
+  category: database
+  match:
+    deps:
+      - { ecosystem: terraform, name: scaleway_secret }
+  confidence: high
+- id: snowflake
+  name: Snowflake
+  category: database
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/Snowflake-Labs/snowflake }
+      - { ecosystem: cargo, name: snowflake }
+      - { ecosystem: cargo, name: rs-snowflake }
+      - { ecosystem: npm, name: "@pulumi/snowflake" }
+      - { ecosystem: rubygems, name: sequel-snowflake }
+      - { ecosystem: terraform, name: airbyte_destination_snowflake }
+  confidence: high
+- id: sqlite
+  name: SQLite
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: sqlite }
+      - { ecosystem: npm, name: better-sqlite3 }
+      - { ecosystem: npm, name: sqlite3 }
+      - { ecosystem: cargo, name: sqlite }
+      - { ecosystem: cargo, name: rusqlite }
+      - { ecosystem: cargo, name: libsqlite3-sys }
+      - { ecosystem: rubygems, name: sqlite3 }
+    depsRegex:
+      - { ecosystem: deno, pattern: "\\/x\\/sqlite3@" }
+    files: [schema.sqlite]
+  confidence: high
+- id: supabase.postgres
+  name: Supabase Postgres
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@supabase/postgrest-js" }
+      - { ecosystem: npm, name: "@supabase/pg-admin-js" }
+      - { ecosystem: npm, name: "@supabase/postgres-meta" }
+      - { ecosystem: githubAction, name: supabase/embeddings-generator }
+      - { ecosystem: docker, name: bitnami/supabase-postgres }
+      - { ecosystem: docker, name: supabase/postgres }
+      - { ecosystem: docker, name: supabase/postgres-meta }
+      - { ecosystem: composer, name: supabase/postgrest-php }
+  confidence: high
+- id: surrealdb
+  name: SurrealDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: surrealdb/surrealdb }
+      - { ecosystem: npm, name: surrealdb.js }
+  confidence: high
+- id: swiftype
+  name: Swiftype
+  category: database
+  match:
+    deps:
+      - { ecosystem: rubygems, name: site-search-ruby }
+      - { ecosystem: npm, name: "@elastic/site-search-node" }
+      - { ecosystem: pypi, name: elastic-site-search }
+      - { ecosystem: composer, name: elastic/site-search }
+  confidence: high
+- id: tdengine
+  name: TDengine
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: tdengine/tdengine }
+      - { ecosystem: npm, name: "@tdengine/rest" }
+      - { ecosystem: npm, name: "@tdengine/client" }
+      - { ecosystem: go, name: github.com/taosdata/driver-go/v3/taosSql }
+      - { ecosystem: cargo, name: taos }
+  confidence: high
+- id: tidb
+  name: TiDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: pingcap/tidb }
+  confidence: high
+- id: timescaledb
+  name: TimescaleDB
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: timescale/timescaledb-ha }
+      - { ecosystem: docker, name: timescale/timescaledb }
+      - { ecosystem: terraform, name: registry.terraform.io/timescale/timescale }
+  confidence: high
+- id: tursodb
+  name: Turso
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@tursodatabase/api" }
+    dotenv: [TURSO_]
+  confidence: high
+- id: typesense
+  name: Typesense
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: typesense }
+      - { ecosystem: npm, name: typesense-instantsearch-adapter }
+      - { ecosystem: npm, name: gatsby-plugin-typesense }
+      - { ecosystem: docker, name: typesense/typesense }
+      - { ecosystem: go, name: github.com/typesense/typesense-go/typesense }
+      - { ecosystem: cargo, name: typesense }
+      - { ecosystem: rubygems, name: typesense }
+      - { ecosystem: composer, name: "typesense/typesense-php " }
+      - { ecosystem: composer, name: typesense/laravel-scout-typesense-driver }
+      - { ecosystem: terraform, name: airbyte_destination_typesense }
+  confidence: high
+- id: upstash.redis
+  name: Upstash Redis
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@upstash/redis" }
+    dotenv: [UPSTASH_REDIS_]
+  confidence: high
+- id: valkey
+  name: Valkey
+  category: database
+  match:
+    deps:
+      - { ecosystem: pypi, name: valkey-glide }
+      - { ecosystem: pypi, name: valkey }
+      - { ecosystem: npm, name: "@valkey/valkey-glide" }
+      - { ecosystem: npm, name: iovalkey }
+      - { ecosystem: go, name: github.com/valkey-io/valkey-glide/go }
+      - { ecosystem: go, name: github.com/valkey-io/valkey-go }
+    dotenv: [VALKEY_]
+  confidence: high
+- id: vercel.blob
+  name: Vercel Blob
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@vercel/blob" }
+  confidence: high
+- id: vercel.kv
+  name: Vercel KV
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@vercel/kv" }
+  confidence: high
+- id: vercel.postgres
+  name: Vercel Postgres
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@vercel/postgres" }
+  confidence: high
+- id: victoriametrics
+  name: VictoriaMetrics
+  category: database
+  match:
+    deps:
+      - { ecosystem: docker, name: victoriametrics/victoria-metrics }
+      - { ecosystem: docker, name: victoriametrics/vmagent }
+      - { ecosystem: docker, name: victoriametrics/operator }
+      - { ecosystem: docker, name: victoriametrics/vminsert }
+      - { ecosystem: docker, name: victoriametrics/vmstorage }
+  confidence: high

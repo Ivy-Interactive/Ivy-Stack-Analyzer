@@ -1,0 +1,395 @@
+# Technology detectors (category: library) seeded from specfy/stack-analyser (MIT).
+- id: airbyte
+  name: Airbyte
+  category: library
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/airbytehq/airbyte }
+    depsRegex:
+      - { ecosystem: docker, pattern: "^airbyte\\/" }
+  confidence: high
+- id: antdicons
+  name: Ant Design Icons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@ant-design/icons" }
+  confidence: high
+- id: apache_airflow
+  name: Apache Airflow
+  category: library
+  match:
+    deps:
+      - { ecosystem: docker, name: apache/airflow }
+  confidence: high
+- id: apache_flink
+  name: Apache Flink
+  category: library
+  match:
+    deps:
+      - { ecosystem: docker, name: apache/flink }
+  confidence: high
+- id: apache_storm
+  name: Apache Storm
+  category: library
+  match:
+    deps:
+      - { ecosystem: docker, name: apache/storm }
+  confidence: high
+- id: apideck
+  name: Apideck
+  category: library
+  match:
+    deps:
+      - { ecosystem: composer, name: apideck-libraries/sdk-php }
+      - { ecosystem: pypi, name: apideck-unify }
+      - { ecosystem: go, name: github.com/apideck-libraries/sdk-go }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@apideck\\/" }
+  confidence: high
+- id: arktype
+  name: ArkType
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: arktype }
+  confidence: high
+- id: aws.glue
+  name: AWS Glue
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-glue" }
+      - { ecosystem: npm, name: "@aws-cdk/aws-glue" }
+      - { ecosystem: cargo, name: aws-sdk-glue }
+      - { ecosystem: rubygems, name: aws-sdk-glue }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/glue }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_glue_ }
+  confidence: high
+- id: bootstrapicons
+  name: Bootstrap Icons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: bootstrap-icons }
+      - { ecosystem: npm, name: react-bootstrap-icons }
+      - { ecosystem: npm, name: "@iconify-json/bi" }
+      - { ecosystem: npm, name: svelte-bootstrap-icons }
+  confidence: high
+- id: composio
+  name: Composio
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: composio-core }
+      - { ecosystem: pypi, name: composio-core }
+    depsRegex:
+      - { ecosystem: npm, pattern: "@composio\\/" }
+    dotenv: [COMPOSIO_]
+  confidence: high
+- id: databricks
+  name: Databricks
+  category: library
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/databricks/databricks }
+      - { ecosystem: githubAction, name: databricks/run-notebook }
+      - { ecosystem: terraform, name: airbyte_destination_databricks }
+    dotenv: [DATABRICKS_]
+  confidence: high
+- id: dataiku
+  name: Dataiku
+  category: library
+  match:
+    deps:
+      - { ecosystem: pypi, name: dataiku }
+  confidence: high
+- id: feathericons
+  name: Feather Icons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: feather-icons }
+      - { ecosystem: npm, name: react-feather }
+      - { ecosystem: npm, name: react-native-feather }
+  confidence: high
+- id: fontawesome
+  name: Font Awesome
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@fortawesome/react-fontawesome" }
+      - { ecosystem: npm, name: "@fortawesome/vue-fontawesome" }
+      - { ecosystem: npm, name: "@iconify-json/fa6-brands" }
+      - { ecosystem: npm, name: "@iconify-json/fa6-regular" }
+      - { ecosystem: npm, name: "@iconify-json/fa6-solid" }
+      - { ecosystem: npm, name: "@iconify-json/fa" }
+  confidence: high
+- id: gcp.dataflow
+  name: Cloud Dataflow
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/dataflow" }
+      - { ecosystem: go, name: cloud.google.com/go/dataflow }
+      - { ecosystem: composer, name: google/cloud-dataflow }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_dataflow_ }
+      - { ecosystem: rubygems, pattern: ^google-cloud-dataflow }
+  confidence: high
+- id: gcp.dataproc
+  name: Cloud Dataproc
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/dataproc" }
+      - { ecosystem: go, name: cloud.google.com/go/dataproc }
+      - { ecosystem: composer, name: google/cloud-dataproc }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_dataproc_ }
+      - { ecosystem: rubygems, pattern: ^google-cloud-dataproc }
+  confidence: high
+- id: gcp.dns
+  name: Google DNS
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/dns" }
+      - { ecosystem: rubygems, name: google-cloud-dns }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_dns_ }
+  confidence: high
+- id: heroicons
+  name: Heroicons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@heroicons/react" }
+      - { ecosystem: npm, name: "@heroicons/vue" }
+      - { ecosystem: npm, name: "@iconify-json/heroicons" }
+  confidence: high
+- id: hugeicons
+  name: HugeIcons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@hugeicons/react" }
+      - { ecosystem: npm, name: "@hugeicons/vue" }
+      - { ecosystem: npm, name: "@hugeicons/svelte" }
+      - { ecosystem: npm, name: "@hugeicons/angular" }
+      - { ecosystem: npm, name: "@hugeicons/react-native" }
+      - { ecosystem: npm, name: "@hugeicons/core-free-icons" }
+      - { ecosystem: npm, name: "@iconify-json/hugeicons" }
+  confidence: high
+- id: integrationapp
+  name: Integration.app
+  category: library
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@integration-app\\/" }
+  confidence: high
+- id: ionicons
+  name: Ionicons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: ionicosn }
+  confidence: high
+- id: joijs
+  name: Joi
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: joi }
+  confidence: high
+- id: jsonschema
+  name: JSON Schema
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@types/json-schema" }
+      - { ecosystem: npm, name: json-schema }
+      - { ecosystem: npm, name: jsonschema }
+      - { ecosystem: npm, name: ajv }
+      - { ecosystem: composer, name: justinrainbow/json-schema }
+      - { ecosystem: composer, name: opis/json-schema }
+      - { ecosystem: go, name: github.com/invopop/jsonschema }
+      - { ecosystem: pypi, name: jsonschema }
+      - { ecosystem: rubygems, name: json-schema }
+      - { ecosystem: cargo, name: jsonschema }
+  confidence: high
+- id: logstash
+  name: Logstash
+  category: library
+  match:
+    deps:
+      - { ecosystem: docker, name: logstash }
+      - { ecosystem: npm, name: bunyan-logstash-tcp }
+      - { ecosystem: rubygems, name: logstash-event }
+      - { ecosystem: rubygems, name: logstash-logger }
+      - { ecosystem: rubygems, name: logstash-output-sqs }
+      - { ecosystem: rubygems, name: logstash-filter-translate }
+      - { ecosystem: rubygems, name: logstash-output-stastd }
+      - { ecosystem: go, name: github.com/elastic/beats/libbeat/outputs/logstash }
+      - { ecosystem: go, name: github.com/bshuster-repo/logrus-logstash-hook }
+  confidence: high
+- id: lordicon
+  name: Lord Icon
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@lordicon/element" }
+      - { ecosystem: npm, name: "@lordicon/react" }
+      - { ecosystem: npm, name: "@lordicon/web" }
+  confidence: high
+- id: lucideicons
+  name: Lucide Icons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: lucide-react }
+      - { ecosystem: npm, name: lucide-svelte }
+      - { ecosystem: npm, name: lucide-vue-next }
+      - { ecosystem: npm, name: lucide-react-native }
+      - { ecosystem: npm, name: "@iconify-json/lucide" }
+      - { ecosystem: npm, name: "@lucide/svelte" }
+      - { ecosystem: npm, name: lucide-angular }
+  confidence: high
+- id: materialdesignicons
+  name: Material Design Icons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@iconify-json/mdi" }
+  confidence: high
+- id: mergedev
+  name: Merge.dev
+  category: library
+  match:
+    deps:
+      - { ecosystem: pypi, name: MergePythonClient }
+      - { ecosystem: pypi, name: MergePythonSDK }
+      - { ecosystem: go, name: github.com/merge-api/merge-go-client }
+      - { ecosystem: rubygems, name: merge_ruby_client }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@mergeapi\\/" }
+      - { ecosystem: composer, pattern: "^merge-api\\/" }
+  confidence: high
+- id: muiicons
+  name: MUI Icons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@mui/icons-material" }
+  confidence: high
+- id: nango
+  name: Nango
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: nango }
+      - { ecosystem: npm, name: "@nangohq/node" }
+      - { ecosystem: npm, name: "@nangohq/frontend" }
+      - { ecosystem: docker, name: nangohq/nango }
+      - { ecosystem: docker, name: nangohq/nango-server }
+    files: [.nango, nango.yaml]
+    dotenv: [NANGO_]
+  confidence: high
+- id: phosphoreicons
+  name: Phosphor Icons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@phosphor-icons/react" }
+      - { ecosystem: npm, name: "@phosphor-icons/vue" }
+      - { ecosystem: npm, name: "@phosphor-icons/webcomponents" }
+      - { ecosystem: npm, name: "@phosphor-icons/web" }
+      - { ecosystem: npm, name: "@iconify-json/ph" }
+  confidence: high
+- id: radixicons
+  name: Radix Icons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@radix-ui/react-icons" }
+  confidence: high
+- id: reacticons
+  name: React Icons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: react-icons }
+  confidence: high
+- id: remixicons
+  name: Remix Icons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: remixicon }
+      - { ecosystem: npm, name: "@remixicon/react" }
+      - { ecosystem: npm, name: "@remixicon/vue" }
+      - { ecosystem: npm, name: "@iconify-json/ri" }
+  confidence: high
+- id: simpleicons
+  name: Simple Icons
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@icons-pack/react-simple-icons" }
+      - { ecosystem: npm, name: simple-icons }
+      - { ecosystem: npm, name: "@iconify/json/simple-icons" }
+  confidence: high
+- id: superstruct
+  name: Superstruct
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: superstruct }
+  confidence: high
+- id: tablericons
+  name: Tabler
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@tabler/icons-react" }
+      - { ecosystem: npm, name: "@tabler/icons" }
+      - { ecosystem: npm, name: "@tabler/icons-vue" }
+      - { ecosystem: npm, name: "@steeze-ui/tabler-icons" }
+      - { ecosystem: npm, name: "@iconify-json/tabler" }
+  confidence: high
+- id: trayio
+  name: Tray.ai
+  category: library
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@trayio-app\\/" }
+  confidence: high
+- id: typebox
+  name: TypeBox
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: "@sinclair/typebox" }
+  confidence: high
+- id: useparagon
+  name: Paragon
+  category: library
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@useparagon\\/" }
+  confidence: high
+- id: valibot
+  name: Valibot
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: valibot }
+  confidence: high
+- id: zod
+  name: Zod
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: zod }
+  confidence: high

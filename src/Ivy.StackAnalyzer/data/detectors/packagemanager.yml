@@ -1,0 +1,74 @@
+# Technology detectors (category: packagemanager) seeded from specfy/stack-analyser (MIT).
+- id: asdf
+  name: asdf
+  category: packagemanager
+  match:
+    files: [.tool-versions, .asdfrc]
+  confidence: high
+- id: bundler
+  name: Bundler
+  category: packagemanager
+  match:
+    deps:
+      - { ecosystem: rubygems, name: bundler }
+  confidence: high
+- id: goenv
+  name: goenv
+  category: packagemanager
+  match:
+    files: [.go-version]
+  confidence: high
+- id: npm
+  name: npm
+  category: packagemanager
+  match:
+    files: [package-lock.json]
+  confidence: high
+- id: nuget
+  name: NuGet
+  category: packagemanager
+  match:
+    files: [.csproj]
+  confidence: high
+- id: nvm
+  name: nvm
+  category: packagemanager
+  match:
+    files: [.nvmrc]
+  confidence: high
+- id: phpenv
+  name: phpenv
+  category: packagemanager
+  match:
+    files: [.php-version]
+  confidence: high
+- id: pipenv
+  name: pipenv
+  category: packagemanager
+  match:
+    files: [Pipfile.lock]
+  confidence: high
+- id: pnpm
+  name: pnpm
+  category: packagemanager
+  match:
+    files: [pnpm-lock.yaml]
+  confidence: high
+- id: poetry
+  name: Poetry
+  category: packagemanager
+  match:
+    files: [poetry.lock]
+  confidence: high
+- id: rubyenv
+  name: rubyenv
+  category: packagemanager
+  match:
+    files: [.ruby-version]
+  confidence: high
+- id: yarn
+  name: Yarn
+  category: packagemanager
+  match:
+    files: [yarn.lock]
+  confidence: high

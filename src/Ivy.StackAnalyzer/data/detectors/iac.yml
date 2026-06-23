@@ -1,0 +1,58 @@
+# Technology detectors (category: iac) seeded from specfy/stack-analyser (MIT).
+- id: ansible
+  name: Ansible
+  category: iac
+  match:
+    deps:
+      - { ecosystem: githubAction, name: ansible/ansible-lint }
+      - { ecosystem: githubAction, name: ansible-community/ansible-test-gh-action }
+      - { ecosystem: docker, name: pipelinecomponents/ansible-lint }
+      - { ecosystem: docker, name: alpinelinux/ansible }
+  confidence: high
+- id: aws.cloudformation
+  name: AWS CloudFormation
+  category: iac
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-cloudformation" }
+      - { ecosystem: npm, name: "@aws-cdk/aws-cloudformation" }
+      - { ecosystem: cargo, name: aws-sdk-cloudformation }
+      - { ecosystem: rubygems, name: aws-sdk-cloudformation }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/cloudformation }
+      - { ecosystem: githubAction, name: aws-actions/aws-cloudformation-github-deploy }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_cloudformation_ }
+  confidence: high
+- id: chef
+  name: Chef
+  category: iac
+  match:
+    deps:
+      - { ecosystem: docker, name: chef/chef }
+  confidence: high
+- id: helm
+  name: Helm
+  category: iac
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/hashicorp/helm }
+      - { ecosystem: rubygems, name: helm-rb }
+      - { ecosystem: githubAction, name: azure/setup-helm }
+    files: [Chart.yaml]
+  confidence: high
+- id: pulumi
+  name: Pulumi
+  category: iac
+  match:
+    deps:
+      - { ecosystem: npm, name: "@pulumi/pulumi" }
+      - { ecosystem: pypi, name: pulumi }
+      - { ecosystem: go, name: github.com/pulumi/pulumi/sdk/v3 }
+    files: [Pulumi.yaml]
+  confidence: high
+- id: terragrunt
+  name: Terragrunt
+  category: iac
+  match:
+    files: [terragrunt.hcl, terragrunt.hcl.json]
+  confidence: high

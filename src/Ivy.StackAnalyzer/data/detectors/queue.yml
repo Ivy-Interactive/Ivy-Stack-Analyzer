@@ -1,0 +1,165 @@
+# Technology detectors (category: queue) seeded from specfy/stack-analyser (MIT).
+- id: apache_kafka
+  name: Apache Kafka
+  category: queue
+  match:
+    deps:
+      - { ecosystem: docker, name: bitnami/kafka }
+      - { ecosystem: docker, name: ubuntu/kafka }
+      - { ecosystem: docker, name: bitnamicharts/kafka }
+      - { ecosystem: terraform, name: registry.terraform.io/confluentinc/confluent }
+      - { ecosystem: composer, name: nmred/kafka-php }
+      - { ecosystem: composer, name: longlang/phpkafka }
+      - { ecosystem: npm, name: kafkajs }
+      - { ecosystem: npm, name: kafka-node }
+      - { ecosystem: npm, name: kafkajs-snappy }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-kafkajs" }
+      - { ecosystem: rubygems, name: ruby-kafka }
+      - { ecosystem: rubygems, name: fluent-plugin-kafka }
+      - { ecosystem: rubygems, name: logstash-output-kafka }
+      - { ecosystem: rubygems, name: logstash-input-kafka }
+  confidence: high
+- id: aws.kafka
+  name: AWS Kafka
+  category: queue
+  match:
+    deps:
+      - { ecosystem: npm, name: "@pulumi/kafka" }
+      - { ecosystem: rubygems, name: aws-sdk-kafka }
+      - { ecosystem: terraform, name: aws_msk_cluster }
+      - { ecosystem: terraform, name: aws_msk_configuration }
+      - { ecosystem: terraform, name: aws_mskconnect_connector }
+  confidence: high
+- id: aws.kinesis
+  name: AWS Kinesis
+  category: queue
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-kinesis" }
+      - { ecosystem: npm, name: "@aws-sdk/client-firehose" }
+      - { ecosystem: npm, name: "@aws-cdk/aws-kinesis" }
+      - { ecosystem: npm, name: "@aws-cdk/aws-firehose" }
+      - { ecosystem: cargo, name: aws-sdk-kinesis }
+      - { ecosystem: cargo, name: aws-sdk-firehose }
+      - { ecosystem: rubygems, name: aws-sdk-kinesis }
+      - { ecosystem: rubygems, name: aws-sdk-firehose }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/kinesis }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/firehose }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_kinesis_ }
+  confidence: high
+- id: aws.mq
+  name: AWS ActiveMQ
+  category: queue
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-mq" }
+      - { ecosystem: npm, name: "@aws-sdk/client-mq" }
+      - { ecosystem: cargo, name: aws-sdk-mq }
+      - { ecosystem: rubygems, name: aws-sdk-mq }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/mq }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_mq_ }
+  confidence: high
+- id: aws.sqs
+  name: AWS SQS
+  category: queue
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-sqs" }
+      - { ecosystem: npm, name: "@aws-sdk/client-sqs" }
+      - { ecosystem: cargo, name: aws-sdk-sqs }
+      - { ecosystem: rubygems, name: aws-sdk-sqs }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/sqs }
+      - { ecosystem: composer, name: async-aws/sqs }
+      - { ecosystem: terraform, name: airbyte_source_amazon_sqs }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_sqs }
+  confidence: high
+- id: celery
+  name: Celery
+  category: queue
+  match:
+    deps:
+      - { ecosystem: pypi, name: celery }
+  confidence: high
+- id: gcp.pubsub
+  name: PubSub
+  category: queue
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/pubsub" }
+      - { ecosystem: go, name: cloud.google.com/go/pubsub }
+      - { ecosystem: cargo, name: google-cloud-pubsub }
+      - { ecosystem: rubygems, name: google-cloud-pubsub }
+      - { ecosystem: composer, name: google/cloud-pubsub }
+      - { ecosystem: composer, name: gos/pubsub-router-bundle }
+      - { ecosystem: composer, name: petitpress/gps-messenger-bundle }
+      - { ecosystem: terraform, name: airbyte_destination_pubsub }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_pubsub_ }
+  confidence: high
+- id: nats
+  name: Nats
+  category: queue
+  match:
+    deps:
+      - { ecosystem: docker, name: nats }
+      - { ecosystem: docker, name: nats-streaming }
+      - { ecosystem: docker, name: bitnami/nats }
+      - { ecosystem: npm, name: nats }
+      - { ecosystem: composer, name: repejota/nats }
+      - { ecosystem: rubygems, name: nats-pure }
+      - { ecosystem: rubygems, name: nats }
+      - { ecosystem: go, name: github.com/nats-io/nats.go }
+      - { ecosystem: go, name: github.com/nats-io/stan.go }
+      - { ecosystem: cargo, name: nats }
+  confidence: high
+- id: rabbitmq
+  name: RabbitMQ
+  category: queue
+  match:
+    deps:
+      - { ecosystem: npm, name: amqplib }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-amqplib" }
+      - { ecosystem: cargo, name: rabbitmq-stream-client }
+      - { ecosystem: rubygems, name: bunny }
+      - { ecosystem: composer, name: php-amqplib/php-amqplib }
+      - { ecosystem: npm, name: "@pulumi/rabbitmq" }
+      - { ecosystem: pypi, name: amqp }
+    depsRegex:
+      - { ecosystem: docker, pattern: rabbitmq }
+    dotenv: [RABBITMQ_]
+  confidence: high
+- id: scaleway.mq
+  name: "Scaleway M&Q"
+  category: queue
+  match:
+    deps:
+      - { ecosystem: terraform, name: scaleway_mnq_namespace }
+      - { ecosystem: terraform, name: scaleway_mnq_queue }
+  confidence: high
+- id: supabase.realtime
+  name: Supabase Realtime
+  category: queue
+  match:
+    deps:
+      - { ecosystem: npm, name: "@supabase/realtime-js" }
+      - { ecosystem: docker, name: bitnami/supabase-realtime }
+      - { ecosystem: docker, name: supabase/realtime }
+  confidence: high
+- id: upstash.kafka
+  name: Upstash Kafka
+  category: queue
+  match:
+    deps:
+      - { ecosystem: npm, name: "@upstash/kafka" }
+    dotenv: [UPSTASH_KAFKA_]
+  confidence: high
+- id: upstash.qstash
+  name: Upstash QStash
+  category: queue
+  match:
+    deps:
+      - { ecosystem: npm, name: "@upstash/qstash" }
+  confidence: high

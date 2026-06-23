@@ -1,0 +1,87 @@
+# Technology detectors (category: orm) seeded from specfy/stack-analyser (MIT).
+- id: dieselrs
+  name: Diesel
+  category: orm
+  match:
+    deps:
+      - { ecosystem: cargo, name: diesel }
+  confidence: high
+- id: doctrinephp
+  name: Doctrine
+  category: orm
+  match:
+    deps:
+      - { ecosystem: composer, name: doctrine/orm }
+  confidence: high
+- id: drizzleorm
+  name: Drizzle ORM
+  category: orm
+  match:
+    deps:
+      - { ecosystem: npm, name: drizzle-orm }
+  confidence: high
+- id: goent
+  name: ent.
+  category: orm
+  match:
+    deps:
+      - { ecosystem: go, name: entgo.io/ent }
+  confidence: high
+- id: gorm
+  name: GORM
+  category: orm
+  match:
+    deps:
+      - { ecosystem: go, name: gorm.io/gorm }
+  confidence: high
+- id: knex
+  name: Knex
+  category: orm
+  match:
+    deps:
+      - { ecosystem: npm, name: knex }
+  confidence: high
+- id: kysely
+  name: Kysely
+  category: orm
+  match:
+    deps:
+      - { ecosystem: npm, name: kysely }
+  confidence: high
+- id: prisma
+  name: Prisma
+  category: orm
+  match:
+    deps:
+      - { ecosystem: npm, name: prisma }
+    files: [schema.prisma]
+  confidence: high
+- id: sequelize
+  name: Sequelize
+  category: orm
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: sequelize(-cli)? }
+    files: [.sequelizerc]
+  confidence: high
+- id: sequelruby
+  name: Sequel
+  category: orm
+  match:
+    deps:
+      - { ecosystem: rubygems, name: sequel }
+  confidence: high
+- id: sqlalchemy
+  name: SQLAlchemy
+  category: orm
+  match:
+    deps:
+      - { ecosystem: pypi, name: SQLAlchemy }
+  confidence: high
+- id: typeorm
+  name: TypeORM
+  category: orm
+  match:
+    deps:
+      - { ecosystem: npm, name: typeorm }
+  confidence: high

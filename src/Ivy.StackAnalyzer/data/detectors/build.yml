@@ -1,0 +1,306 @@
+# Technology detectors (category: build) seeded from specfy/stack-analyser (MIT).
+- id: apify
+  name: Apify
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: apify }
+      - { ecosystem: npm, name: apify-client }
+      - { ecosystem: pypi, name: apify }
+      - { ecosystem: terraform, name: airbyte_source_apify_dataset }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@apify\\/" }
+    dotenv: [APIFY_]
+  confidence: high
+- id: aws.sfn
+  name: AWS Step Functions
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-sfn" }
+      - { ecosystem: npm, name: "@aws-cdk/aws-sfn" }
+      - { ecosystem: cargo, name: aws-sdk-sfn }
+      - { ecosystem: rubygems, name: aws-sdk-sfn }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/sfn }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_sfn_ }
+  confidence: high
+- id: babel
+  name: Babel
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: "@babel/core" }
+  confidence: high
+- id: biomejs
+  name: Biome JS
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: "@biomejs/biome" }
+    files: [biome.json, biome.jsonc]
+  confidence: high
+- id: browerbase
+  name: Browserbase
+  category: build
+  match:
+    deps:
+      - { ecosystem: composer, name: "@browserbasehq/sdk" }
+      - { ecosystem: pypi, name: browserbase }
+  confidence: high
+- id: browseruse
+  name: Browser Use
+  category: build
+  match:
+    deps:
+      - { ecosystem: pypi, name: browser-use }
+  confidence: high
+- id: crawl4ai
+  name: Crawl4AI
+  category: build
+  match:
+    deps:
+      - { ecosystem: docker, name: unclecode/crawl4ai }
+      - { ecosystem: pypi, name: crawl4ai }
+    dotenv: [CRAWL4AI_]
+  confidence: high
+- id: esbuild
+  name: Esbuild
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: esbuild }
+  confidence: high
+- id: eslint
+  name: Eslint
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: eslint }
+    files: [.eslintrc, .eslintrc.cjs, .eslintrc.json, .eslintrc.js, eslint.config.js, eslint.config.cjs, eslint.config.mjs]
+  confidence: high
+- id: firecrawl
+  name: Firecrawl
+  category: build
+  match:
+    deps:
+      - { ecosystem: composer, name: "@mendable/firecrawl-js" }
+      - { ecosystem: pypi, name: firecrawl-py }
+      - { ecosystem: go, name: github.com/mendableai/firecrawl-go }
+      - { ecosystem: cargo, name: firecrawl }
+    dotenv: [FIRECRAWL_]
+  confidence: high
+- id: golangcilint
+  name: GolangCI Lint
+  category: build
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/golangci/golangci-lint }
+      - { ecosystem: githubAction, name: golangci/golangci-lint-action }
+      - { ecosystem: docker, name: golangci/golangci-lint }
+    files: [.golangcit.yml]
+  confidence: high
+- id: inngest
+  name: Inngest
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: inngest }
+      - { ecosystem: go, name: github.com/inngest/inngestgo }
+      - { ecosystem: pypi, name: inngest }
+    dotenv: [INNGEST_]
+  confidence: high
+- id: n8n
+  name: n8n
+  category: build
+  match:
+    deps:
+      - { ecosystem: docker, name: n8nio/n8n }
+      - { ecosystem: npm, name: n8n }
+    dotenv: [N8N_]
+  confidence: high
+- id: nxjs
+  name: NX
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: nx }
+    files: [nx.json]
+  confidence: high
+- id: oxlint
+  name: OxLint
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: oxlint }
+    files: [.oxlintrc.json]
+  confidence: high
+- id: parceljs
+  name: Parcel
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: parcel }
+      - { ecosystem: npm, name: "@parcel/core" }
+  confidence: high
+- id: phpstan
+  name: PHPStan
+  category: build
+  match:
+    deps:
+      - { ecosystem: composer, name: phpstan/phpstan }
+    files: [phpstan.neon]
+  confidence: high
+- id: playwright
+  name: Playwright
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: playwright }
+      - { ecosystem: npm, name: "@playwright/test" }
+      - { ecosystem: githubAction, name: microsoft/playwright-github-action }
+      - { ecosystem: docker, name: mcr.microsoft.com/playwright }
+      - { ecosystem: pypi, name: pytest-playwright }
+    files: [playwright.config.ts]
+  confidence: high
+- id: prettier
+  name: Prettier
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: prettier }
+    files: [.prettierrc, .prettierignore]
+  confidence: high
+- id: puppeteer
+  name: Puppeteer
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: puppeteer }
+      - { ecosystem: npm, name: puppeteer-core }
+      - { ecosystem: npm, name: "@puppeteer/browser" }
+      - { ecosystem: docker, name: itisfoundation/puppeteer }
+  confidence: high
+- id: rolldown
+  name: Rolldown
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: rolldown }
+  confidence: high
+- id: rollup
+  name: Rollup
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: rollup }
+  confidence: high
+- id: rspack
+  name: Rspack
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: rspack }
+      - { ecosystem: npm, name: "@rspack/core" }
+    files: [rspack.config.js]
+  confidence: high
+- id: rubocop
+  name: Rubocop
+  category: build
+  match:
+    files: [.rubocop.yml]
+  confidence: high
+- id: selenium
+  name: Selenium
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: selenium }
+      - { ecosystem: npm, name: selenium-webdriver }
+      - { ecosystem: npm, name: webdriver-js-extender }
+      - { ecosystem: npm, name: "@wdio/selenium-standalone-service" }
+      - { ecosystem: composer, name: php-webdriver/webdriver }
+      - { ecosystem: composer, name: behat/mink-selenium2-driver }
+      - { ecosystem: composer, name: symfony/panther }
+      - { ecosystem: composer, name: instaclick/php-webdriver }
+      - { ecosystem: composer, name: phpunit/phpunit-selenium }
+      - { ecosystem: composer, name: se/selenium-server-standalone }
+      - { ecosystem: rubygems, name: selenium-webdriver }
+      - { ecosystem: rubygems, name: selenium }
+      - { ecosystem: rubygems, name: selenium-client }
+      - { ecosystem: rubygems, name: capybara-selenium }
+      - { ecosystem: cargo, name: thirtyfour }
+      - { ecosystem: cargo, name: selenium-rs }
+      - { ecosystem: githubAction, name: Xotabu4/selenoid-github-action }
+      - { ecosystem: go, name: github.com/tebeka/selenium }
+      - { ecosystem: pypi, name: selenium }
+      - { ecosystem: docker, name: selenium/standalone-chrome }
+      - { ecosystem: docker, name: selenium/node-chrome }
+      - { ecosystem: docker, name: selenium/hub }
+      - { ecosystem: docker, name: selenium/node-firefox }
+      - { ecosystem: docker, name: selenium/standalone-firefox }
+      - { ecosystem: docker, name: selenium/standalone-chrome-debug }
+      - { ecosystem: docker, name: selenium/node-chrome-debug }
+      - { ecosystem: docker, name: selenium/base }
+      - { ecosystem: docker, name: selenium/node-edge }
+      - { ecosystem: docker, name: selenium/node-firefox-debug }
+      - { ecosystem: docker, name: selenium/standalone-firefox-debug }
+      - { ecosystem: docker, name: selenium/node-opera }
+  confidence: high
+- id: sonarlint
+  name: SonarLint
+  category: build
+  match:
+    files: [.sonarlint]
+  confidence: high
+- id: stylelint
+  name: Stylelint
+  category: build
+  match:
+    files: [.stylelint, .stylelintrc.cjs, .stylelintrc.json, .stylelintrc.js]
+  confidence: high
+- id: swc
+  name: SWC
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: "@swc/core" }
+  confidence: high
+- id: turborepo
+  name: Turborepo
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: turbo }
+    files: [turbo.json]
+  confidence: high
+- id: ultracite
+  name: Ultracite
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: ultracite }
+  confidence: high
+- id: vale
+  name: Vale
+  category: build
+  match:
+    deps:
+      - { ecosystem: docker, name: jdkato/vale }
+      - { ecosystem: githubAction, name: errata-ai/vale-action }
+    files: [.vale.ini]
+  confidence: high
+- id: vite
+  name: Vite
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: vite }
+  confidence: high
+- id: webpack
+  name: Webpack
+  category: build
+  match:
+    deps:
+      - { ecosystem: npm, name: webpack }
+  confidence: high

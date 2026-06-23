@@ -1,0 +1,225 @@
+# Technology detectors (category: cms) seeded from specfy/stack-analyser (MIT).
+- id: adobe.experiencemanager
+  name: Adobe Experience Manager
+  category: cms
+  match:
+    deps:
+      - { ecosystem: npm, name: aemsync }
+    dotenv: [AEM_]
+  confidence: high
+- id: bigcommerce
+  name: BigCommerce
+  category: cms
+  match:
+    deps:
+      - { ecosystem: composer, name: bigcommerce/api }
+      - { ecosystem: npm, name: "@bigcommerce/checkout-sdk" }
+      - { ecosystem: terraform, name: airbyte_source_bigcommerce }
+  confidence: high
+- id: commercetools
+  name: Commercetools
+  category: cms
+  match:
+    deps:
+      - { ecosystem: npm, name: "@commercetools/platform-sdk" }
+      - { ecosystem: npm, name: "@commercetools/sdk-client-v2" }
+      - { ecosystem: npm, name: "@commercetools/sdk-middleware-http" }
+  confidence: high
+- id: contentful
+  name: Contentful
+  category: cms
+  match:
+    deps:
+      - { ecosystem: composer, name: contentful/contentful }
+      - { ecosystem: composer, name: contentful/contentful-management }
+      - { ecosystem: npm, name: contentful }
+      - { ecosystem: npm, name: contentful-management }
+    dotenv: [CONTENTFUL_]
+  confidence: high
+- id: datocms
+  name: Dato CMS
+  category: cms
+  match:
+    deps:
+      - { ecosystem: npm, name: datocms-structured-text-utils }
+      - { ecosystem: npm, name: "@datocms/cma-client" }
+      - { ecosystem: npm, name: "@datocms/cma-client-node" }
+      - { ecosystem: npm, name: datocms-client }
+      - { ecosystem: npm, name: "@datocms/cli" }
+      - { ecosystem: npm, name: vue-datocms }
+      - { ecosystem: npm, name: react-datocms }
+      - { ecosystem: npm, name: datocms-react-ui }
+      - { ecosystem: npm, name: datocms-plugin-sdk }
+      - { ecosystem: npm, name: gatsby-source-datocms }
+  confidence: high
+- id: drupal
+  name: Drupal
+  category: cms
+  match:
+    deps:
+      - { ecosystem: docker, name: drupal }
+      - { ecosystem: composer, name: drupal/core }
+      - { ecosystem: composer, name: drupal/core-recommended }
+      - { ecosystem: composer, name: drupal/drupal-extension }
+      - { ecosystem: composer, name: webflo/drupal-finder }
+      - { ecosystem: composer, name: mglaman/phpstan-drupal }
+  confidence: high
+- id: ghost
+  name: Ghost
+  category: cms
+  match:
+    deps:
+      - { ecosystem: docker, name: ghost }
+      - { ecosystem: npm, name: ghost-cli }
+      - { ecosystem: npm, name: "@tryghost/content-api" }
+    dotenv: [GHOST_]
+  confidence: high
+- id: gitbook
+  name: Gitbook
+  category: cms
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@gitbook\\/" }
+  confidence: high
+- id: joomla
+  name: "Joomla!"
+  category: cms
+  match:
+    deps:
+      - { ecosystem: composer, name: joomla/application }
+      - { ecosystem: docker, name: joomla }
+  confidence: high
+- id: kentico
+  name: Kentico
+  category: cms
+  match:
+    deps:
+      - { ecosystem: npm, name: "@kentico/xperience-admin-components" }
+      - { ecosystem: npm, name: kentico-kontent-nuxt-module }
+      - { ecosystem: npm, name: "@kentico/gatsby-source-kontent" }
+      - { ecosystem: npm, name: "@sonarsource/marketing-gatsby-transformer-kontent-graphql" }
+      - { ecosystem: rubygems, name: delivery-sdk-ruby }
+  confidence: high
+- id: magento
+  name: Magento
+  category: cms
+  match:
+    deps:
+      - { ecosystem: composer, name: magento/composer }
+      - { ecosystem: composer, name: fastly/magento2 }
+      - { ecosystem: composer, name: smile/elasticsuite }
+      - { ecosystem: npm, name: "@adobe/magento-storefront-events-sdk" }
+  confidence: high
+- id: payloadcms
+  name: Payload
+  category: cms
+  match:
+    deps:
+      - { ecosystem: npm, name: payload }
+      - { ecosystem: npm, name: "@payload/plugin-seo" }
+  confidence: high
+- id: prestashop
+  name: Prestashop
+  category: cms
+  match:
+    deps:
+      - { ecosystem: composer, name: prestashop/ps_facetedsearch }
+      - { ecosystem: composer, name: prestashop/ps_shoppingcart }
+      - { ecosystem: composer, name: prestashop/ps_currencyselector }
+  confidence: high
+- id: sanity
+  name: Sanity
+  category: cms
+  match:
+    deps:
+      - { ecosystem: npm, name: sanity }
+  confidence: high
+- id: shopify
+  name: Shopify
+  category: cms
+  match:
+    deps:
+      - { ecosystem: npm, name: "@shopify/shopify-api" }
+      - { ecosystem: npm, name: "@shopify/cli" }
+      - { ecosystem: npm, name: shopify-api-node }
+      - { ecosystem: composer, name: shopify/shopify-api }
+      - { ecosystem: composer, name: phpclassic/php-shopify }
+      - { ecosystem: rubygems, name: shopify_api }
+      - { ecosystem: rubygems, name: shopify_app }
+      - { ecosystem: rubygems, name: shopify-cli }
+  confidence: high
+- id: sitecore.xmlcloud
+  name: Sitecore XM cloud
+  category: cms
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@sitecore-jss\\/sitecore-jss" }
+  confidence: high
+- id: squarespace
+  name: Squarespace
+  category: cms
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@squarespace\\/" }
+  confidence: high
+- id: storyblok
+  name: Storyblok
+  category: cms
+  match:
+    deps:
+      - { ecosystem: npm, name: storyblok }
+      - { ecosystem: composer, name: storyblok/php-content-api-client }
+      - { ecosystem: composer, name: storyblok/php-client }
+      - { ecosystem: pypi, name: storyblok }
+      - { ecosystem: rubygems, name: storyblok }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@storyblok\\/" }
+  confidence: high
+- id: strapi
+  name: Strapi
+  category: cms
+  match:
+    deps:
+      - { ecosystem: npm, name: strapi }
+      - { ecosystem: npm, name: "@strapi/strapi" }
+    depsRegex:
+      - { ecosystem: docker, pattern: strapi }
+    dotenv: [STRAPI_]
+  confidence: high
+- id: webflow
+  name: Webflow
+  category: cms
+  match:
+    deps:
+      - { ecosystem: npm, name: webflow-api }
+      - { ecosystem: terraform, name: airbyte_source_webflow }
+    dotenv: [WEBFLOW_]
+  confidence: high
+- id: woocommerce
+  name: WooCommerce
+  category: cms
+  match:
+    deps:
+      - { ecosystem: composer, name: automattic/woocommerce }
+      - { ecosystem: terraform, name: airbyte_source_woocommerce }
+    dotenv: [WOOCOMMERCE_]
+  confidence: high
+- id: wordpress
+  name: Wordpress
+  category: cms
+  match:
+    deps:
+      - { ecosystem: composer, name: wp-cli/wp-cli }
+      - { ecosystem: composer, name: roots/wordpress }
+      - { ecosystem: composer, name: johnpbloch/wordpress }
+      - { ecosystem: githubAction, name: "10up/action-wordpress-plugin-deploy" }
+      - { ecosystem: docker, name: wordpress }
+      - { ecosystem: npm, name: gatsby-source-wordpress }
+      - { ecosystem: npm, name: "@wordpress/block-editor" }
+      - { ecosystem: npm, name: "@wordpress/data" }
+      - { ecosystem: npm, name: "@wordpress/blocks" }
+      - { ecosystem: npm, name: "@wordpress/api-fetch" }
+      - { ecosystem: npm, name: "@wordpress/i18n" }
+      - { ecosystem: npm, name: "@wordpress/hooks" }
+    dotenv: [WP_]
+  confidence: high

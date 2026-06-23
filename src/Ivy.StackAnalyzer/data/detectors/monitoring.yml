@@ -1,0 +1,341 @@
+# Technology detectors (category: monitoring) seeded from specfy/stack-analyser (MIT).
+- id: appsignal
+  name: AppSignal
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: appsignal }
+      - { ecosystem: rubygems, name: appsignal }
+      - { ecosystem: pypi, name: appsignal }
+      - { ecosystem: npm, name: "@appsignal/nodejs" }
+      - { ecosystem: npm, name: "@appsignal/javascript" }
+      - { ecosystem: npm, name: "@appsignal/react" }
+      - { ecosystem: npm, name: "@appsignal/angular" }
+      - { ecosystem: npm, name: "@appsignal/vue" }
+      - { ecosystem: npm, name: "@appsignal/ember" }
+      - { ecosystem: docker, name: appsignal/collector }
+  confidence: high
+- id: aws.cloudwatch
+  name: AWS Cloudwatch
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-cloudwatch" }
+      - { ecosystem: npm, name: "@aws-sdk/client-cloudwatch" }
+      - { ecosystem: cargo, name: aws-sdk-cloudwatch }
+      - { ecosystem: rubygems, name: aws-sdk-cloudwatch }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/cloudwatch }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_cloudwatch_ }
+  confidence: high
+- id: betterstack
+  name: Better Stack
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: "@logtail/node" }
+      - { ecosystem: rubygems, name: logtail-rails }
+      - { ecosystem: composer, name: logtail/monolog-logtail }
+      - { ecosystem: terraform, name: registry.terraform.io/BetterStackHQ/better-uptime }
+      - { ecosystem: terraform, name: registry.terraform.io/BetterStackHQ/logtail }
+    dotenv: [LOGTAIL_, BETTERSTACK_]
+  confidence: high
+- id: blackfire
+  name: Blackfire
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: composer, name: blackfire/php-sdk }
+      - { ecosystem: docker, name: blackfire/blackfire }
+    dotenv: [BLACKFIRE_]
+  confidence: high
+- id: bugsnag
+  name: Bugsnag
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: "@bugsnag/js" }
+      - { ecosystem: npm, name: "@bugsnag/node" }
+      - { ecosystem: npm, name: "@bugsnag/react-native" }
+      - { ecosystem: pypi, name: bugsnag }
+      - { ecosystem: composer, name: bugsnag/bugsnag }
+      - { ecosystem: composer, name: bugsnag/bugsnag-laravel }
+      - { ecosystem: rubygems, name: bugsnag }
+      - { ecosystem: go, name: github.com/bugsnag/bugsnag-go }
+      - { ecosystem: npm, name: "@bugsnag/expo" }
+    dotenv: [BUGSNAG_]
+  confidence: high
+- id: datadog
+  name: Datadog
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: dd-trace }
+      - { ecosystem: npm, name: datadog-metrics }
+      - { ecosystem: npm, name: "@datadog/datadog-api-client" }
+      - { ecosystem: npm, name: "@pulumi/datadog" }
+      - { ecosystem: terraform, name: registry.terraform.io/datadog/datadog }
+      - { ecosystem: cargo, name: ddtrace }
+      - { ecosystem: cargo, name: datadog-apm }
+      - { ecosystem: rubygems, name: ddtrace }
+      - { ecosystem: composer, name: datadog/php-datadogstatsd }
+      - { ecosystem: composer, name: datadog/dd-trace }
+      - { ecosystem: githubAction, name: DataDog/synthetics-ci-github-action }
+      - { ecosystem: githubAction, name: datadog/agent-github-action }
+      - { ecosystem: pypi, name: datadog }
+      - { ecosystem: docker, name: datadog/agent }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@datadog\\/" }
+      - { ecosystem: terraform, pattern: ^datadog_ }
+      - { ecosystem: rubygems, pattern: datadog }
+    dotenv: [DD_]
+  confidence: high
+- id: dynatrace
+  name: Dynatrace
+  category: monitoring
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@dynatrace\\/" }
+    dotenv: [DYNATRACE_]
+  confidence: high
+- id: gcp.logging
+  name: Cloud Logging
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/logging" }
+      - { ecosystem: go, name: cloud.google.com/go/logging }
+      - { ecosystem: rubygems, name: google-cloud-logging }
+      - { ecosystem: cargo, name: google-cloud-logging }
+      - { ecosystem: composer, name: google/cloud-logging }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_logging_ }
+  confidence: high
+- id: honeybadger
+  name: Honeybadger
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: honeybadger }
+      - { ecosystem: rubygems, name: honeybadger }
+      - { ecosystem: pypi, name: honeybadger }
+      - { ecosystem: go, name: github.com/honeybadger-io/honeybadger-go }
+      - { ecosystem: composer, name: honeybadger-io/honeybadger-laravel }
+      - { ecosystem: composer, name: honeybadger-io/honeybadger-php }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@honeybadger-io\\/" }
+    dotenv: [HONEYBADGER_]
+  confidence: high
+- id: hyperdx
+  name: HyperDX
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: "@hyperdx/browser" }
+      - { ecosystem: npm, name: "@hyperdx/node-logger" }
+      - { ecosystem: npm, name: "@hyperdx/node-opentelemetry" }
+      - { ecosystem: npm, name: "@hyperdx/deno" }
+      - { ecosystem: npm, name: "@hyperdx/otel-react-native" }
+      - { ecosystem: go, name: github.com/hyperdxio/hyperdx-go }
+  confidence: high
+- id: newrelic
+  name: New Relic
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: newrelic }
+      - { ecosystem: terraform, name: registry.terraform.io/newrelic/newrelic }
+      - { ecosystem: rubygems, name: newrelic_rpm }
+      - { ecosystem: composer, name: ekino/newrelic-bundle }
+      - { ecosystem: composer, name: intouch/newrelic }
+      - { ecosystem: npm, name: "@pulumi/newrelic" }
+    dotenv: [NEW_RELIC_]
+  confidence: high
+- id: onlineornot
+  name: OnlineOrNot
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: onlineornot }
+  confidence: high
+- id: opentelemetry
+  name: OpenTelemetry
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: "@opentelemetry/core" }
+      - { ecosystem: npm, name: "@opentelemetry/api" }
+      - { ecosystem: npm, name: "@opentelemetry/sdk-node" }
+      - { ecosystem: npm, name: "@opentelemetry/semantic-conventions" }
+      - { ecosystem: npm, name: "@sentry/opentelemetry-node" }
+      - { ecosystem: docker, name: otel/opentelemetry-collector-contrib }
+      - { ecosystem: docker, name: otel/opentelemetry-collector }
+      - { ecosystem: docker, name: otel/opentelemetry-operator }
+      - { ecosystem: go, name: go.opentelemetry.io/otel }
+      - { ecosystem: composer, name: open-telemetry/sdk }
+      - { ecosystem: pypi, name: opentelemetry-distro }
+      - { ecosystem: rubygems, name: opentelemetry-sdk }
+      - { ecosystem: rubygems, name: sentry-opentelemetry }
+      - { ecosystem: cargo, name: opentelemetry }
+      - { ecosystem: githubAction, name: plengauer/Thoth }
+      - { ecosystem: go, name: github.com/getsentry/sentry-go/otel }
+    dotenv: [OTEL_]
+  confidence: high
+- id: papertrail
+  name: Papertrail
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: winston-papertrail }
+      - { ecosystem: npm, name: pino-papertrail }
+      - { ecosystem: composer, name: stephanecoinon/papertrail }
+      - { ecosystem: rubygems, name: papertrail }
+      - { ecosystem: go, name: github.com/papertrail/go-tail/follower }
+    dotenv: [PAPERTRAIL_]
+  confidence: high
+- id: pingdom
+  name: Pingdom
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/russellcardullo/pingdom }
+    dotenv: [PINGDOM_]
+  confidence: high
+- id: prometheus
+  name: Prometheus
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: npm, name: prom-client }
+      - { ecosystem: npm, name: prometheus-gc-stats }
+      - { ecosystem: docker, name: prom/prometheus }
+      - { ecosystem: docker, name: bitnami/prometheus }
+      - { ecosystem: docker, name: bitnami/prometheus-operator }
+      - { ecosystem: docker, name: rancher/prometheus-auth }
+      - { ecosystem: docker, name: ubuntu/prometheus }
+      - { ecosystem: docker, name: newrelic/newrelic-prometheus-configurator }
+      - { ecosystem: docker, name: nginx/nginx-prometheus-exporter }
+      - { ecosystem: docker, name: newrelic/nri-prometheus }
+      - { ecosystem: docker, name: grafana/mimir }
+      - { ecosystem: docker, name: bitnami/nginx-exporter }
+      - { ecosystem: cargo, name: prometheus }
+      - { ecosystem: composer, name: promphp/prometheus_client_php }
+      - { ecosystem: composer, name: artprima/prometheus-metrics-bundle }
+      - { ecosystem: rubygems, name: prometheus-client }
+      - { ecosystem: rubygems, name: prometheus }
+      - { ecosystem: rubygems, name: prometheus_exporter }
+      - { ecosystem: rubygems, name: prometheus-client-mmap }
+      - { ecosystem: rubygems, name: fluent-plugin-prometheus }
+      - { ecosystem: go, name: github.com/prometheus/client_golang/prometheus }
+      - { ecosystem: go, name: github.com/go-kit/kit/metrics/prometheus }
+      - { ecosystem: go, name: github.com/grpc-ecosystem/go-grpc-prometheus }
+  confidence: high
+- id: rollbar
+  name: Rollbar
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/rollbar/rollbar-go }
+      - { ecosystem: npm, name: rollbar }
+      - { ecosystem: npm, name: "@rollbar/react" }
+      - { ecosystem: npm, name: rollbar-react-native }
+      - { ecosystem: composer, name: rollbar/rollbar }
+      - { ecosystem: composer, name: rollbar/rollbar-laravel }
+      - { ecosystem: composer, name: rollbar/rollbar-magento2 }
+      - { ecosystem: composer, name: rollbar/rollbar-php-symfony-bundle }
+      - { ecosystem: composer, name: wpackagist-plugin/rollbar }
+      - { ecosystem: rubygems, name: rollbar }
+      - { ecosystem: githubAction, name: rollbar/github-deploy-action }
+      - { ecosystem: terraform, name: registry.terraform.io/rollbar/rollbar }
+    dotenv: [ROOLBAR_]
+  confidence: high
+- id: scoutapm
+  name: Scout APM
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: rubygems, name: scout_apm }
+      - { ecosystem: composer, name: scoutapp/scout-apm-php }
+      - { ecosystem: composer, name: scoutapp/scout-apm-laravel }
+      - { ecosystem: npm, name: scoutapp/scout-apm-laravel }
+  confidence: high
+- id: sentry
+  name: Sentry
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: docker, name: sentry }
+      - { ecosystem: docker, name: getsentry/sentry }
+      - { ecosystem: docker, name: getsentry/sentry-cli }
+      - { ecosystem: docker, name: sentryintegrations/sentry-github-action-release }
+      - { ecosystem: docker, name: daprio/sentry }
+      - { ecosystem: docker, name: us.gcr.io/sentryio/sentry }
+      - { ecosystem: npm, name: "@sentry/browser" }
+      - { ecosystem: npm, name: "@sentry/nextjs" }
+      - { ecosystem: npm, name: "@sentry/core" }
+      - { ecosystem: npm, name: "@sentry/node" }
+      - { ecosystem: npm, name: "@sentry/react" }
+      - { ecosystem: npm, name: "@sentry/react-native" }
+      - { ecosystem: npm, name: "@sentry/replay" }
+      - { ecosystem: npm, name: "@sentry/vercel-edge" }
+      - { ecosystem: npm, name: "@sentry/minimal" }
+      - { ecosystem: npm, name: "@sentry/integrations" }
+      - { ecosystem: npm, name: "@sentry/nestjs" }
+      - { ecosystem: npm, name: "@sentry/vue" }
+      - { ecosystem: npm, name: "@sentry/serveless" }
+      - { ecosystem: npm, name: "@sentry/electron" }
+      - { ecosystem: npm, name: "@sentry/aws-serverless" }
+      - { ecosystem: npm, name: "@sentry/remix" }
+      - { ecosystem: npm, name: "@sentry/svelte" }
+      - { ecosystem: npm, name: "@sentry/cloudflare" }
+      - { ecosystem: npm, name: "@sentry/nuxt" }
+      - { ecosystem: npm, name: "@sentry/bun" }
+      - { ecosystem: cargo, name: sentry }
+      - { ecosystem: rubygems, name: sentry-ruby }
+      - { ecosystem: rubygems, name: sentry-rails }
+      - { ecosystem: composer, name: sentry/sentry }
+      - { ecosystem: composer, name: sentry/sentry-symfony }
+      - { ecosystem: composer, name: sentry/sentry-laravel }
+      - { ecosystem: composer, name: sentry/sdk }
+      - { ecosystem: githubAction, name: getsentry/action-release }
+      - { ecosystem: go, name: github.com/getsentry/sentry-go }
+      - { ecosystem: pypi, name: sentry_sdk }
+    dotenv: [SENTRY_]
+  confidence: high
+- id: signoz
+  name: Signoz
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: docker, name: signoz/frontend }
+      - { ecosystem: docker, name: signoz/alertmanager }
+      - { ecosystem: docker, name: signoz/query-service }
+      - { ecosystem: docker, name: signoz/signoz-otel-collector }
+      - { ecosystem: docker, name: signoz/locust }
+    dotenv: [SIGNOZ_]
+  confidence: high
+- id: uptimekuma
+  name: Uptime Kuma
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: docker, name: louislam/uptime-kuma }
+  confidence: high
+- id: zipkin
+  name: Zipkin
+  category: monitoring
+  match:
+    deps:
+      - { ecosystem: docker, name: openzipkin/zipkin }
+      - { ecosystem: go, name: github.com/openzipkin/zipkin-go }
+      - { ecosystem: go, name: github.com/openzipkin-contrib/zipkin-go-opentracing }
+      - { ecosystem: go, name: github.com/go-kit/kit/tracing/zipkin }
+      - { ecosystem: go, name: go.opentelemetry.io/otel/exporters/zipkin }
+      - { ecosystem: go, name: contrib.go.opencensus.io/exporter/zipkin }
+      - { ecosystem: npm, name: zipkin }
+      - { ecosystem: npm, name: zipkin-context-cls }
+      - { ecosystem: npm, name: zipkin-transport-http }
+      - { ecosystem: npm, name: "@opentelemetry/exporter-zipkin" }
+      - { ecosystem: rubygems, name: zipkin-tracer }
+      - { ecosystem: composer, name: openzipkin/zipkin }
+  confidence: high

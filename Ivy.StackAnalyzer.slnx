@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Ivy.StackAnalyzer.Console/Ivy.StackAnalyzer.Console.csproj" />
+    <Project Path="src/Ivy.StackAnalyzer.Test/Ivy.StackAnalyzer.Test.csproj" />
+    <Project Path="src/Ivy.StackAnalyzer/Ivy.StackAnalyzer.csproj" />
+  </Folder>
+</Solution>

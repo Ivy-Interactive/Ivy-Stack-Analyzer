@@ -1,0 +1,187 @@
+# Technology detectors (category: storage) seeded from specfy/stack-analyser (MIT).
+- id: aws.cloudfront
+  name: AWS CloudFront
+  category: storage
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-cloudfront" }
+      - { ecosystem: npm, name: "@aws-sdk/client-cloudfront" }
+      - { ecosystem: cargo, name: aws-sdk-cloudfront }
+      - { ecosystem: rubygems, name: aws-sdk-cloudfront }
+      - { ecosystem: rubygems, name: cloudfront-signer }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/cloudfront }
+      - { ecosystem: composer, name: dreamonkey/laravel-cloudfront-url-signer }
+      - { ecosystem: githubAction, name: chetan/invalidate-cloudfront-action }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_cloudfront_ }
+    dotenv: [CLOUDFRONT_]
+  confidence: high
+- id: aws.ebs
+  name: AWS Block Storage
+  category: storage
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-ebs" }
+      - { ecosystem: npm, name: "@aws-sdk/client-ebs" }
+      - { ecosystem: cargo, name: aws-sdk-ebs }
+      - { ecosystem: rubygems, name: aws-sdk-ebs }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/ebs }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_ebs_ }
+  confidence: high
+- id: aws.ecr
+  name: AWS Container Registry
+  category: storage
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-ecr" }
+      - { ecosystem: npm, name: "@aws-sdk/client-ecr" }
+      - { ecosystem: cargo, name: aws-sdk-ecr }
+      - { ecosystem: rubygems, name: aws-sdk-ecr }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/ecr }
+      - { ecosystem: githubAction, name: aws-actions/amazon-ecr-login }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_ecr_ }
+  confidence: high
+- id: aws.efs
+  name: AWS File System
+  category: storage
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-cdk/aws-efs" }
+      - { ecosystem: npm, name: "@aws-sdk/client-efs" }
+      - { ecosystem: cargo, name: aws-sdk-efs }
+      - { ecosystem: rubygems, name: aws-sdk-efs }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/efs }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_efs_ }
+  confidence: high
+- id: aws.glacier
+  name: AWS Glacier
+  category: storage
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-glacier" }
+      - { ecosystem: cargo, name: aws-sdk-glacier }
+      - { ecosystem: rubygems, name: aws-sdk-glacier }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/glacier }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_glacier }
+  confidence: high
+- id: aws.s3
+  name: AWS S3
+  category: storage
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-s3" }
+      - { ecosystem: docker, name: adobe/s3mock }
+      - { ecosystem: cargo, name: aws-sdk-s3 }
+      - { ecosystem: rubygems, name: aws-sdk-s3 }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/s3 }
+      - { ecosystem: composer, name: async-aws/s3 }
+      - { ecosystem: composer, name: async-aws/simple-s3 }
+      - { ecosystem: githubAction, name: jakejarvis/s3-sync-action }
+      - { ecosystem: composer, name: league/flysystem-aws-s3-v3 }
+      - { ecosystem: composer, name: league/flysystem-async-aws-s3 }
+      - { ecosystem: terraform, name: airbyte_destination_s3 }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_s3 }
+  confidence: high
+- id: azure.storage
+  name: Azure Storage
+  category: storage
+  match:
+    deps:
+      - { ecosystem: npm, name: "@azure/storage-blob" }
+      - { ecosystem: npm, name: "@azure/storage-queue" }
+      - { ecosystem: npm, name: "@azure/storage-file-share" }
+      - { ecosystem: npm, name: "@azure/storage-file-datalake" }
+      - { ecosystem: rubygems, name: azure-storage }
+      - { ecosystem: rubygems, name: azure-storage-common }
+      - { ecosystem: rubygems, name: azure-storage-blob }
+      - { ecosystem: rubygems, name: azure-storage-table }
+      - { ecosystem: rubygems, name: azure-storage-file }
+      - { ecosystem: rubygems, name: azure-storage-queue }
+      - { ecosystem: rubygems, name: azure_mgmt_storage }
+      - { ecosystem: rubygems, name: fluent-plugin-azurestorage }
+      - { ecosystem: rubygems, name: fluent-plugin-azurestorage-gen2 }
+      - { ecosystem: rubygems, name: logstash-input-azureblob }
+      - { ecosystem: composer, name: microsoft/azure-storage-common }
+      - { ecosystem: composer, name: microsoft/azure-storage-blob }
+      - { ecosystem: composer, name: microsoft/azure-storage-table }
+      - { ecosystem: composer, name: microsoft/azure-storage-file }
+      - { ecosystem: composer, name: microsoft/azure-storage-queue }
+      - { ecosystem: composer, name: matthewbdaly/laravel-azure-storage }
+      - { ecosystem: composer, name: league/flysystem-azure-blob-storage }
+      - { ecosystem: cargo, name: azure_storage }
+      - { ecosystem: cargo, name: azure_storage_queues }
+      - { ecosystem: cargo, name: azure_storage_blobs }
+      - { ecosystem: cargo, name: azure_storage_datalake }
+      - { ecosystem: terraform, name: airbyte_destination_azure_blob_storage }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^azurerm_hpc_ }
+      - { ecosystem: terraform, pattern: ^azurerm_storage_ }
+  confidence: high
+- id: cloudflare.r2
+  name: Cloudflare R2
+  category: storage
+  match:
+    deps:
+      - { ecosystem: npm, name: node-cloudflare-r2 }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^cloudflare_r2 }
+  confidence: high
+- id: gcp.artifactregistry
+  name: Cloud Artifact Registry
+  category: storage
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/artifact-registry" }
+      - { ecosystem: npm, name: google-artifactregistry-auth }
+      - { ecosystem: go, name: cloud.google.com/go/artifactregistry }
+      - { ecosystem: rubygems, name: google-cloud-artifact_registry }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_artifact_ }
+  confidence: high
+- id: gcp.gcs
+  name: Cloud Storage
+  category: storage
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/storage" }
+      - { ecosystem: go, name: cloud.google.com/go/storage }
+      - { ecosystem: rubygems, name: google-cloud-storage }
+      - { ecosystem: rubygems, name: google-apis-storage_v1 }
+      - { ecosystem: cargo, name: google-cloud-storage }
+      - { ecosystem: composer, name: google/cloud-storage }
+      - { ecosystem: githubAction, name: google-github-actions/upload-cloud-storage }
+      - { ecosystem: composer, name: league/flysystem-google-cloud-storage }
+      - { ecosystem: pypi, name: google-cloud-storage }
+      - { ecosystem: terraform, name: airbyte_destination_gcs }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_storage_ }
+  confidence: high
+- id: ovh.storage
+  name: OVH Storage
+  category: storage
+  match:
+    deps:
+      - { ecosystem: terraform, name: ovh_cloud_project_region_storage_presign }
+  confidence: high
+- id: scaleway.storage
+  name: Scaleway Storage
+  category: storage
+  match:
+    deps:
+      - { ecosystem: terraform, name: scaleway_object_bucket }
+      - { ecosystem: terraform, name: scaleway_object_bucket_acl }
+  confidence: high
+- id: supabase.storage
+  name: Supabase Storage
+  category: storage
+  match:
+    deps:
+      - { ecosystem: npm, name: "@supabase/storage-js" }
+      - { ecosystem: docker, name: bitnami/supabase-storage }
+      - { ecosystem: docker, name: supabase/storage-api }
+  confidence: high

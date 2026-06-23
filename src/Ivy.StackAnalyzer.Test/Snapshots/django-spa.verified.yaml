@@ -1,0 +1,186 @@
+﻿summary:
+  totalFiles: 7
+  analyzedFiles: 7
+  primaryLanguages:
+  - Python
+  - TypeScript
+  componentCount: 3
+languages:
+- name: Python
+  type: programming
+  files: 2
+  bytes: 442
+  percent: 39.9
+- name: JSON
+  type: data
+  files: 1
+  bytes: 174
+  percent: 15.7
+- name: Vue
+  type: markup
+  files: 1
+  bytes: 165
+  percent: 14.9
+- name: TypeScript
+  type: programming
+  files: 1
+  bytes: 130
+  percent: 11.7
+- name: Markdown
+  type: prose
+  files: 1
+  bytes: 115
+  percent: 10.4
+- name: Pip Requirements
+  type: data
+  files: 1
+  bytes: 82
+  percent: 7.4
+components:
+- relativePath: .
+  languages:
+  - name: Markdown
+    type: prose
+    files: 1
+    bytes: 115
+    percent: 100
+  manifests: []
+  technologies: []
+  fileCount: 1
+  sizeBytes: 115
+  isWorkspaceRoot: false
+  isAuxiliary: false
+- relativePath: backend
+  languages:
+  - name: Python
+    type: programming
+    files: 2
+    bytes: 442
+    percent: 84.4
+  - name: Pip Requirements
+    type: data
+    files: 1
+    bytes: 82
+    percent: 15.6
+  manifests:
+  - path: backend/requirements.txt
+    ecosystem: pypi
+    dependencies:
+    - name: Django
+      version: ==5.0.6
+      scope: runtime
+    - name: djangorestframework
+      version: ==3.15.1
+      scope: runtime
+    - name: gunicorn
+      version: ==22.0.0
+      scope: runtime
+    - name: psycopg2-binary
+      version: ==2.9.9
+      scope: runtime
+  technologies:
+  - name: Django
+    category: framework
+    evidence: pypi dep 'django'
+    confidence: high
+    componentPath: backend
+  fileCount: 3
+  sizeBytes: 524
+  isWorkspaceRoot: false
+  isAuxiliary: false
+- relativePath: frontend
+  languages:
+  - name: JSON
+    type: data
+    files: 1
+    bytes: 174
+    percent: 37.1
+  - name: Vue
+    type: markup
+    files: 1
+    bytes: 165
+    percent: 35.2
+  - name: TypeScript
+    type: programming
+    files: 1
+    bytes: 130
+    percent: 27.7
+  manifests:
+  - path: frontend/package.json
+    ecosystem: npm
+    dependencies:
+    - name: vue
+      version: 3.4.0
+      scope: runtime
+    - name: vite
+      version: 5.2.0
+      scope: dev
+    - name: '@vitejs/plugin-vue'
+      version: 5.0.0
+      scope: dev
+  technologies:
+  - name: Typescript
+    category: language
+    evidence: '*.ts'
+    confidence: high
+    componentPath: frontend
+  - name: Vue
+    category: language
+    evidence: '*.vue'
+    confidence: high
+    componentPath: frontend
+  - name: Vue.js
+    category: framework
+    evidence: npm dep 'vue'
+    confidence: high
+    componentPath: frontend
+  - name: Vite
+    category: build
+    evidence: npm dep 'vite'
+    confidence: high
+    componentPath: frontend
+  fileCount: 3
+  sizeBytes: 469
+  isWorkspaceRoot: false
+  isAuxiliary: false
+technologies:
+- name: Typescript
+  category: language
+  evidence: '*.ts'
+  confidence: high
+  componentPath: frontend
+- name: Vue
+  category: language
+  evidence: '*.vue'
+  confidence: high
+  componentPath: frontend
+- name: Django
+  category: framework
+  evidence: pypi dep 'django'
+  confidence: high
+  componentPath: backend
+- name: Vue.js
+  category: framework
+  evidence: npm dep 'vue'
+  confidence: high
+  componentPath: frontend
+- name: Vite
+  category: build
+  evidence: npm dep 'vite'
+  confidence: high
+  componentPath: frontend
+infrastructure: []
+readme:
+  path: README.md
+  excerpt: >-
+    # Django + Vue SPA
+
+
+    A Django REST Framework backend in `backend/` and a Vue + Vite single-page app
+
+    in `frontend/`.
+metadata:
+  analyzerVersion: 0.1.0
+  rulesLoaded: 732
+  languageDefsLoaded: 815
+  ignoredDirectories: []

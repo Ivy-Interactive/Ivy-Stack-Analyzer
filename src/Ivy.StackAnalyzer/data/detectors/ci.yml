@@ -1,0 +1,261 @@
+# Technology detectors (category: ci) seeded from specfy/stack-analyser (MIT).
+- id: appveyor
+  name: AppVeyor
+  category: ci
+  match:
+    files: [.appveyor.yml, .appveyor.yaml]
+  confidence: high
+- id: atlassian.bitbucketpipelines
+  name: Bitbucket Pipelines
+  category: ci
+  match:
+    files: [bitbucket-pipeline.yml]
+  confidence: high
+- id: aws.codebuild
+  name: AWS Code Build
+  category: ci
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-codebuild" }
+      - { ecosystem: cargo, name: aws-sdk-codebuild }
+      - { ecosystem: rubygems, name: aws-sdk-codebuild }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/codebuild }
+      - { ecosystem: githubAction, name: aws-actions/aws-codebuild-run-build }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_codebuild_ }
+  confidence: high
+- id: aws.codepipeline
+  name: AWS Code Pipeline
+  category: ci
+  match:
+    deps:
+      - { ecosystem: githubAction, name: zulhfreelancer/aws-codepipeline-action }
+  confidence: high
+- id: azure.ci
+  name: AzureCI
+  category: ci
+  match:
+    files: [azure-pipelines.yml, azure-pipelines.yaml]
+  confidence: high
+- id: browserstack
+  name: Browserstack
+  category: ci
+  match:
+    deps:
+      - { ecosystem: npm, name: browserstack }
+      - { ecosystem: rubygems, name: browserstack-local }
+    files: [browserstack.json, browserstack.yml]
+  confidence: high
+- id: circleci
+  name: CircleCI
+  category: ci
+  match:
+    deps:
+      - { ecosystem: rubygems, name: circleci }
+      - { ecosystem: githubAction, name: CircleCI-Public/trigger-circleci-pipeline-action }
+    files: [.circleci, circle.yml, circle.yaml]
+  confidence: high
+- id: cirrusci
+  name: CirrusCI
+  category: ci
+  match:
+    files: [.cirrus.yml, .cirrus.yaml]
+  confidence: high
+- id: cloudbees.codeship
+  name: CloudBees Codeship
+  category: ci
+  match:
+    files: [codeship-services.yml]
+  confidence: high
+- id: codeclimate
+  name: Code Climate
+  category: ci
+  match:
+    deps:
+      - { ecosystem: githubAction, name: paambaati/codeclimate-action }
+      - { ecosystem: githubAction, name: remarkablemark/setup-codeclimate }
+    files: [.codeclimate.yml]
+  confidence: high
+- id: codecov
+  name: Codecov
+  category: ci
+  match:
+    deps:
+      - { ecosystem: githubAction, name: codecov/codecov-action }
+    files: [.codecov.yml, codecov.yml]
+  confidence: high
+- id: codesandboxci
+  name: CodeSandboxCI
+  category: ci
+  match:
+    filesRegex: [".codesandbox\\/ci.json"]
+  confidence: high
+- id: concourseci
+  name: Concourse CI
+  category: ci
+  match:
+    files: [concourse-ci]
+  confidence: high
+- id: coveralls
+  name: Coveralls
+  category: ci
+  match:
+    deps:
+      - { ecosystem: githubAction, name: coverallsapp/github-action }
+      - { ecosystem: npm, name: node-coveralls }
+      - { ecosystem: go, name: goveralls }
+      - { ecosystem: npm, name: php-coveralls }
+      - { ecosystem: rubygems, name: coveralls }
+      - { ecosystem: rubygems, name: coveralls_reborn }
+  confidence: high
+- id: cypressci
+  name: CypressCI
+  category: ci
+  match:
+    deps:
+      - { ecosystem: npm, name: cypress }
+      - { ecosystem: npm, name: gatsby-cypress }
+      - { ecosystem: rubygems, name: cypress-on-rails }
+      - { ecosystem: githubAction, name: cypress-io/github-action }
+    depsRegex:
+      - { ecosystem: docker, pattern: cypress }
+    filesRegex: ["cypress.config.(js|ts|mjs|cjs)"]
+  confidence: high
+- id: deepsource
+  name: Deepsource
+  category: ci
+  match:
+    deps:
+      - { ecosystem: githubAction, name: deepsourcelabs/test-coverage-action }
+    files: [.deepsource.toml]
+  confidence: high
+- id: dependabot
+  name: Dependabot
+  category: ci
+  match:
+    deps:
+      - { ecosystem: githubAction, name: ahmadnassri/action-dependabot-auto-merge }
+    depsRegex:
+      - { ecosystem: rubygems, pattern: ^dependabot- }
+    filesRegex: [".github\\/dependabot.y(a)?ml"]
+  confidence: high
+- id: depotdev
+  name: Depot.dev
+  category: ci
+  match:
+    deps:
+      - { ecosystem: githubAction, name: depot/setup-action }
+      - { ecosystem: githubAction, name: depot/build-push-action }
+    files: [depot.json]
+  confidence: high
+- id: droneci
+  name: DroneCI
+  category: ci
+  match:
+    deps:
+      - { ecosystem: docker, name: drone/drone }
+    files: [.drone.yml]
+  confidence: high
+- id: gcp.cloudbuild
+  name: Cloud Build
+  category: ci
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/cloudbuild" }
+      - { ecosystem: go, name: cloud.google.com/go/cloudbuild }
+      - { ecosystem: composer, name: google/cloud-build }
+      - { ecosystem: pypi, name: google-cloud-build }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_cloudbuild_ }
+      - { ecosystem: rubygems, pattern: ^google-cloud-build }
+  confidence: high
+- id: github.codeql
+  name: GitHub CodeQL
+  category: ci
+  match:
+    deps:
+      - { ecosystem: githubAction, name: github/codeql-action/analyze }
+  confidence: high
+- id: gitlab.ci
+  name: Gitlab CI
+  category: ci
+  match:
+    files: [.gitlab-ci.yml, .gitlab-ci.yaml]
+  confidence: high
+- id: jenkins
+  name: Jenkins
+  category: ci
+  match:
+    deps:
+      - { ecosystem: rubygems, name: jenkins_api_client }
+    depsRegex:
+      - { ecosystem: docker, pattern: jenkins-docker }
+    files: [.jenkins]
+  confidence: high
+- id: nxcloud
+  name: NX Cloud
+  category: ci
+  match:
+    deps:
+      - { ecosystem: npm, name: nx-cloud }
+  confidence: high
+- id: relativeci
+  name: RelativeCI
+  category: ci
+  match:
+    deps:
+      - { ecosystem: npm, name: "@relative-ci/agent" }
+      - { ecosystem: githubAction, name: relative-ci/agent-action }
+    files: [relativeci.config.js]
+  confidence: high
+- id: renovate
+  name: Renovate
+  category: ci
+  match:
+    deps:
+      - { ecosystem: npm, name: renovate }
+    files: [.renovaterc.json, .renovaterc, renovate.json, renovate.json5]
+  confidence: high
+- id: sonarcloud
+  name: SonarCloud
+  category: ci
+  match:
+    deps:
+      - { ecosystem: githubAction, name: SonarSource/sonarcloud-github-action }
+  confidence: high
+- id: sonarqube
+  name: SonarQube
+  category: ci
+  match:
+    deps:
+      - { ecosystem: docker, name: sonarqube }
+    files: [.sonar-project.properties]
+  confidence: high
+- id: styleci
+  name: StyleCI
+  category: ci
+  match:
+    files: [.styleci.yml, .styleci.yaml]
+  confidence: high
+- id: teamcity
+  name: TeamCity
+  category: ci
+  match:
+    files: [.teamcity]
+  confidence: high
+- id: travisci
+  name: TravisCI
+  category: ci
+  match:
+    deps:
+      - { ecosystem: rubygems, name: travis }
+    files: [.travis.yml, .travis.yaml]
+  confidence: high
+- id: trufflesecurity
+  name: Truffle Security
+  category: ci
+  match:
+    deps:
+      - { ecosystem: docker, name: trufflesecurity/trufflehog }
+      - { ecosystem: githubAction, name: trufflesecurity/trufflehog }
+  confidence: high

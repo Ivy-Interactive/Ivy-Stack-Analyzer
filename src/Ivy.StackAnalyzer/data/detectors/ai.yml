@@ -1,0 +1,331 @@
+# Technology detectors (category: ai) seeded from specfy/stack-analyser (MIT).
+- id: anthropic
+  name: Anthropic
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@anthropic-ai/sdk" }
+      - { ecosystem: npm, name: "@ai-sdk/anthropic" }
+      - { ecosystem: npm, name: "@langchain/anthropic" }
+      - { ecosystem: pypi, name: anthropic }
+      - { ecosystem: go, name: github.com/anthropics/anthropic-sdk-go }
+      - { ecosystem: npm, name: genkitx-anthropic }
+      - { ecosystem: pypi, name: langchain-anthropic }
+    dotenv: [ANTHROPIC_]
+  confidence: high
+- id: aws.bedrock
+  name: AWS Bedrock
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-bedrock" }
+      - { ecosystem: npm, name: "@aws-sdk/client-bedrock-runtime" }
+      - { ecosystem: npm, name: "@aws-sdk/client-bedrock-agent-runtime" }
+      - { ecosystem: npm, name: "@ai-sdk/amazon-bedrock" }
+      - { ecosystem: npm, name: "@anthropic-ai/bedrock-sdk" }
+  confidence: high
+- id: aws.comprehend
+  name: AWS Comprehend
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-comprehend" }
+      - { ecosystem: npm, name: "@aws-sdk/client-comprehendmedical" }
+  confidence: high
+- id: aws.polly
+  name: AWS Polly
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-polly" }
+      - { ecosystem: npm, name: "@aws-cdk/aws-polly" }
+      - { ecosystem: cargo, name: aws-sdk-polly }
+      - { ecosystem: rubygems, name: aws-sdk-polly }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/polly }
+  confidence: high
+- id: aws.rekognition
+  name: AWS Rekognition
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-rekognition" }
+      - { ecosystem: npm, name: "@aws-cdk/aws-rekognition" }
+      - { ecosystem: cargo, name: aws-sdk-rekognition }
+      - { ecosystem: rubygems, name: aws-sdk-rekognition }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/rekognition }
+  confidence: high
+- id: aws.sagemaker
+  name: AWS SageMaker
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-sagemaker" }
+      - { ecosystem: npm, name: "@aws-cdk/aws-sagemaker" }
+      - { ecosystem: cargo, name: aws-sdk-sagemaker }
+      - { ecosystem: rubygems, name: aws-sdk-sagemaker }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/sagemaker }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^aws_sagemaker_ }
+  confidence: high
+- id: aws.transcribe
+  name: AWS Transcribe
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/middleware-sdk-transcribe-streaming" }
+      - { ecosystem: npm, name: "@aws-sdk/client-transcribe-streaming" }
+      - { ecosystem: npm, name: "@aws-sdk/client-transcribe" }
+  confidence: high
+- id: aws.translate
+  name: AWS Translate
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@aws-sdk/client-translate" }
+      - { ecosystem: npm, name: "@aws-cdk/aws-translate" }
+      - { ecosystem: cargo, name: aws-sdk-translate }
+      - { ecosystem: rubygems, name: aws-sdk-translate }
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/translate }
+  confidence: high
+- id: azure.openai
+  name: Azure Openai
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@ai-sdk/azure" }
+      - { ecosystem: npm, name: genkitx-azure-openai }
+  confidence: high
+- id: cohereai
+  name: Cohere AI
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@langchain/cohere" }
+      - { ecosystem: npm, name: "@ai-sdk/cohere" }
+      - { ecosystem: npm, name: "@llamaindex/cohere" }
+      - { ecosystem: npm, name: cohere-ai }
+      - { ecosystem: pypi, name: cohere }
+      - { ecosystem: go, name: github.com/cohere-ai/cohere-go/v2 }
+    dotenv: [COHERE_]
+  confidence: high
+- id: deepseek
+  name: Deepseek
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@ai-sdk/deepsek" }
+      - { ecosystem: npm, name: "@langchain/deepsek" }
+      - { ecosystem: npm, name: n8n-nodes-deepseek }
+      - { ecosystem: pypi, name: langchain-deepseek }
+    dotenv: [DEEPSEEK_]
+  confidence: high
+- id: elevenlabs
+  name: Elevenlabs
+  category: ai
+  match:
+    deps:
+      - { ecosystem: pypi, name: elevenlabs }
+      - { ecosystem: npm, name: "@elevenlabs/react" }
+      - { ecosystem: npm, name: "@elevenlabs/react-native" }
+      - { ecosystem: npm, name: "@elevenlabs/client" }
+    dotenv: [ELEVENLABS_]
+  confidence: high
+- id: gcp.aiplatform
+  name: Cloud AI Platform
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/aiplatform" }
+      - { ecosystem: go, name: cloud.google.com/go/aiplatform }
+      - { ecosystem: composer, name: google/cloud-ai-platform }
+      - { ecosystem: pypi, name: google-cloud-aiplatform }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_vertex_ }
+      - { ecosystem: rubygems, pattern: ^google-cloud-ai_platform }
+  confidence: high
+- id: gcp.dialogflow
+  name: Cloud Dialogflow
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/dialogflow" }
+      - { ecosystem: go, name: cloud.google.com/go/dialogflow }
+      - { ecosystem: composer, name: google/cloud-dialogflow }
+    depsRegex:
+      - { ecosystem: terraform, pattern: ^google_dialogflow_ }
+      - { ecosystem: rubygems, pattern: ^google-cloud-dialogflow }
+  confidence: high
+- id: gcp.language
+  name: Cloud Language
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/language" }
+      - { ecosystem: go, name: cloud.google.com/go/language }
+      - { ecosystem: composer, name: google/cloud-language }
+    depsRegex:
+      - { ecosystem: rubygems, pattern: ^google-cloud-language }
+  confidence: high
+- id: gcp.speech
+  name: Cloud Speech
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/speech" }
+      - { ecosystem: go, name: cloud.google.com/go/speech }
+      - { ecosystem: composer, name: google/cloud-speech }
+      - { ecosystem: pypi, name: google-cloud-speech }
+    depsRegex:
+      - { ecosystem: rubygems, pattern: ^google-cloud-speech }
+  confidence: high
+- id: gcp.translate
+  name: Google Translate
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/translate" }
+      - { ecosystem: npm, name: google-translate-api-browser }
+      - { ecosystem: npm, name: "@vitalets/google-translate-api" }
+      - { ecosystem: npm, name: "@iamtraction/google-translate" }
+      - { ecosystem: go, name: cloud.google.com/go/translate }
+      - { ecosystem: composer, name: google/cloud-translate }
+      - { ecosystem: pypi, name: google-cloud-translate }
+    depsRegex:
+      - { ecosystem: rubygems, pattern: ^google-cloud-translate }
+  confidence: high
+- id: gcp.vertex
+  name: Vertex AI
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@ai-sdk/google-vertex" }
+      - { ecosystem: npm, name: "@google-cloud/vertexai" }
+      - { ecosystem: npm, name: "@langchain/google-vertexai" }
+      - { ecosystem: pypi, name: vertexai }
+    dotenv: [VERTEX_AI]
+  confidence: high
+- id: gcp.vision
+  name: Cloud Vision
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@google-cloud/vision" }
+      - { ecosystem: go, name: cloud.google.com/go/vision }
+      - { ecosystem: composer, name: google/cloud-vision }
+      - { ecosystem: pypi, name: google-cloud-vision }
+    depsRegex:
+      - { ecosystem: rubygems, pattern: ^google-cloud-vision }
+  confidence: high
+- id: geminiai
+  name: Gemini AI
+  category: ai
+  match:
+    deps:
+      - { ecosystem: pypi, name: genai }
+      - { ecosystem: npm, name: "@google/genai" }
+      - { ecosystem: npm, name: gemini-ai }
+      - { ecosystem: pypi, name: langchain-google-genai }
+      - { ecosystem: pypi, name: google-generativeai }
+    dotenv: [GEMINI_]
+  confidence: high
+- id: groq
+  name: Groq
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@langchain/groq" }
+      - { ecosystem: npm, name: "@ai-sdk/groq" }
+      - { ecosystem: npm, name: groq-sdk }
+      - { ecosystem: npm, name: "genkitx-groq " }
+      - { ecosystem: pypi, name: langchain-groq }
+      - { ecosystem: pypi, name: groq }
+    dotenv: [GROQ_]
+  confidence: high
+- id: huggingface
+  name: Hugging Face
+  category: ai
+  match:
+    deps:
+      - { ecosystem: pypi, name: langchain-huggingface }
+      - { ecosystem: pypi, name: huggingface-hub }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@huggingface\\/" }
+    dotenv: [HUGGINGFACE_]
+  confidence: high
+- id: mistralai
+  name: Mistral AI
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@ai-sdk/mistral" }
+      - { ecosystem: npm, name: genkitx-mistral }
+      - { ecosystem: pypi, name: mistralai }
+      - { ecosystem: npm, name: "@mistralai/mistralai" }
+      - { ecosystem: go, name: github.com/gage-technologies/mistral-go }
+      - { ecosystem: pypi, name: langchain-mistralai }
+    dotenv: [MISTRAL]
+  confidence: high
+- id: ollama
+  name: Ollama
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@langchain/ollama" }
+      - { ecosystem: npm, name: ollama-ai-provider }
+      - { ecosystem: npm, name: genkitx-ollama }
+      - { ecosystem: npm, name: ollama }
+      - { ecosystem: pypi, name: langchain-ollama }
+      - { ecosystem: pypi, name: ollama }
+    dotenv: [OLLAMA_]
+  confidence: high
+- id: openai
+  name: Openai
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: openai }
+      - { ecosystem: npm, name: "@ai-sdk/openai" }
+      - { ecosystem: composer, name: openai-php/client }
+      - { ecosystem: composer, name: openai-php/laravel }
+      - { ecosystem: npm, name: gpt3-tokenizer }
+      - { ecosystem: npm, name: chatgpt }
+      - { ecosystem: npm, name: genkitx-openai }
+      - { ecosystem: pypi, name: langchain-openai }
+      - { ecosystem: pypi, name: openai }
+    dotenv: [OPENAI_]
+  confidence: high
+- id: perplexityai
+  name: Perplexity AI
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@ai-sdk/perplexity" }
+      - { ecosystem: npm, name: "@langchain/perplexity" }
+      - { ecosystem: npm, name: "@watzon/n8n-nodes-perplexity" }
+    dotenv: [PERPLEXITY_]
+  confidence: high
+- id: replicate
+  name: Replicate
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: replicate }
+      - { ecosystem: pypi, name: replicate }
+    dotenv: [REPLICATE_]
+  confidence: high
+- id: vercel.ai
+  name: Vercel AI
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@vercel/ai" }
+  confidence: high
+- id: xai
+  name: X AI
+  category: ai
+  match:
+    deps:
+      - { ecosystem: npm, name: "@ai-sdk/xai" }
+      - { ecosystem: pypi, name: langchain-xai }
+    dotenv: [XAI_]
+  confidence: high

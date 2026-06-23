@@ -1,0 +1,189 @@
+# Technology detectors (category: auth) seeded from specfy/stack-analyser (MIT).
+- id: auth0
+  name: Auth0
+  category: auth
+  match:
+    deps:
+      - { ecosystem: npm, name: auth0 }
+      - { ecosystem: npm, name: "@pulumi/auth0" }
+      - { ecosystem: terraform, name: registry.terraform.io/auth0/auth0 }
+      - { ecosystem: cargo, name: auth0 }
+      - { ecosystem: rubygems, name: auth0 }
+      - { ecosystem: rubygems, name: omniauth-auth0 }
+      - { ecosystem: composer, name: auth0/auth0-php }
+      - { ecosystem: composer, name: auth0/login }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@auth0\\/" }
+    dotenv: [AUTH0_]
+  confidence: high
+- id: aws.cognito
+  name: AWS Cognito
+  category: auth
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider }
+      - { ecosystem: npm, name: "@aws-sdk/client-cognito-identity-provider" }
+      - { ecosystem: rubygems, name: aws-sdk-cognitoidentityprovider }
+  confidence: high
+- id: betterauth
+  name: Better Auth
+  category: auth
+  match:
+    deps:
+      - { ecosystem: npm, name: better-auth }
+      - { ecosystem: npm, name: "@better-auth/cli" }
+    dotenv: [BETTER_AUTH_]
+  confidence: high
+- id: clerk
+  name: Clerk
+  category: auth
+  match:
+    deps:
+      - { ecosystem: npm, name: "@clerk/types" }
+      - { ecosystem: npm, name: "@clerk/nextjs" }
+      - { ecosystem: npm, name: "@clerk/clerk-react" }
+      - { ecosystem: npm, name: "@clerk/clerk-js" }
+      - { ecosystem: npm, name: "@clerk/express" }
+      - { ecosystem: npm, name: "@clerk/fastify" }
+      - { ecosystem: npm, name: "@clerk/tanstack-start" }
+      - { ecosystem: rubygems, name: clerk-sdk-ruby }
+      - { ecosystem: pypi, name: clerk-backend-api }
+      - { ecosystem: go, name: github.com/clerk/clerk-sdk-go/v2 }
+    dotenv: [CLERK_]
+  confidence: high
+- id: frontegg
+  name: Frontegg
+  category: auth
+  match:
+    deps:
+      - { ecosystem: pypi, name: frontegg }
+      - { ecosystem: terraform, name: registry.terraform.io/frontegg/frontegg }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@frontegg\\/" }
+  confidence: high
+- id: fusionauth
+  name: Fusionauth
+  category: auth
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/FusionAuth/go-client/pkg/fusionauth }
+      - { ecosystem: composer, name: fusionauth/fusionauth-client }
+      - { ecosystem: pypi, name: fusionauth-client }
+      - { ecosystem: rubygems, name: fusionauth_client }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@fusionauth\\/" }
+  confidence: high
+- id: hanko
+  name: Hanko
+  category: auth
+  match:
+    deps:
+      - { ecosystem: npm, name: "@nuxtjs/hanko" }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@teamhanko\\/" }
+  confidence: high
+- id: kinde
+  name: Kinde
+  category: auth
+  match:
+    deps:
+      - { ecosystem: pypi, name: kinde-python-sdk }
+      - { ecosystem: rubygems, name: kinde_sdk }
+      - { ecosystem: composer, name: kinde-oss/kinde-auth-php }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@kinde-oss\\/" }
+  confidence: high
+- id: logtoio
+  name: Logto
+  category: auth
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/logto-io/go }
+      - { ecosystem: composer, name: logto/sdk }
+      - { ecosystem: pypi, name: logto }
+      - { ecosystem: rubygems, name: logto }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@logto\\/" }
+    dotenv: [LOGTO_]
+  confidence: high
+- id: okta
+  name: Okta
+  category: auth
+  match:
+    deps:
+      - { ecosystem: terraform, name: registry.terraform.io/okta/okta }
+      - { ecosystem: cargo, name: okta }
+      - { ecosystem: rubygems, name: oktakit }
+      - { ecosystem: composer, name: socialiteproviders/okta }
+      - { ecosystem: npm, name: "@pulumi/okta" }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@okta\\/" }
+    dotenv: [OKTA_]
+  confidence: high
+- id: orysh
+  name: Ory
+  category: auth
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/ory/client-go }
+      - { ecosystem: composer, name: ory/client }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@ory\\/" }
+  confidence: high
+- id: propelauth
+  name: PropelAuth
+  category: auth
+  match:
+    deps:
+      - { ecosystem: pypi, name: propelauth_fastapi }
+      - { ecosystem: cargo, name: propelauth }
+      - { ecosystem: go, name: github.com/propelauth/propelauth-go }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@propelauth\\/" }
+  confidence: high
+- id: stytch
+  name: Stytch
+  category: auth
+  match:
+    deps:
+      - { ecosystem: npm, name: stytch }
+      - { ecosystem: pypi, name: stytch }
+      - { ecosystem: go, name: github.com/stytchauth/stytch-go/v16 }
+      - { ecosystem: rubygems, name: stytch }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@stytch\\/" }
+  confidence: high
+- id: supabase.auth
+  name: Supabase Auth
+  category: auth
+  match:
+    deps:
+      - { ecosystem: npm, name: "@supabase/gotrue-js" }
+      - { ecosystem: docker, name: supabase/gotrue }
+  confidence: high
+- id: supertokens
+  name: SuperTokens
+  category: auth
+  match:
+    deps:
+      - { ecosystem: npm, name: supertokens-web-js }
+      - { ecosystem: npm, name: supertokens-node }
+      - { ecosystem: go, name: github.com/supertokens/supertokens-golang }
+      - { ecosystem: pypi, name: supertokens_python }
+      - { ecosystem: npm, name: supertokens-auth-react }
+  confidence: high
+- id: workos
+  name: WorkOS
+  category: auth
+  match:
+    deps:
+      - { ecosystem: npm, name: "@workos-inc/node" }
+      - { ecosystem: go, name: github.com/workos/workos-go }
+      - { ecosystem: rubygems, name: workos }
+      - { ecosystem: rubygems, name: omniauth-workos }
+      - { ecosystem: rubygems, name: ueberauth_workos }
+      - { ecosystem: pypi, name: workos }
+      - { ecosystem: composer, name: workos/workos-php }
+      - { ecosystem: pypi, name: django-workos }
+    dotenv: [WORKOS_]
+  confidence: high

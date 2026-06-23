@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Ivy.StackAnalyzer.Test</RootNamespace>
+    <AssemblyName>Ivy.StackAnalyzer.Test</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Verify.XunitV3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ivy.StackAnalyzer\Ivy.StackAnalyzer.csproj" />
+    <ProjectReference Include="..\Ivy.StackAnalyzer.Console\Ivy.StackAnalyzer.Console.csproj" />
+  </ItemGroup>
+
+  <!-- Fixtures are sample repos, not part of this project's compilation. -->
+  <ItemGroup>
+    <Compile Remove="Fixtures\**\*.cs" />
+    <EmbeddedResource Remove="Fixtures\**\*" />
+    <None Remove="Fixtures\**\*" />
+    <Content Include="Fixtures\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

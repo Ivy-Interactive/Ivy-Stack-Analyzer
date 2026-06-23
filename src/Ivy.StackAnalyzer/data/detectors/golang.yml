@@ -1,0 +1,51 @@
+# Hand-curated Go web frameworks / ORMs. specfy focuses on SaaS/cloud/db and
+# ships few Go application frameworks, so these fill a common gap.
+- id: gin
+  name: Gin
+  category: framework
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/gin-gonic/gin }
+  confidence: high
+
+- id: echo
+  name: Echo
+  category: framework
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/labstack/echo/v4 }
+      - { ecosystem: go, name: github.com/labstack/echo }
+  confidence: high
+
+- id: fiber
+  name: Fiber
+  category: framework
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/gofiber/fiber/v2 }
+      - { ecosystem: go, name: github.com/gofiber/fiber }
+  confidence: high
+
+- id: chi
+  name: chi
+  category: framework
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/go-chi/chi/v5 }
+      - { ecosystem: go, name: github.com/go-chi/chi }
+  confidence: high
+
+- id: gorm
+  name: GORM
+  category: orm
+  match:
+    deps:
+      - { ecosystem: go, name: gorm.io/gorm }
+  confidence: high
+
+- id: sqlc
+  name: sqlc
+  category: orm
+  match:
+    files: ["sqlc.yaml", "sqlc.yml", "sqlc.json"]
+  confidence: high

@@ -1,0 +1,607 @@
+# Technology detectors (category: framework) seeded from specfy/stack-analyser (MIT).
+- id: adminer
+  name: Adminer
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: adminer }
+  confidence: high
+- id: alpinejs
+  name: Alpine.js
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: alpinejs }
+  confidence: high
+- id: angular
+  name: Angular
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: angular }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@angular\\/" }
+    files: [angular.json]
+  confidence: high
+- id: apachetika
+  name: Tika
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: apache/tika }
+      - { ecosystem: pypi, name: tika }
+  confidence: high
+- id: apiplatform
+  name: Api Platform
+  category: framework
+  match:
+    deps:
+      - { ecosystem: composer, name: api-platform/core }
+      - { ecosystem: npm, name: "@api-platform/client" }
+  confidence: high
+- id: assemble
+  name: Assemble
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: assemble }
+  confidence: high
+- id: astro
+  name: Astro
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: astro }
+    files: [astro.config.mjs]
+  confidence: high
+- id: blitzjs
+  name: Blitzjs
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: blitz }
+  supersedes: [react, nextjs]
+  confidence: high
+- id: builtwithfern
+  name: Fern
+  category: framework
+  match:
+    files: [fern.config.json]
+  confidence: high
+- id: caddy
+  name: Caddy
+  category: framework
+  match:
+    depsRegex:
+      - { ecosystem: docker, pattern: caddy }
+    filesRegex: ["\\.Caddyfile$"]
+  confidence: high
+- id: consul
+  name: Consul
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: consul }
+  confidence: high
+- id: dioxus
+  name: Dioxus
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: dioxus }
+      - { ecosystem: cargo, name: dioxus-cli }
+  confidence: high
+- id: discourse
+  name: Discourse
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: bitnami/discourse }
+      - { ecosystem: docker, name: discourse/base }
+  confidence: high
+- id: django
+  name: Django
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: django }
+  confidence: high
+- id: docsify
+  name: Docsify
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: docsify-cli }
+  confidence: high
+- id: docusaurus
+  name: Docusaurus
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: "@docusaurus/core" }
+      - { ecosystem: npm, name: docusaurus }
+    files: [docusaurus.config.js]
+  confidence: high
+- id: eleventy
+  name: Eleventy
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: "@11ty/eleventy" }
+      - { ecosystem: githubAction, name: TartanLlama/actions-eleventy }
+    files: [.eleventy.js, eleventy.config.js, eleventy.config.cjs]
+  confidence: high
+- id: emberjs
+  name: Ember
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: ember-cli }
+      - { ecosystem: npm, name: ember }
+      - { ecosystem: npm, name: ember-data }
+      - { ecosystem: npm, name: ember-source }
+    files: [ember-cli-build.js]
+  confidence: high
+- id: expojs
+  name: ExpoJS
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: expo }
+  confidence: high
+- id: fumadocs
+  name: FumaDocs
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: fumadocs-ui }
+      - { ecosystem: npm, name: fumadocs-code }
+      - { ecosystem: npm, name: fumadocs-mdx }
+  confidence: high
+- id: gatsby
+  name: Gatsby
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: gatsby }
+      - { ecosystem: npm, name: gatsby-cli }
+      - { ecosystem: npm, name: gatsby-core-utils }
+      - { ecosystem: npm, name: "@gatsbyjs/reach-router" }
+      - { ecosystem: npm, name: "@netlify/plugin-gatsby" }
+      - { ecosystem: npm, name: "@vercel/gatsby-plugin-vercel-builder" }
+      - { ecosystem: npm, name: "@vercel/gatsby-plugin-vercel-analytics" }
+      - { ecosystem: githubAction, name: enriikke/gatsby-gh-pages-action }
+      - { ecosystem: githubAction, name: jzweifel/gatsby-cli-github-action }
+      - { ecosystem: githubAction, name: jonelantha/gatsby-s3-action }
+    files: [gatsby-config.js, gatsby-config.ts]
+  supersedes: [react]
+  confidence: high
+- id: grafana
+  name: Grafana
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: grafana/grafana-enterprise }
+      - { ecosystem: docker, name: grafana/grafana-oss }
+      - { ecosystem: docker, name: grafana/grafana }
+      - { ecosystem: docker, name: grafana/agent }
+      - { ecosystem: docker, name: grafana/tempo }
+      - { ecosystem: docker, name: grafana/agent-operator }
+      - { ecosystem: terraform, name: registry.terraform.io/grafana/grafana }
+  confidence: high
+- id: gridsome
+  name: Gridsome
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: gridsome }
+    files: [gridsome.config.js]
+  confidence: high
+- id: haproxy
+  name: HAProxy
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: haproxy }
+      - { ecosystem: docker, name: haproxytech/haproxy-debian }
+      - { ecosystem: docker, name: haproxytech/haproxy-alpine }
+      - { ecosystem: docker, name: haproxytech/haproxy-ubuntu }
+      - { ecosystem: docker, name: haproxytech/kubernetes-ingress }
+  confidence: high
+- id: hexojs
+  name: HexoJS
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: hexo }
+  confidence: high
+- id: htmx
+  name: HTMX
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: htmx.org }
+  confidence: high
+- id: httpd
+  name: HTTPD
+  category: framework
+  match:
+    depsRegex:
+      - { ecosystem: docker, pattern: httpd }
+    files: [httpd.conf]
+  confidence: high
+- id: hugo
+  name: Hugo
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: betterweb/hugo }
+      - { ecosystem: docker, name: hugomods/hugo }
+      - { ecosystem: docker, name: klakegg/hugo }
+      - { ecosystem: githubAction, name: peaceiris/actions-hugo }
+      - { ecosystem: npm, name: hugo-lunr-indexer }
+      - { ecosystem: npm, name: hugo-extended }
+    files: [hugo.toml]
+  confidence: high
+- id: infernojs
+  name: Inferno
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: inferno }
+  confidence: high
+- id: ionic
+  name: Ionic
+  category: framework
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "@ionic\\/" }
+  confidence: high
+- id: jekyll
+  name: Jekyll
+  category: framework
+  match:
+    deps:
+      - { ecosystem: githubAction, name: jeffreytse/jekyll-deploy-action }
+      - { ecosystem: rubygems, name: jekyll }
+    files: [.jekyll-cache]
+  confidence: high
+- id: kibana
+  name: Kibana
+  category: framework
+  match:
+    depsRegex:
+      - { ecosystem: docker, pattern: kibana }
+    dotenv: [KIBANA_]
+  confidence: high
+- id: kong
+  name: Kong
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: kong }
+    files: [kong.conf]
+  confidence: high
+- id: laravel
+  name: Laravel
+  category: framework
+  match:
+    deps:
+      - { ecosystem: composer, name: laravel/framework }
+    files: [artisan]
+  confidence: high
+- id: litjs
+  name: Lit
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: lit }
+  confidence: high
+- id: meteorjs
+  name: Meteor
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: meteor }
+      - { ecosystem: npm, name: meteor-node-stubs }
+    files: [.meteor]
+  confidence: high
+- id: mintlify
+  name: Mintlify
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: mintlify }
+    files: [mint.json]
+  confidence: high
+- id: mithriljs
+  name: Mithril
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: mithril }
+  confidence: high
+- id: mkdocs
+  name: MkDocs
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: mkdocs }
+      - { ecosystem: docker, name: squidfunk/mkdocs-material }
+    files: [mkdocs.yml]
+  confidence: high
+- id: mongoexpress
+  name: Mongo Express
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: mongo-express }
+  confidence: high
+- id: nestjs
+  name: NestJS
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: "@nestjs/cli" }
+    files: [nest-cli.json]
+  confidence: high
+- id: nextjs
+  name: Next.js
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: next }
+      - { ecosystem: npm, name: "@netlify/plugin-nextjs" }
+    files: [next.config.js, next.config.mjs]
+  supersedes: [react]
+  confidence: high
+- id: nginx
+  name: Nginx
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: nginx }
+      - { ecosystem: docker, name: unit }
+      - { ecosystem: docker, name: nginxinc/nginx-unprivileged }
+      - { ecosystem: docker, name: nginx/nginx-ingress }
+      - { ecosystem: docker, name: nginxinc/nginx-s3-gateway }
+      - { ecosystem: docker, name: nginx/unit }
+      - { ecosystem: docker, name: nginxproxy/nginx-proxy }
+      - { ecosystem: docker, name: bitnami/nginx }
+      - { ecosystem: docker, name: bitnami/nginx-ingress-controller }
+      - { ecosystem: docker, name: ubuntu/nginx }
+      - { ecosystem: docker, name: kasmweb/nginx }
+      - { ecosystem: docker, name: rancher/nginx-ingress-controller }
+      - { ecosystem: docker, name: rancher/nginx }
+      - { ecosystem: docker, name: linuxserver/nginx }
+      - { ecosystem: docker, name: privatebin/nginx-fpm-alpine }
+      - { ecosystem: docker, name: wodby/nginx }
+    files: [nginx.conf]
+  confidence: high
+- id: nuxtjs
+  name: Nuxt.js
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: nuxt }
+      - { ecosystem: npm, name: nuxt-edge }
+      - { ecosystem: npm, name: nuxt3 }
+    files: [nuxt.config.js]
+  confidence: high
+- id: postgrest
+  name: Postgrest
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: postgrest/postgrest }
+  confidence: high
+- id: preactjs
+  name: Preact
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: preact }
+  confidence: high
+- id: qwikjs
+  name: Qwik
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: builder.io/qwik }
+  confidence: high
+- id: rails
+  name: Rails
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: rails }
+    depsRegex:
+      - { ecosystem: npm, pattern: "@rails\\/" }
+  confidence: high
+- id: react
+  name: React
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: react }
+  confidence: high
+- id: readthedocs
+  name: Read The Docs
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: readthedocs/build }
+    files: [.readthedocs.yml]
+  confidence: high
+- id: redwoodjs
+  name: RedwoodJs
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: "@vercel/redwood" }
+      - { ecosystem: npm, name: "@redwoodjs/api-server" }
+      - { ecosystem: npm, name: "@redwoodjs/telemetry" }
+      - { ecosystem: npm, name: "@redwoodjs/auth" }
+      - { ecosystem: npm, name: "@redwoodjs/api" }
+      - { ecosystem: npm, name: "@redwoodjs/core" }
+      - { ecosystem: npm, name: "@redwoodjs/web" }
+      - { ecosystem: npm, name: "@defer/redwood" }
+      - { ecosystem: npm, name: inngest-setup-redwoodjs }
+    files: [redwood.toml]
+  supersedes: [react]
+  confidence: high
+- id: remixrun
+  name: Remix
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: "@remix-run/node" }
+      - { ecosystem: npm, name: "@remix-run/serve" }
+  confidence: high
+- id: remult
+  name: Remult
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: remult }
+  confidence: high
+- id: slatedocs
+  name: Slate
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: slatedocs/slate }
+  confidence: high
+- id: solidjs
+  name: Solid js
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: solid-js }
+  confidence: high
+- id: stenciljs
+  name: Stencil
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: "@stencil/core" }
+  confidence: high
+- id: sveltejs
+  name: Svelte
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: svelte }
+    files: [svelte.config.js]
+  confidence: high
+- id: sveltekit
+  name: SvelteKit
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: "@sveltejs/kit" }
+  supersedes: [sveltejs]
+  confidence: high
+- id: symfony
+  name: Symfony
+  category: framework
+  match:
+    deps:
+      - { ecosystem: composer, name: symfony/symfony }
+  confidence: high
+- id: tanstackstart
+  name: Tanstack Start
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: "@tanstack/react-start" }
+  confidence: high
+- id: tauri
+  name: Tauri
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: tauri }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@tauri-apps\\/" }
+    files: [tauri.conf.js]
+  confidence: high
+- id: teamspeak
+  name: Teamspeak
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: teamspeak }
+  confidence: high
+- id: telegraf
+  name: Telegraf
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: telegraf }
+  confidence: high
+- id: traefik
+  name: Traefik
+  category: framework
+  match:
+    deps:
+      - { ecosystem: docker, name: traefik }
+    files: [traefik.yml, traefik.yaml, traefik.toml]
+  confidence: high
+- id: umijs
+  name: UmiJS
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: umi }
+      - { ecosystem: npm, name: "@umijs/route-utils" }
+    files: [.umirc.ts]
+  confidence: high
+- id: vitepress
+  name: VitePress
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: vitepress }
+    files: [.vitepress]
+  confidence: high
+- id: vue
+  name: Vue.js
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: vue }
+  confidence: high
+- id: vuepress
+  name: VuePress
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: vuepress }
+      - { ecosystem: npm, name: "@vuepress/core" }
+    files: [.vuepress]
+  confidence: high
+- id: wasp
+  name: Wasp
+  category: framework
+  match:
+    files: [main.wasp, main.wasp.ts]
+  confidence: high
+- id: yii2
+  name: Yii2
+  category: framework
+  match:
+    deps:
+      - { ecosystem: composer, name: yiisoft/yii2 }
+  confidence: high
+- id: zookeeper
+  name: Zookeeper
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: zookeeper }
+      - { ecosystem: rubygems, name: zookeeper }
+      - { ecosystem: composer, name: sparkinfluence/zookeeper }
+    depsRegex:
+      - { ecosystem: docker, pattern: zookeeper }
+  confidence: high

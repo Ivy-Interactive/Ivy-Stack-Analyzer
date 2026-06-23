@@ -1,0 +1,58 @@
+﻿summary:
+  totalFiles: 4
+  analyzedFiles: 4
+  primaryLanguages:
+  - Python
+  componentCount: 1
+languages:
+- name: TOML
+  type: data
+  files: 1
+  bytes: 294
+  percent: 59
+- name: Python
+  type: programming
+  files: 3
+  bytes: 204
+  percent: 41
+components:
+- relativePath: .
+  languages:
+  - name: TOML
+    type: data
+    files: 1
+    bytes: 294
+    percent: 59
+  - name: Python
+    type: programming
+    files: 3
+    bytes: 204
+    percent: 41
+  manifests:
+  - path: pyproject.toml
+    ecosystem: pypi
+    dependencies:
+    - name: numpy
+      version: '>=1.26'
+      scope: runtime
+    - name: scipy
+      version: '>=1.13'
+      scope: runtime
+    - name: pytest
+      version: '>=8.0'
+      scope: optional
+    - name: mypy
+      version: '>=1.10'
+      scope: optional
+  technologies: []
+  fileCount: 4
+  sizeBytes: 498
+  isWorkspaceRoot: false
+  isAuxiliary: false
+technologies: []
+infrastructure: []
+metadata:
+  analyzerVersion: 0.1.0
+  rulesLoaded: 732
+  languageDefsLoaded: 815
+  ignoredDirectories: []

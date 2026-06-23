@@ -1,0 +1,77 @@
+﻿summary:
+  totalFiles: 3
+  analyzedFiles: 3
+  primaryLanguages:
+  - Go
+  - Dockerfile
+  componentCount: 1
+languages:
+- name: Go
+  type: programming
+  files: 1
+  bytes: 177
+  percent: 40.9
+- name: Dockerfile
+  type: programming
+  files: 1
+  bytes: 146
+  percent: 33.7
+- name: Go Module
+  type: data
+  files: 1
+  bytes: 110
+  percent: 25.4
+components:
+- relativePath: .
+  languages:
+  - name: Go
+    type: programming
+    files: 1
+    bytes: 177
+    percent: 40.9
+  - name: Dockerfile
+    type: programming
+    files: 1
+    bytes: 146
+    percent: 33.7
+  - name: Go Module
+    type: data
+    files: 1
+    bytes: 110
+    percent: 25.4
+  manifests:
+  - path: go.mod
+    ecosystem: go
+    dependencies:
+    - name: github.com/gin-gonic/gin
+      version: v1.10.0
+      scope: runtime
+    - name: github.com/google/uuid
+      version: v1.6.0
+      scope: runtime
+  technologies:
+  - name: Gin
+    category: framework
+    evidence: go dep 'github.com/gin-gonic/gin'
+    confidence: high
+    componentPath: .
+  fileCount: 3
+  sizeBytes: 433
+  isWorkspaceRoot: false
+  isAuxiliary: false
+technologies:
+- name: Gin
+  category: framework
+  evidence: go dep 'github.com/gin-gonic/gin'
+  confidence: high
+  componentPath: .
+infrastructure:
+- kind: Docker
+  category: build
+  files:
+  - Dockerfile
+metadata:
+  analyzerVersion: 0.1.0
+  rulesLoaded: 732
+  languageDefsLoaded: 815
+  ignoredDirectories: []

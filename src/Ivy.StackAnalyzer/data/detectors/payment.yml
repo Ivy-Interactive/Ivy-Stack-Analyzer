@@ -1,0 +1,168 @@
+# Technology detectors (category: payment) seeded from specfy/stack-analyser (MIT).
+- id: adyen
+  name: Adyen
+  category: payment
+  match:
+    deps:
+      - { ecosystem: npm, name: "@adyen/adyen-web" }
+      - { ecosystem: npm, name: "@adyen/api-library" }
+      - { ecosystem: npm, name: "@adyen/react-native" }
+      - { ecosystem: composer, name: adyen/php-api-library }
+      - { ecosystem: composer, name: adyen/module-payment }
+      - { ecosystem: composer, name: adyen/php-webhook-module }
+      - { ecosystem: rubygems, name: adyen }
+      - { ecosystem: rubygems, name: adyen-ruby-api-library }
+      - { ecosystem: rubygems, name: adyen-cse-ruby }
+    dotenv: [ADYEN_]
+  confidence: high
+- id: chargebee
+  name: Chargebee
+  category: payment
+  match:
+    deps:
+      - { ecosystem: npm, name: chargebee }
+      - { ecosystem: npm, name: chargebee-typescript }
+      - { ecosystem: pypi, name: chargebee }
+      - { ecosystem: rubygems, name: chargebee-ruby }
+      - { ecosystem: composer, name: chargebee/chargebee-php }
+      - { ecosystem: go, name: github.com/chargebee/chargebee-go }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@chargebee\\/" }
+    dotenv: [CHARGEBEE_]
+  confidence: high
+- id: google.pay
+  name: Google Pay
+  category: payment
+  match:
+    deps:
+      - { ecosystem: npm, name: "@types/googlepay" }
+    dotenv: [GOOGLE_PAY_, GPAY_]
+  confidence: high
+- id: intuit
+  name: Intuit
+  category: payment
+  match:
+    dotenv: [INTUIT_]
+  confidence: high
+- id: klarna
+  name: Klarna
+  category: payment
+  match:
+    deps:
+      - { ecosystem: rubygems, name: klarna_proxy }
+      - { ecosystem: rubygems, name: klarna-checkout }
+      - { ecosystem: terraform, name: airbyte_source_klarna }
+    dotenv: [KLARNA_]
+  confidence: high
+- id: lemonsqueezy
+  name: Lemon Squeezy
+  category: payment
+  match:
+    deps:
+      - { ecosystem: npm, name: lemonsqueezy.ts }
+      - { ecosystem: rubygems, name: lemonsqueezy }
+      - { ecosystem: go, name: github.com/NdoleStudio/lemonsqueezy-go }
+      - { ecosystem: composer, name: lemonsqueezy/laravel }
+    dotenv: [LEMON_SQUEEZY_, LEMONSQUEEZY_]
+  confidence: high
+- id: paddle
+  name: Paddle
+  category: payment
+  match:
+    deps:
+      - { ecosystem: npm, name: "@paddle/paddle-js" }
+      - { ecosystem: npm, name: "@paddle/paddle-node-sdk" }
+      - { ecosystem: go, name: github.com/PaddleHQ/paddle-go-sdk }
+      - { ecosystem: pypi, name: paddle-python-sdk }
+      - { ecosystem: composer, name: paddlehq/paddle-php-sdk }
+    dotenv: [PADDLE_]
+  confidence: high
+- id: paypal
+  name: Paypal
+  category: payment
+  match:
+    deps:
+      - { ecosystem: npm, name: "@paypal/paypal-js" }
+      - { ecosystem: npm, name: paypal-rest-sdk }
+      - { ecosystem: composer, name: paypal/rest-api-sdk-php }
+      - { ecosystem: composer, name: srmklive/paypal }
+      - { ecosystem: composer, name: omnipay/paypal }
+      - { ecosystem: rubygems, name: paypal }
+      - { ecosystem: rubygems, name: paypal-sdk-rest }
+      - { ecosystem: rubygems, name: paypal-express }
+      - { ecosystem: rubygems, name: paypal-sdk-core }
+      - { ecosystem: rubygems, name: paypal-sdk-merchant }
+      - { ecosystem: rubygems, name: paypal-checkout-sdk }
+      - { ecosystem: cargo, name: paypal-rs }
+      - { ecosystem: go, name: github.com/markbates/goth/providers/paypal }
+    dotenv: [PAYPAL_]
+  confidence: high
+- id: paystack
+  name: Paystack
+  category: payment
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@paystack\\/" }
+    dotenv: [PAYSTACK_]
+  confidence: high
+- id: polarsh
+  name: Polar
+  category: payment
+  match:
+    deps:
+      - { ecosystem: pypi, name: polar-sdk }
+      - { ecosystem: composer, name: polar-sh/sdk }
+      - { ecosystem: go, name: github.com/polarsource/polar-go }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@polar-sh\\/" }
+    dotenv: [POLARSH_]
+  confidence: high
+- id: revenuecat
+  name: RevenueCat
+  category: payment
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@revenuecat\\/" }
+    dotenv: [REVENUECAT_]
+  confidence: high
+- id: squareup
+  name: Square
+  category: payment
+  match:
+    deps:
+      - { ecosystem: composer, name: square/square }
+    dotenv: [SQUARE_]
+  confidence: high
+- id: stripe
+  name: Stripe
+  category: payment
+  match:
+    deps:
+      - { ecosystem: npm, name: stripe }
+      - { ecosystem: composer, name: stripe/stripe-php }
+      - { ecosystem: composer, name: laravel/cashier }
+      - { ecosystem: composer, name: omnipay/stripe }
+      - { ecosystem: composer, name: cartalyst/stripe }
+      - { ecosystem: rubygems, name: stripe }
+      - { ecosystem: rubygems, name: stripe-rails }
+      - { ecosystem: rubygems, name: stripe_event }
+      - { ecosystem: go, name: github.com/stripe/stripe-go }
+    dotenv: [STRIPE_]
+  confidence: high
+- id: useautumn
+  name: Use Autumn
+  category: payment
+  match:
+    deps:
+      - { ecosystem: npm, name: autumn-js }
+    dotenv: [AUTUMN_]
+  confidence: high
+- id: zuora
+  name: Zuora
+  category: payment
+  match:
+    deps:
+      - { ecosystem: npm, name: zuora-sdk-js }
+      - { ecosystem: pypi, name: zuora-sdk }
+    dotenv: [ZUORA_]
+  confidence: high
