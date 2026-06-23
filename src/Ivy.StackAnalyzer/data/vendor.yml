@@ -164,6 +164,19 @@ patterns:
   - "(^|/)html5shiv\\.js$"
   - "(^|/)[Tt]ests?/fixtures/"
   - "(^|/)[Ss]pecs?/fixtures/"
+  # Jupyter notebooks — output cells (base64 blobs) inflate byte share ~1000x vs code.
+  # NOTE: Jupyter Notebook is type=markup, so the prose/data language filter does NOT
+  # drop it; this vendor pattern is the only thing that excludes it.
+  - "(^|/).*\\.ipynb$"
+  # Recorded HTTP fixtures (VCR.py / betamax cassettes) — generated, not source.
+  - "(^|/)cassettes/"
+  - "(^|/)[Tt]ests?/cassettes/"
+  # Generated third-party notices.
+  - "(^|/)NOTICES\\.txt$"
+  - "(^|/)THIRD[-_]PARTY[-_ ]?NOTICES(\\.[A-Za-z]+)?$"
+  # Large generated test-session fixtures (parity with existing testdata/ rules).
+  - "(^|/)memory-tests/"
+  - "(^|/)perf-tests/"
   - "(^|/)cordova([^.]*)\\.js$"
   - "(^|/)cordova\\-\\d\\.\\d(\\.\\d)?\\.js$"
   - "(^|/)foundation(\\..*)?\\.js$"
@@ -180,7 +193,12 @@ patterns:
   - "(^|/)\\.google_apis/"
   - "(^|/)Jenkinsfile$"
   - "(^|/)\\.gitpod\\.Dockerfile$"
-  - "(^|/)\\.github/"
+  # Vendor the .github tree (issue templates, funding, dependabot, docs) EXCEPT
+  # the workflows subtree: .github/workflows/ carries real CI signal (GitHub
+  # Actions) and must stay visible to InfraScanner and language stats. The
+  # trailing "." keeps the bare ".github/" directory from matching so the walker
+  # still descends into it (a plain negative-lookahead would prune the whole tree).
+  - "(^|/)\\.github/(?!workflows(/|$))."
   - "(^|/)\\.obsidian/"
   - "(^|/)\\.teamcity/"
   - "(^|/)xvba_modules/"
