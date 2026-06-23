@@ -1,10 +1,10 @@
 <#
 .SYNOPSIS
-    Drives the /review-stack-analyse skill over the URLs in queue.txt.
+    Drives the /review-stack-analyze skill over the URLs in queue.txt.
 
 .DESCRIPTION
     Pops the first URL from queue.txt (removing it) and launches Claude Code
-    headlessly with the prompt "/review-stack-analyse <url>". Repeats until -Count
+    headlessly with the prompt "/review-stack-analyze <url>". Repeats until -Count
     reviews have been started, running up to -Parallel at a time. Each tested repo
     is appended to done.txt when its review finishes.
 
@@ -91,7 +91,7 @@ while ($dispatched -lt $Count -or $running.Count -gt 0) {
         }
         $dispatched++
         $log = Join-Path $logDir ("{0}.log" -f (Format-LogName $url))
-        $prompt = "/review-stack-analyse $url"
+        $prompt = "/review-stack-analyze $url"
         Write-Host ("[{0}/{1}] start: {2}" -f $dispatched, $Count, $url) -ForegroundColor Green
         $proc = Start-Process -FilePath 'claude' `
             -ArgumentList (@('-p', $prompt) + $claudeArgs) `

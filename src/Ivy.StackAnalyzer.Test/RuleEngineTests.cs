@@ -12,7 +12,8 @@ public class RuleEngineTests
         IEnumerable<EcosystemDependency>? deps = null,
         IEnumerable<string>? fileNames = null,
         IEnumerable<string>? sdks = null,
-        IEnumerable<string>? extensions = null)
+        IEnumerable<string>? extensions = null,
+        IEnumerable<string>? envVars = null)
     {
         var names = (fileNames ?? []).ToHashSet(StringComparer.OrdinalIgnoreCase);
         return new ComponentContext
@@ -28,6 +29,7 @@ public class RuleEngineTests
             FileNames = names,
             FilePaths = names.Select(n => "apps/web/" + n).ToHashSet(StringComparer.Ordinal),
             Extensions = (extensions ?? []).ToHashSet(StringComparer.OrdinalIgnoreCase),
+            EnvVarNames = (envVars ?? []).ToHashSet(StringComparer.OrdinalIgnoreCase),
         };
     }
 
@@ -83,5 +85,24 @@ public class RuleEngineTests
         var engine = new RuleEngine(Data);
         var result = engine.Detect(Ctx(deps: [Npm("this-package-does-not-exist-xyz")]));
         Assert.Empty(result);
+    }
+
+    [Fact]
+    public void Dotenv_only_match_is_low_confidence()
+    {
+        // An env-var name (e.g. from .env.example scaffolding) is a weak signal: the
+        // detection still surfaces, but downgraded so the hash/digest can drop it.
+        var engine = new RuleEngine(Data);
+        var hit = engine.Detect(Ctx(envVars: ["ANTHROPIC_API_KEY"])).FirstOrDefault(t => t.Name == "Anthropic");
+        Assert.NotNull(hit);
+        Assert.Equal(Confidence.Low, hit!.Confidence);
+    }
+
+    [Fact]
+    public void Strong_match_keeps_declared_confidence()
+    {
+        var engine = new RuleEngine(Data);
+        var react = engine.Detect(Ctx(deps: [Npm("react")])).Single(t => t.Name == "React");
+        Assert.Equal(Confidence.High, react.Confidence);
     }
 }

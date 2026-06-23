@@ -15,7 +15,7 @@ CLONE="${1:?usage: analyze.sh <clone-path> <name>}"
 NAME="${2:?usage: analyze.sh <clone-path> <name>}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../../../.." && pwd)"   # scripts -> skill -> review-stack-analyse -> skills -> .claude -> repo
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../../.." && pwd)"   # scripts -> skill -> review-stack-analyze -> skills -> .claude -> repo
 TOOLS="D:/Temp/_tools"
 mkdir -p "$TOOLS" "$TOOLS/cd-$NAME"
 

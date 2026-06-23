@@ -21,29 +21,32 @@ public sealed class RuleEngine
 
     public IReadOnlyList<DetectedTechnology> Detect(ComponentContext ctx)
     {
-        var matched = new List<(RuleDef Rule, string Evidence)>();
+        var matched = new List<(RuleDef Rule, string Evidence, bool Strong)>();
         foreach (var rule in _rules)
         {
-            var evidence = Match(rule, ctx);
-            if (evidence is not null) matched.Add((rule, evidence));
+            var m = Match(rule, ctx);
+            if (m is not null) matched.Add((rule, m.Value.Evidence, m.Value.Strong));
         }
 
         // Apply supersedes: drop any tech that a present tech supersedes.
         var presentIds = matched.Select(m => m.Rule.Id).ToHashSet(StringComparer.OrdinalIgnoreCase);
         var superseded = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var (rule, _) in matched)
+        foreach (var (rule, _, _) in matched)
             foreach (var s in rule.Supersedes)
                 if (presentIds.Contains(s)) superseded.Add(s);
 
         var result = new List<DetectedTechnology>();
-        foreach (var (rule, evidence) in matched)
+        foreach (var (rule, evidence, strong) in matched)
         {
             if (superseded.Contains(rule.Id)) continue;
+            // A dotenv-only match (env-var names are scaffolding, not proof of use)
+            // is downgraded to Low so hash/digest consumers can drop the noise.
+            var confidence = strong ? CategoryMap.ParseConfidence(rule.Confidence) : Confidence.Low;
             result.Add(new DetectedTechnology(
                 rule.Name,
                 CategoryMap.Parse(rule.Category),
                 evidence,
-                CategoryMap.ParseConfidence(rule.Confidence),
+                confidence,
                 ctx.RelativePath));
         }
 
@@ -53,8 +56,11 @@ public sealed class RuleEngine
             .ToList();
     }
 
-    /// <summary>Returns evidence text if the rule matches, otherwise null.</summary>
-    private string? Match(RuleDef rule, ComponentContext ctx)
+    /// <summary>
+    /// Returns evidence text + whether a <em>strong</em> facet matched (anything other
+    /// than dotenv), or null if the rule doesn't match.
+    /// </summary>
+    private (string Evidence, bool Strong)? Match(RuleDef rule, ComponentContext ctx)
     {
         var m = rule.Match;
         var evidence = new List<string>();
@@ -117,13 +123,16 @@ public sealed class RuleEngine
             if (ctx.Extensions.Contains(ext)) evidence.Add($"*{ext}");
         }
 
-        // Dotenv prefixes
+        // Every facet above is a strong signal; dotenv (below) is weak.
+        bool strong = evidence.Count > 0;
+
+        // Dotenv prefixes — env-var names are scaffolding (e.g. .env.example), not proof of use.
         foreach (var prefix in m.Dotenv)
             if (ctx.EnvVarNames.Any(n => n.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)))
                 evidence.Add($"env {prefix}*");
 
         if (evidence.Count == 0) return null;
-        return string.Join("; ", evidence.Distinct().Take(4));
+        return (string.Join("; ", evidence.Distinct().Take(4)), strong);
     }
 
     private static bool Eco(string a, string b) => string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
