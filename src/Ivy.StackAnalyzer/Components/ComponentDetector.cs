@@ -137,23 +137,93 @@ public sealed class ComponentDetector
         var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (var f in files)
         {
-            if (!f.File.FileName.StartsWith(".env", StringComparison.OrdinalIgnoreCase)) continue;
-            try
-            {
-                foreach (var raw in File.ReadLines(f.File.FullPath))
-                {
-                    var line = raw.Trim();
-                    if (line.Length == 0 || line.StartsWith('#')) continue;
-                    var eq = line.IndexOf('=');
-                    if (eq <= 0) continue;
-                    var key = line[..eq].Trim();
-                    if (key.StartsWith("export ")) key = key["export ".Length..].Trim();
-                    if (key.Length > 0) names.Add(key);
-                }
-            }
-            catch (IOException) { }
+            if (f.File.FileName.StartsWith(".env", StringComparison.OrdinalIgnoreCase))
+                ReadDotenvKeys(f.File.FullPath, names);
+            else if (IsComposeFile(f.File.FileName))
+                ReadComposeEnvKeys(f.File.FullPath, names);
         }
         return names;
+    }
+
+    private static void ReadDotenvKeys(string fullPath, HashSet<string> names)
+    {
+        try
+        {
+            foreach (var raw in File.ReadLines(fullPath))
+            {
+                var line = raw.Trim();
+                if (line.Length == 0 || line.StartsWith('#')) continue;
+                var eq = line.IndexOf('=');
+                if (eq <= 0) continue;
+                var key = line[..eq].Trim();
+                if (key.StartsWith("export ")) key = key["export ".Length..].Trim();
+                if (key.Length > 0) names.Add(key);
+            }
+        }
+        catch (IOException) { }
+    }
+
+    // Many hosted services (e.g. Supabase, Slack webhooks) are wired purely through
+    // docker-compose `environment:` keys with no SDK dependency. Harvesting those key
+    // names feeds the same `dotenv` match source as .env files, so the existing
+    // dotenv-prefixed detectors fire for compose-wired services too.
+    private static bool IsComposeFile(string fileName)
+        => (fileName.StartsWith("docker-compose", StringComparison.OrdinalIgnoreCase)
+            || fileName.StartsWith("compose", StringComparison.OrdinalIgnoreCase))
+           && (fileName.EndsWith(".yml", StringComparison.OrdinalIgnoreCase)
+               || fileName.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase));
+
+    private static void ReadComposeEnvKeys(string fullPath, HashSet<string> names)
+    {
+        string[] lines;
+        try { lines = File.ReadAllLines(fullPath); }
+        catch (IOException) { return; }
+
+        bool inEnv = false;
+        int envIndent = -1; // indentation of the `environment:` key
+        foreach (var raw in lines)
+        {
+            if (raw.TrimStart().StartsWith('#')) continue;
+            var trimmed = raw.Trim();
+            if (trimmed.Length == 0) continue;
+            var indent = CountIndent(raw);
+
+            if (!inEnv)
+            {
+                if (IsEnvironmentHeader(trimmed)) { inEnv = true; envIndent = indent; }
+                continue;
+            }
+
+            // A line indented no further than `environment:` ends the block.
+            if (indent <= envIndent)
+            {
+                inEnv = IsEnvironmentHeader(trimmed);
+                if (inEnv) envIndent = indent;
+                continue;
+            }
+
+            // List form:  - KEY=value  | - KEY
+            // Map form:    KEY: value
+            var entry = trimmed;
+            if (entry == "-") continue;
+            if (entry.StartsWith("- ")) entry = entry[2..].Trim();
+
+            var sep = entry.IndexOfAny(['=', ':']);
+            var key = (sep < 0 ? entry : entry[..sep]).Trim().Trim('"', '\'');
+            if (key.Length > 0) names.Add(key);
+        }
+    }
+
+    private static bool IsEnvironmentHeader(string trimmed)
+        => trimmed == "environment:"
+        || (trimmed.StartsWith("environment:", StringComparison.Ordinal)
+            && trimmed[12..].TrimStart() is "" or "{}" or "[]");
+
+    private static int CountIndent(string line)
+    {
+        int i = 0;
+        while (i < line.Length && line[i] == ' ') i++;
+        return i;
     }
 
     private static string NearestRoot(string relativePath, List<string> sortedRootsDesc)

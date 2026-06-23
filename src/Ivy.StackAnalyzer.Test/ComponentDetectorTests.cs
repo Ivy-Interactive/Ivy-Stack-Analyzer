@@ -76,4 +76,39 @@ public class ComponentDetectorTests
         repo.Write("readme.md", "# hi\n");   // no manifests at all
         Assert.Contains(Detect(repo), c => c.RelativePath == ".");
     }
+
+    [Fact]
+    public void Compose_environment_keys_become_env_var_names()
+    {
+        // Services like Supabase/Slack are often wired via docker-compose env keys
+        // with no SDK dependency. Those keys must surface in EnvVarNames so the
+        // existing dotenv-prefixed detectors can fire.
+        using var repo = new TempRepo();
+        repo.Write("package.json", """{ "name": "root" }""")
+            .Write("docker-compose.yaml", """
+                services:
+                  api:
+                    image: node:20
+                    environment:
+                      - SUPABASE_URL=http://localhost:54321
+                      - SLACK_WEBHOOK_URL
+                    ports:
+                      - "3000:3000"
+                  worker:
+                    image: node:20
+                    environment:
+                      POSTHOG_API_KEY: phc_xxx
+                      POSTHOG_HOST: https://eu.posthog.com
+                """);
+
+        var root = Detect(repo).Single(c => c.RelativePath == ".");
+
+        Assert.Contains("SUPABASE_URL", root.EnvVarNames);
+        Assert.Contains("SLACK_WEBHOOK_URL", root.EnvVarNames);
+        Assert.Contains("POSTHOG_API_KEY", root.EnvVarNames);
+        Assert.Contains("POSTHOG_HOST", root.EnvVarNames);
+        // keys outside an `environment:` block (e.g. ports) must not leak in
+        Assert.DoesNotContain("3000", root.EnvVarNames);
+        Assert.DoesNotContain("ports", root.EnvVarNames);
+    }
 }

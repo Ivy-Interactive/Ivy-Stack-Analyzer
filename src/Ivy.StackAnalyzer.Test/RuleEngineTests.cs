@@ -105,4 +105,19 @@ public class RuleEngineTests
         var react = engine.Detect(Ctx(deps: [Npm("react")])).Single(t => t.Name == "React");
         Assert.Equal(Confidence.High, react.Confidence);
     }
+
+    [Theory]
+    [InlineData("SUPABASE_URL", "Supabase")]
+    [InlineData("SLACK_WEBHOOK_URL", "Slack")]
+    [InlineData("POSTHOG_API_KEY", "PostHog")]
+    public void Detects_env_wired_saas_from_env_var_names(string envVar, string expectedName)
+    {
+        // These hosted services are commonly wired via env vars / compose with no SDK
+        // dependency; the dotenv-prefixed detectors should still surface them, but as a
+        // weak (Low) signal so hash/digest consumers can drop the noise.
+        var engine = new RuleEngine(Data);
+        var hit = engine.Detect(Ctx(envVars: [envVar])).FirstOrDefault(t => t.Name == expectedName);
+        Assert.NotNull(hit);
+        Assert.Equal(Confidence.Low, hit!.Confidence);
+    }
 }
