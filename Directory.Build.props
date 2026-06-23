@@ -18,8 +18,8 @@
   <PropertyGroup>
     <Authors>Ivy Interactive</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/Ivy-Interactive/Ivy-Stack-Analyser</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/Ivy-Interactive/Ivy-Stack-Analyser</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Ivy-Interactive/Ivy-Stack-Analyzer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Ivy-Interactive/Ivy-Stack-Analyzer</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>stack-analysis;tech-detection;linguist;specfy;sbom;monorepo</PackageTags>

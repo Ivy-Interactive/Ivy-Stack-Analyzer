@@ -29,7 +29,7 @@ Adding a new language or framework = **adding a data entry, not writing code.**
 ## 2. Solution layout
 
 ```
-Ivy-Stack-Analyser/
+Ivy-Stack-Analyzer/
 ├─ Ivy.StackAnalyzer.slnx          # XML solution format (dotnet 10)
 ├─ global.json                      # pin SDK 10.0.x, rollForward latestFeature
 ├─ Directory.Build.props            # net10.0, Nullable, ImplicitUsings, LangVersion latest
@@ -49,9 +49,9 @@ Ivy-Stack-Analyser/
 > `Ivy.StackAnalyzer.Console.csproj` under `src\Ivy.StackAnalyzer\` — treated as a
 > typo; the core library's project file is `Ivy.StackAnalyzer.csproj`.
 >
-> **Spelling:** the folder is `Ivy-Stack-Analyser` (British) while projects /
-> namespaces use `StackAnalyzer` (American *z*). Kept exactly as specified; the
-> entry class is `Analyzer` in `Analyzer.cs`.
+> **Spelling:** "Analyzer" is spelled with a *z* consistently — repo, projects,
+> namespaces, the CLI (`ivy-stack-analyzer`), and the entry class `Analyzer` in
+> `Analyzer.cs`. (The upstream `specfy/stack-analyser` keeps its own British *s*.)
 
 **Project references:** Console → Core; Test → Core (+ Console for one end-to-end CLI test).
 

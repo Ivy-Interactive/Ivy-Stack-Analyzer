@@ -24,7 +24,7 @@ If `$ARGUMENTS` is empty, ask the user for a repo URL and stop.
 
 ## 2. Run the analyzer (this is the hash input)
 
-From this repository's root (`D:\Repos\_Ivy\Ivy-Stack-Analyser`):
+From this repository's root (`D:\Repos\_Ivy\Ivy-Stack-Analyzer`):
 
 ```
 dotnet run --project src/Ivy.StackAnalyzer.Console -- "D:/Temp/<name>" -o yaml
