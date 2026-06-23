@@ -46,28 +46,6 @@
     deps:
       - { ecosystem: npm, name: effect }
   confidence: high
-- id: elysiajs
-  name: ElysiaJS
-  category: tool
-  match:
-    deps:
-      - { ecosystem: npm, name: elysia }
-  confidence: high
-- id: express
-  name: Express
-  category: tool
-  match:
-    deps:
-      - { ecosystem: npm, name: express }
-  confidence: high
-- id: fastify
-  name: Fastify
-  category: tool
-  match:
-    deps:
-      - { ecosystem: npm, name: fastify }
-      - { ecosystem: npm, name: "@opentelemetry/instrumentation-fastify" }
-  confidence: high
 - id: flyway
   name: Flyway
   category: tool
@@ -105,14 +83,6 @@
   match:
     deps:
       - { ecosystem: npm, name: hono }
-  confidence: high
-- id: koa
-  name: Koa
-  category: tool
-  match:
-    deps:
-      - { ecosystem: npm, name: koa }
-      - { ecosystem: npm, name: "@opentelemetry/instrumentation-koa" }
   confidence: high
 - id: liquibase
   name: Liquibase
