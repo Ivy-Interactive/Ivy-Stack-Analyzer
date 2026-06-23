@@ -7,7 +7,6 @@ public sealed class LanguageDef
     public List<string> Extensions { get; set; } = [];
     public List<string> Filenames { get; set; } = [];
     public List<string> Interpreters { get; set; } = [];
-    public string? Color { get; set; }
 }
 
 /// <summary>A typed dependency reference within a <see cref="MatchSpec"/>.</summary>
