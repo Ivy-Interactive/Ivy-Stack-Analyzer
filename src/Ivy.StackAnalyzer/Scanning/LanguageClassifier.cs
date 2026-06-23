@@ -28,12 +28,33 @@ public sealed class LanguageClassifier
         if (name is null)
             return new ClassifiedFile { File = file };
 
+        // A binary blob whose extension happens to map to a language (e.g. a Python
+        // pickle `.p` → Gnuplot) must not be counted as source code.
+        if (IsBinary(file.FullPath))
+            return new ClassifiedFile { File = file };
+
         return new ClassifiedFile
         {
             File = file,
             Language = name,
             Type = ParseType(_data.Languages[name].Type),
         };
+    }
+
+    // Cheap binary sniff: a NUL byte in the first few KB is a strong binary signal
+    // (UTF-8/16 text without a BOM never contains a lone NUL in normal content).
+    private static bool IsBinary(string fullPath)
+    {
+        try
+        {
+            using var fs = File.OpenRead(fullPath);
+            Span<byte> buf = stackalloc byte[4096];
+            int n = fs.Read(buf);
+            for (int i = 0; i < n; i++)
+                if (buf[i] == 0) return true;
+            return false;
+        }
+        catch { return false; }
     }
 
     private string? ResolveLanguage(ScannedFile file)
@@ -64,7 +85,7 @@ public sealed class LanguageClassifier
     private static readonly string[] CommonPriority =
     [
         "Markdown", "JSON", "YAML", "TypeScript", "TSX", "JavaScript", "JSX",
-        "Python", "C#", "F#", "Java", "Kotlin", "Go", "Rust", "C", "C++",
+        "Python", "C#", "F#", "Java", "Kotlin", "Go", "Rust", "C", "C++", "OpenCL",
         "Ruby", "PHP", "Swift", "Scala", "HTML", "CSS", "SCSS", "Sass", "Less",
         "Vue", "Svelte", "Dart", "Elixir", "Shell", "PowerShell", "SQL", "XML",
         "Objective-C", "Dockerfile", "Text",

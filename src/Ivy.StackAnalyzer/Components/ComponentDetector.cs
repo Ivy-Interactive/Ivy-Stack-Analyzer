@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using Ivy.StackAnalyzer.Manifests;
 using Ivy.StackAnalyzer.Scanning;
 
@@ -69,7 +70,7 @@ public sealed class ComponentDetector
                 if (DirOf(f.File.RelativePath) != root) continue;
                 var parser = _parsers.Resolve(f.File.FileName);
                 if (parser is null) continue;
-                var parsed = ParseSafely(parser, f.File);
+                var parsed = ParseManifest(parser, f.File);
                 if (parsed is not null) manifests.Add(parsed);
             }
 
@@ -77,14 +78,22 @@ public sealed class ComponentDetector
             // (it is the guaranteed fallback), but skip empty non-root roots.
             if (root != "" && compFiles.Count == 0 && manifests.Count == 0) continue;
 
+            // Feed the FULL dependency set to detection. Truncating here (it used to
+            // Take(MaxDependenciesPerManifest)) silently dropped hash-significant techs
+            // whose dep happened to sit past the cap (e.g. Tailwind in a 189-dep
+            // package.json). The cap is applied only to the *reported* manifest list
+            // (see Pipeline), never to what the rule engine sees.
             var deps = new List<EcosystemDependency>();
             foreach (var m in manifests)
-            {
-                var kept = m.Dependencies.Take(_options.MaxDependenciesPerManifest);
-                foreach (var d in kept) deps.Add(new EcosystemDependency(m.Ecosystem, d));
-            }
+                foreach (var d in m.Dependencies)
+                    deps.Add(new EcosystemDependency(m.Ecosystem, d));
 
             var sdks = manifests.Where(m => !string.IsNullOrEmpty(m.Sdk)).Select(m => m.Sdk!).Distinct().ToList();
+
+            var properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var m in manifests)
+                foreach (var (k, v) in m.Properties)
+                    properties[k] = v;
 
             bool isWorkspaceRoot = workspaceRootDirs.Contains(root)
                 || manifests.Any(m => m.Workspaces.Count > 0);
@@ -103,6 +112,7 @@ public sealed class ComponentDetector
                 Languages = languages,
                 Dependencies = deps,
                 Sdks = sdks,
+                Properties = properties,
                 IsWorkspaceRoot = isWorkspaceRoot,
                 IsAuxiliary = IsAuxiliary(root),
                 SizeBytes = compFiles.Sum(f => f.File.Length),
@@ -121,17 +131,75 @@ public sealed class ComponentDetector
     // A pathologically large "manifest" must not be slurped into memory.
     private const long MaxManifestBytes = 16 * 1024 * 1024;
 
-    private static ParsedManifest? ParseSafely(IManifestParser parser, ScannedFile file)
+    private static ParsedManifest? ParseManifest(IManifestParser parser, ScannedFile file)
     {
         if (file.Length > MaxManifestBytes) return null;
+        string content;
+        ParsedManifest parsed;
         try
         {
-            var content = File.ReadAllText(file.FullPath);
-            return parser.Parse(file.RelativePath, content);
+            content = File.ReadAllText(file.FullPath);
+            parsed = parser.Parse(file.RelativePath, content);
         }
         // Defense-in-depth: no single malformed/locked manifest can abort the run.
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or FormatException
             or InvalidOperationException or System.Xml.XmlException) { return null; }
+
+        // MSBuild project files may pull PackageReferences from shared `.props`/
+        // `.targets` via <Import Project="..."> — follow those so deps declared in a
+        // central file (e.g. tests/UnitTest.props) are not invisible.
+        if (!IsMsBuildProject(file.FileName)) return parsed;
+        var visited = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        try { visited.Add(Path.GetFullPath(file.FullPath)); } catch { /* keep going */ }
+        var deps = new List<Dependency>(parsed.Dependencies);
+        var props = new Dictionary<string, string>(parsed.Properties, StringComparer.OrdinalIgnoreCase);
+        FollowImports(file.FullPath, content, visited, deps, props);
+        return parsed with { Dependencies = deps, Properties = props };
+    }
+
+    private static bool IsMsBuildProject(string fileName)
+        => fileName.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase)
+        || fileName.EndsWith(".fsproj", StringComparison.OrdinalIgnoreCase)
+        || fileName.EndsWith(".vbproj", StringComparison.OrdinalIgnoreCase);
+
+    // Recursively merge PackageReferences + properties from <Import>ed MSBuild files.
+    // Only literal relative/absolute paths are followed (skip MSBuild `$(...)` props).
+    private static void FollowImports(
+        string baseFullPath, string content,
+        HashSet<string> visited, List<Dependency> deps, Dictionary<string, string> props)
+    {
+        XDocument doc;
+        try { doc = XDocument.Parse(content); }
+        catch (System.Xml.XmlException) { return; }
+        var baseDir = Path.GetDirectoryName(baseFullPath);
+        if (baseDir is null) return;
+
+        foreach (var imp in doc.Descendants().Where(e => e.Name.LocalName == "Import"))
+        {
+            var proj = (string?)imp.Attribute("Project");
+            if (string.IsNullOrWhiteSpace(proj) || proj.Contains("$(")) continue;
+
+            string full;
+            try { full = Path.GetFullPath(Path.Combine(baseDir, proj.Replace('\\', '/'))); }
+            catch { continue; }
+            if (!visited.Add(full) || !File.Exists(full)) continue;
+
+            string impContent;
+            try
+            {
+                if (new FileInfo(full).Length > MaxManifestBytes) continue;
+                impContent = File.ReadAllText(full);
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { continue; }
+
+            ParsedManifest pm;
+            try { pm = new NuGetParser().Parse(full, impContent); }
+            catch (System.Xml.XmlException) { continue; }
+            deps.AddRange(pm.Dependencies);
+            foreach (var (k, v) in pm.Properties) props[k] = v;
+
+            FollowImports(full, impContent, visited, deps, props);
+        }
     }
 
     private static IReadOnlySet<string> ReadEnvVarNames(List<ClassifiedFile> files)

@@ -119,17 +119,21 @@
   match:
     extensions: [.lua]
   confidence: high
+# `.m` is shared by MATLAB and Objective-C; in code repos it is overwhelmingly
+# Objective-C, so MATLAB keeps only its unambiguous `.matlab`.
 - id: matlab
   name: MATLAB
   category: language
   match:
-    extensions: [.matlab, .m]
+    extensions: [.matlab]
   confidence: high
+# `.h` is a C/C++ header, not Objective-C — claiming it produced a false
+# high-confidence Objective-C on every C repo. Keep `.m`/`.mm` only.
 - id: objectivec
   name: Objective-C
   category: language
   match:
-    extensions: [.m, .mm, .h]
+    extensions: [.m, .mm]
   confidence: high
 - id: perl
   name: Perl

@@ -17,7 +17,9 @@ public sealed record AnalyzerOptions
     /// <summary>Maximum number of README lines captured in the excerpt.</summary>
     public int MaxReadmeLines { get; init; } = 120;
 
-    /// <summary>Maximum number of dependencies kept per parsed manifest.</summary>
+    /// <summary>Maximum number of dependencies kept per parsed manifest in the
+    /// <em>reported</em> output. Detection always runs against the full set, so this
+    /// only bounds report size — it never hides a technology from the rule engine.</summary>
     public int MaxDependenciesPerManifest { get; init; } = 100;
 
     /// <summary>Extra directories scanned for user-supplied language / detector data files.</summary>

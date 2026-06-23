@@ -21,6 +21,12 @@ public sealed record ParsedManifest
     /// <summary>MSBuild <c>Sdk</c> attribute for <c>*.csproj</c> / <c>*.fsproj</c>.</summary>
     public string? Sdk { get; init; }
 
+    /// <summary>MSBuild <c>PropertyGroup</c> scalar properties (e.g.
+    /// <c>UseWindowsForms=true</c>). Some frameworks have no package marker and are
+    /// only knowable from a build property.</summary>
+    public IReadOnlyDictionary<string, string> Properties { get; init; }
+        = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
     public ManifestFile ToManifestFile() => new(Path, Ecosystem, Dependencies);
 }
 

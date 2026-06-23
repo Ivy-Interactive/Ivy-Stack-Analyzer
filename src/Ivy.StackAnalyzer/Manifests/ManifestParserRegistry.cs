@@ -15,6 +15,7 @@ public sealed class ManifestParserRegistry
     [
         new NpmParser(),
         new NuGetParser(),
+        new PaketParser(),
         new PyPiParser(),
         new GoModParser(),
         new CargoParser(),

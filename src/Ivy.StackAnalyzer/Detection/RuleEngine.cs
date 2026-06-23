@@ -19,32 +19,40 @@ public sealed class RuleEngine
 
     public RuleEngine(IReadOnlyList<RuleDef> rules) => _rules = rules;
 
+    private static bool IsHashSlot(TechCategory c)
+        => c is TechCategory.Framework or TechCategory.Database or TechCategory.Orm;
+
     public IReadOnlyList<DetectedTechnology> Detect(ComponentContext ctx)
     {
-        var matched = new List<(RuleDef Rule, string Evidence, bool Strong)>();
+        var matched = new List<(RuleDef Rule, string Evidence, bool Strong, bool Direct)>();
         foreach (var rule in _rules)
         {
             var m = Match(rule, ctx);
-            if (m is not null) matched.Add((rule, m.Value.Evidence, m.Value.Strong));
+            if (m is not null) matched.Add((rule, m.Value.Evidence, m.Value.Strong, m.Value.Direct));
         }
 
         // Apply supersedes: drop any tech that a present tech supersedes.
         var presentIds = matched.Select(m => m.Rule.Id).ToHashSet(StringComparer.OrdinalIgnoreCase);
         var superseded = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var (rule, _, _) in matched)
+        foreach (var (rule, _, _, _) in matched)
             foreach (var s in rule.Supersedes)
                 if (presentIds.Contains(s)) superseded.Add(s);
 
         var result = new List<DetectedTechnology>();
-        foreach (var (rule, evidence, strong) in matched)
+        foreach (var (rule, evidence, strong, direct) in matched)
         {
             if (superseded.Contains(rule.Id)) continue;
+            var category = CategoryMap.Parse(rule.Category);
             // A dotenv-only match (env-var names are scaffolding, not proof of use)
             // is downgraded to Low so hash/digest consumers can drop the noise.
             var confidence = strong ? CategoryMap.ParseConfidence(rule.Confidence) : Confidence.Low;
+            // A hash-slot tech (framework/db/orm) supported only by transitive deps
+            // (e.g. FastAPI pulled in by a CLI's pip-compile lockfile) is not a real
+            // stack choice — drop it to Low so it never enters a hash slot.
+            if (!direct && IsHashSlot(category)) confidence = Confidence.Low;
             result.Add(new DetectedTechnology(
                 rule.Name,
-                CategoryMap.Parse(rule.Category),
+                category,
                 evidence,
                 confidence,
                 ctx.RelativePath));
@@ -57,21 +65,27 @@ public sealed class RuleEngine
     }
 
     /// <summary>
-    /// Returns evidence text + whether a <em>strong</em> facet matched (anything other
-    /// than dotenv), or null if the rule doesn't match.
+    /// Returns evidence text, whether a <em>strong</em> facet matched (anything other
+    /// than dotenv), and whether any strong facet was <em>direct</em> (a non-dep facet,
+    /// or a dep that is not transitive); or null if the rule doesn't match.
     /// </summary>
-    private (string Evidence, bool Strong)? Match(RuleDef rule, ComponentContext ctx)
+    private (string Evidence, bool Strong, bool Direct)? Match(RuleDef rule, ComponentContext ctx)
     {
         var m = rule.Match;
         var evidence = new List<string>();
+        bool direct = false; // a non-transitive dep, or any non-dep facet, matched
 
         // Dependencies (exact)
         foreach (var d in m.Deps)
         {
-            if (ctx.Dependencies.Any(x =>
+            var hit = ctx.Dependencies.FirstOrDefault(x =>
                 Eco(x.Ecosystem, d.Ecosystem) &&
-                string.Equals(x.Dependency.Name, d.Name, StringComparison.OrdinalIgnoreCase)))
+                string.Equals(x.Dependency.Name, d.Name, StringComparison.OrdinalIgnoreCase));
+            if (hit is not null)
+            {
                 evidence.Add($"{d.Ecosystem} dep '{d.Name}'");
+                if (hit.Dependency.Scope != DependencyScope.Transitive) direct = true;
+            }
         }
 
         // Dependency prefixes
@@ -80,7 +94,11 @@ public sealed class RuleEngine
             var hit = ctx.Dependencies.FirstOrDefault(x =>
                 Eco(x.Ecosystem, p.Ecosystem) &&
                 x.Dependency.Name.StartsWith(p.Prefix, StringComparison.OrdinalIgnoreCase));
-            if (hit is not null) evidence.Add($"{p.Ecosystem} dep '{hit.Dependency.Name}'");
+            if (hit is not null)
+            {
+                evidence.Add($"{p.Ecosystem} dep '{hit.Dependency.Name}'");
+                if (hit.Dependency.Scope != DependencyScope.Transitive) direct = true;
+            }
         }
 
         // Dependency regex
@@ -89,13 +107,28 @@ public sealed class RuleEngine
             var rx = GetRegex(r.Pattern);
             var hit = ctx.Dependencies.FirstOrDefault(x =>
                 Eco(x.Ecosystem, r.Ecosystem) && rx.IsMatch(x.Dependency.Name));
-            if (hit is not null) evidence.Add($"{r.Ecosystem} dep '{hit.Dependency.Name}'");
+            if (hit is not null)
+            {
+                evidence.Add($"{r.Ecosystem} dep '{hit.Dependency.Name}'");
+                if (hit.Dependency.Scope != DependencyScope.Transitive) direct = true;
+            }
         }
+
+        // Non-dependency facets below (sdk/files/paths/extensions/scripts) are all
+        // direct, first-party evidence — a present config file or SDK is never
+        // "transitive". If any matches, the rule is directly supported.
+        int beforeNonDep = evidence.Count;
 
         // SDK attribute
         foreach (var sdk in m.Sdk)
             if (ctx.Sdks.Any(s => string.Equals(s, sdk, StringComparison.OrdinalIgnoreCase)))
                 evidence.Add($"Sdk={sdk}");
+
+        // Build properties (e.g. MSBuild UseWindowsForms=true)
+        foreach (var p in m.Properties)
+            if (ctx.Properties.TryGetValue(p.Name, out var v)
+                && string.Equals(v, p.Value, StringComparison.OrdinalIgnoreCase))
+                evidence.Add($"{p.Name}={v}");
 
         // Files (exact name)
         foreach (var f in m.Files)
@@ -131,6 +164,8 @@ public sealed class RuleEngine
             if (hit is not null) evidence.Add($"script '{hit}'");
         }
 
+        if (evidence.Count > beforeNonDep) direct = true;
+
         // Every facet above is a strong signal; dotenv (below) is weak.
         bool strong = evidence.Count > 0;
 
@@ -140,7 +175,7 @@ public sealed class RuleEngine
                 evidence.Add($"env {prefix}*");
 
         if (evidence.Count == 0) return null;
-        return (string.Join("; ", evidence.Distinct().Take(4)), strong);
+        return (string.Join("; ", evidence.Distinct().Take(4)), strong, direct);
     }
 
     private static bool Eco(string a, string b) => string.Equals(a, b, StringComparison.OrdinalIgnoreCase);

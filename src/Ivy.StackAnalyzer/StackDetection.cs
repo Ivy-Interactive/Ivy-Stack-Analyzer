@@ -118,6 +118,6 @@ public enum TechCategory
     Documentation,
 }
 
-public enum DependencyScope { Runtime, Dev, Peer, Optional }
+public enum DependencyScope { Runtime, Dev, Peer, Optional, Transitive }
 
 public enum Confidence { Low, Medium, High }

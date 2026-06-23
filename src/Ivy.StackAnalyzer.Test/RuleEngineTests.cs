@@ -14,7 +14,8 @@ public class RuleEngineTests
         IEnumerable<string>? sdks = null,
         IEnumerable<string>? extensions = null,
         IEnumerable<string>? envVars = null,
-        IEnumerable<string>? scripts = null)
+        IEnumerable<string>? scripts = null,
+        IEnumerable<KeyValuePair<string, string>>? properties = null)
     {
         var names = (fileNames ?? []).ToHashSet(StringComparer.OrdinalIgnoreCase);
         return new ComponentContext
@@ -25,6 +26,7 @@ public class RuleEngineTests
             Languages = [],
             Dependencies = (deps ?? []).ToList(),
             Sdks = (sdks ?? []).ToList(),
+            Properties = new Dictionary<string, string>(properties ?? [], StringComparer.OrdinalIgnoreCase),
             IsWorkspaceRoot = false,
             IsAuxiliary = false,
             FileNames = names,
@@ -37,6 +39,8 @@ public class RuleEngineTests
 
     private static EcosystemDependency Npm(string name) => new("npm", new Dependency(name, null, DependencyScope.Runtime));
     private static EcosystemDependency NuGet(string name) => new("nuget", new Dependency(name, null, DependencyScope.Runtime));
+    private static EcosystemDependency Pypi(string name, DependencyScope scope = DependencyScope.Runtime)
+        => new("pypi", new Dependency(name, null, scope));
 
     private static readonly DataStore Data = DataStore.Load();
 
@@ -124,6 +128,35 @@ public class RuleEngineTests
         var engine = new RuleEngine(Data);
         var react = engine.Detect(Ctx(deps: [Npm("react")])).Single(t => t.Name == "React");
         Assert.Equal(Confidence.High, react.Confidence);
+    }
+
+    [Fact]
+    public void Transitive_only_slot_tech_is_dropped_to_low()
+    {
+        // A framework/db/orm whose only support is a transitive dep (e.g. Django
+        // pulled into a CLI's pip-compile lockfile) must not enter a hash slot.
+        var engine = new RuleEngine(Data);
+        var hit = engine.Detect(Ctx(deps: [Pypi("django", DependencyScope.Transitive)]))
+            .FirstOrDefault(t => t.Name == "Django");
+        Assert.NotNull(hit);
+        Assert.Equal(Confidence.Low, hit!.Confidence);
+    }
+
+    [Fact]
+    public void Direct_slot_tech_keeps_high_confidence()
+    {
+        var engine = new RuleEngine(Data);
+        var hit = engine.Detect(Ctx(deps: [Pypi("django", DependencyScope.Runtime)]))
+            .Single(t => t.Name == "Django");
+        Assert.Equal(Confidence.High, hit.Confidence);
+    }
+
+    [Fact]
+    public void Detects_windows_forms_by_msbuild_property()
+    {
+        var engine = new RuleEngine(Data);
+        var result = engine.Detect(Ctx(properties: [new("UseWindowsForms", "true")]));
+        Assert.Contains(result, t => t.Name == "Windows Forms" && t.Category == TechCategory.Framework);
     }
 
     [Theory]

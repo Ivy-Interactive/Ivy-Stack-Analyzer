@@ -1,6 +1,8 @@
 # Vendored / generated path patterns seeded from github-linguist (MIT), plus common build dirs.
 # Each entry is a .NET regex tested against forward-slash relative paths.
 patterns:
+  # Minified / bundled assets — generated, not authored; would inflate JS/CSS shares.
+  - "(^|/)[^/]+\\.min\\.(js|css)$"
   # Generated lockfiles — excluded so they do not skew language statistics.
   - "(^|/)package-lock\\.json$"
   - "(^|/)npm-shrinkwrap\\.json$"

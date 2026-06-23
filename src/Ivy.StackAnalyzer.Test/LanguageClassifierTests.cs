@@ -24,10 +24,27 @@ public class LanguageClassifierTests
     [InlineData("Dockerfile", "Dockerfile")]     // by filename
     [InlineData("go.mod", "Go Module")]          // by filename
     [InlineData("styles/site.css", "CSS")]
+    [InlineData("shaders/water.fx", "HLSL")]     // not InfluxData FLUX
+    [InlineData("kernels/conv.cl", "OpenCL")]    // not Common Lisp / Cool
     public void Resolves_expected_language(string path, string expected)
     {
         var c = Classifier.Classify(File(path));
         Assert.Equal(expected, c.Language);
+    }
+
+    [Fact]
+    public void Binary_content_is_not_classified_as_source()
+    {
+        // A file whose extension maps to a language but whose bytes are binary
+        // (e.g. a Python pickle) must not be counted as code.
+        var tmp = Path.Combine(Path.GetTempPath(), "ivy-bin-" + Guid.NewGuid().ToString("N") + ".py");
+        System.IO.File.WriteAllBytes(tmp, [0x80, 0x03, 0x00, 0x01, 0x02]);
+        try
+        {
+            var c = Classifier.Classify(File("model.py", tmp));
+            Assert.Null(c.Language);
+        }
+        finally { System.IO.File.Delete(tmp); }
     }
 
     [Fact]

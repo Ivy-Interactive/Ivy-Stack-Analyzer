@@ -37,6 +37,32 @@ public class ComponentDetectorTests
     }
 
     [Fact]
+    public void Follows_msbuild_import_for_shared_packagereferences()
+    {
+        using var repo = new TempRepo();
+        repo.Write("tests/Common.props", """
+            <Project>
+              <ItemGroup>
+                <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+              </ItemGroup>
+            </Project>
+            """)
+            .Write("tests/MyTests/MyTests.csproj", """
+            <Project Sdk="Microsoft.NET.Sdk">
+              <Import Project="..\Common.props" />
+              <ItemGroup>
+                <PackageReference Include="NUnit" Version="3.14.0" />
+              </ItemGroup>
+            </Project>
+            """);
+
+        var comp = Detect(repo).Single(c => c.RelativePath == "tests/MyTests");
+        // The directly-declared dep and the one imported from ../Common.props both surface.
+        Assert.Contains(comp.Dependencies, d => d.Dependency.Name == "NUnit");
+        Assert.Contains(comp.Dependencies, d => d.Dependency.Name == "NUnit3TestAdapter");
+    }
+
+    [Fact]
     public void Nearest_root_attribution_keeps_nested_files_with_child()
     {
         using var repo = new TempRepo();

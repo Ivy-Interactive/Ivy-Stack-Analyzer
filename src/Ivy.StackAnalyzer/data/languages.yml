@@ -195,7 +195,7 @@ Euphoria: { type: programming, extensions: [.e, .ex], interpreters: [eui, euiw] 
 "F*": { type: programming, extensions: [.fst, .fsti] }
 FIGlet Font: { type: data, extensions: [.flf] }
 FIRRTL: { type: programming, extensions: [.fir] }
-FLUX: { type: programming, extensions: [.fx, .flux] }
+FLUX: { type: programming, extensions: [.flux] }
 Factor: { type: programming, extensions: [.factor], filenames: [.factor-boot-rc, .factor-rc] }
 Fancy: { type: programming, extensions: [.fy, .fancypack], filenames: [Fakefile] }
 Fantom: { type: programming, extensions: [.fan] }

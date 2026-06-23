@@ -28,6 +28,13 @@ public sealed class DepPrefixRef
     public string Prefix { get; set; } = "";
 }
 
+/// <summary>A build-property match (e.g. MSBuild <c>UseWindowsForms=true</c>).</summary>
+public sealed class PropertyRef
+{
+    public string Name { get; set; } = "";
+    public string Value { get; set; } = "";
+}
+
 /// <summary>
 /// The superset matcher. Any populated facet contributes; a rule matches when
 /// <em>any</em> of its facets matches the component (logical OR across facets).
@@ -43,6 +50,9 @@ public sealed class MatchSpec
     public List<string> Dotenv { get; set; } = [];
     public List<string> Sdk { get; set; } = [];
     public List<string> PathGlobs { get; set; } = [];
+
+    /// <summary>MSBuild build-property matches (name + expected value).</summary>
+    public List<PropertyRef> Properties { get; set; } = [];
 
     /// <summary>Regexes matched against run-script command strings (e.g. <c>package.json</c>
     /// <c>scripts</c> values). Detects tools invoked only via a script, such as <c>bun test</c>.</summary>

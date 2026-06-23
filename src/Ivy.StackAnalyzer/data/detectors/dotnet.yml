@@ -61,6 +61,16 @@
     sdk: ["Microsoft.NET.Sdk.Worker"]
   confidence: high
 
+# WinForms has no NuGet package and no XAML; its only reliable marker is the
+# MSBuild property <UseWindowsForms>true</UseWindowsForms>.
+- id: windows-forms
+  name: Windows Forms
+  category: framework
+  match:
+    properties:
+      - { name: UseWindowsForms, value: "true" }
+  confidence: high
+
 - id: avalonia
   name: Avalonia
   category: framework

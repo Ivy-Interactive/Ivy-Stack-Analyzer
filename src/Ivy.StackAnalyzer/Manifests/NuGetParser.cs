@@ -19,6 +19,7 @@ public sealed class NuGetParser : IManifestParser
     {
         var deps = new List<Dependency>();
         string? sdk = null;
+        var properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         try
         {
             var doc = XDocument.Parse(content);
@@ -26,6 +27,12 @@ public sealed class NuGetParser : IManifestParser
             if (root is not null)
             {
                 sdk = (string?)root.Attribute("Sdk");
+
+                // Scalar properties from every <PropertyGroup> (last value wins).
+                foreach (var pg in root.Descendants().Where(e => e.Name.LocalName == "PropertyGroup"))
+                    foreach (var prop in pg.Elements())
+                        if (!prop.HasElements)
+                            properties[prop.Name.LocalName] = prop.Value.Trim();
 
                 foreach (var pr in root.Descendants().Where(e =>
                     e.Name.LocalName is "PackageReference" or "PackageVersion" or "GlobalPackageReference"))
@@ -47,6 +54,7 @@ public sealed class NuGetParser : IManifestParser
             Ecosystem = "nuget",
             Dependencies = deps,
             Sdk = sdk,
+            Properties = properties,
         };
     }
 }

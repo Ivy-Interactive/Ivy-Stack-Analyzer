@@ -28,6 +28,10 @@ public sealed class ComponentContext
     /// <summary>MSBuild SDK attributes seen in this component's project files.</summary>
     public IReadOnlyList<string> Sdks { get; init; } = [];
 
+    /// <summary>MSBuild build properties merged across this component's project files.</summary>
+    public IReadOnlyDictionary<string, string> Properties { get; init; }
+        = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
     /// <summary>Bare file names present anywhere in this component.</summary>
     public required IReadOnlySet<string> FileNames { get; init; }
 

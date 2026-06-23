@@ -36,7 +36,10 @@ internal static class Pipeline
         var parsers = new ManifestParserRegistry();
         var classifier = new LanguageClassifier(data);
         var ruleEngine = new RuleEngine(data);
-        var detectors = options.AdditionalDetectors; // code escape hatch (PLAN.md §7c)
+        // Built-in code detectors run alongside the data rules and any user-supplied
+        // ones (code escape hatch, PLAN.md §7c).
+        IReadOnlyList<ITechnologyDetector> detectors =
+            [new PrismaDetector(), .. options.AdditionalDetectors];
 
         // 1. Walk
         var scan = new FileSystemScanner(data, options).Scan(fullPath, ct);
@@ -60,7 +63,7 @@ internal static class Pipeline
             {
                 RelativePath = ctx.RelativePath,
                 Languages = ctx.Languages,
-                Manifests = ctx.Manifests.Select(m => m.ToManifestFile()).ToList(),
+                Manifests = ctx.Manifests.Select(m => CapForReport(m, options.MaxDependenciesPerManifest)).ToList(),
                 Technologies = techs,
                 FileCount = ctx.FileCount,
                 SizeBytes = ctx.SizeBytes,
@@ -108,6 +111,13 @@ internal static class Pipeline
             Metadata = metadata,
         };
     }
+
+    // The dependency cap bounds the size of the *reported* manifest only; detection
+    // already ran against the full set (see ComponentDetector).
+    private static ManifestFile CapForReport(ParsedManifest m, int cap)
+        => m.Dependencies.Count <= cap
+            ? m.ToManifestFile()
+            : new ManifestFile(m.Path, m.Ecosystem, m.Dependencies.Take(cap).ToList());
 
     private static IEnumerable<DetectedTechnology> Dedupe(IEnumerable<DetectedTechnology> techs)
         => techs
