@@ -108,19 +108,6 @@
       - { ecosystem: rubygems, name: coveralls }
       - { ecosystem: rubygems, name: coveralls_reborn }
   confidence: high
-- id: cypressci
-  name: CypressCI
-  category: ci
-  match:
-    deps:
-      - { ecosystem: npm, name: cypress }
-      - { ecosystem: npm, name: gatsby-cypress }
-      - { ecosystem: rubygems, name: cypress-on-rails }
-      - { ecosystem: githubAction, name: cypress-io/github-action }
-    depsRegex:
-      - { ecosystem: docker, pattern: cypress }
-    filesRegex: ["cypress.config.(js|ts|mjs|cjs)"]
-  confidence: high
 - id: deepsource
   name: Deepsource
   category: ci

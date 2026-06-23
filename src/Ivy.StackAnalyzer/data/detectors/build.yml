@@ -151,18 +151,6 @@
       - { ecosystem: composer, name: phpstan/phpstan }
     files: [phpstan.neon]
   confidence: high
-- id: playwright
-  name: Playwright
-  category: build
-  match:
-    deps:
-      - { ecosystem: npm, name: playwright }
-      - { ecosystem: npm, name: "@playwright/test" }
-      - { ecosystem: githubAction, name: microsoft/playwright-github-action }
-      - { ecosystem: docker, name: mcr.microsoft.com/playwright }
-      - { ecosystem: pypi, name: pytest-playwright }
-    files: [playwright.config.ts]
-  confidence: high
 - id: prettier
   name: Prettier
   category: build
