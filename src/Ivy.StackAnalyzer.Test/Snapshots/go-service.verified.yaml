@@ -72,6 +72,6 @@ infrastructure:
   - Dockerfile
 metadata:
   analyzerVersion: 0.1.0
-  rulesLoaded: 740
+  rulesLoaded: 742
   languageDefsLoaded: 815
   ignoredDirectories: []

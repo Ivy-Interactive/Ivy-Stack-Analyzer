@@ -61,6 +61,25 @@
     sdk: ["Microsoft.NET.Sdk.Worker"]
   confidence: high
 
+- id: ivy-framework
+  name: Ivy Framework
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Ivy" }
+      - { ecosystem: nuget, name: "Ivy.Docs.Helpers" }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Ivy.Widgets." }
+  confidence: high
+
+- id: spectre-console-cli
+  name: Spectre.Console.Cli
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Spectre.Console.Cli" }
+  confidence: high
+
 - id: xunit
   name: xUnit
   category: testing
@@ -75,7 +94,7 @@
   match:
     deps:
       - { ecosystem: nuget, name: "NUnit" }
-  confidence: high
+  confidence: low      # bare NUnit ref is weak evidence; needs Test.Sdk/adapter to be a real test framework
 
 - id: mstest
   name: MSTest
