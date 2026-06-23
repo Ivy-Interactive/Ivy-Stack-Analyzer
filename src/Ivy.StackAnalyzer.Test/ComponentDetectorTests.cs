@@ -37,6 +37,22 @@ public class ComponentDetectorTests
     }
 
     [Fact]
+    public void Sln_only_directory_is_not_a_phantom_component()
+    {
+        using var repo = new TempRepo();
+        repo.Write("Makefile", "all:\n\tcc -o app src/main.c\n")
+            .Write("src/main.c", "int main(void){return 0;}\n")
+            .Write("proj/vs2022/app.sln", "Microsoft Visual Studio Solution File\n")
+            .Write("proj/vs2022/app.vcxproj", "<Project></Project>\n");
+
+        var comps = Detect(repo);
+        // proj/vs2022 holds only build files (no owned source / manifest) — it must
+        // not be emitted as a standalone empty workspace-root component.
+        Assert.DoesNotContain(comps, c => c.RelativePath == "proj/vs2022");
+        Assert.Contains(comps, c => c.RelativePath == ".");
+    }
+
+    [Fact]
     public void Follows_msbuild_import_for_shared_packagereferences()
     {
         using var repo = new TempRepo();

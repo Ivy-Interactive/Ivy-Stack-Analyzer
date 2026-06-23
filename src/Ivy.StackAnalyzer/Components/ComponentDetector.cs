@@ -125,6 +125,14 @@ public sealed class ComponentDetector
             });
         }
 
+        // Drop phantom workspace-root components: a directory promoted to a root
+        // only by a bare `.sln`/`.slnx` (or workspace declarator) that owns no
+        // source and no parsed manifest is a build artifact of a real root, not a
+        // component. The repo root (".") is always kept.
+        components.RemoveAll(c =>
+            c.RelativePath != "." && c.IsWorkspaceRoot
+            && c.Languages.Count == 0 && c.Manifests.Count == 0);
+
         return components;
     }
 

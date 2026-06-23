@@ -24,9 +24,14 @@ public sealed class FileSystemScanner
         var files = new List<ScannedFile>();
         var ignoredDirs = new SortedSet<string>(StringComparer.Ordinal);
         var gitignore = new GitignoreMatcher();
+        // .gitattributes linguist overrides (the repo's own language-stat hints):
+        // `linguist-vendored`/`-generated` exclude like vendored; `-documentation`
+        // flags as docs. Reuses the gitignore glob engine (same pattern syntax).
+        var attrVendored = new GitignoreMatcher();
+        var attrDocumentation = new GitignoreMatcher();
         int total = 0;
 
-        Walk(repoRoot, repoRoot, gitignore, files, ignoredDirs, ref total, ct);
+        Walk(repoRoot, repoRoot, gitignore, attrVendored, attrDocumentation, files, ignoredDirs, ref total, ct);
 
         files.Sort((a, b) => string.CompareOrdinal(a.RelativePath, b.RelativePath));
         return new ScanResult
@@ -39,10 +44,14 @@ public sealed class FileSystemScanner
 
     private void Walk(
         string dir, string root, GitignoreMatcher gitignore,
+        GitignoreMatcher attrVendored, GitignoreMatcher attrDocumentation,
         List<ScannedFile> files, SortedSet<string> ignoredDirs,
         ref int total, CancellationToken ct)
     {
         ct.ThrowIfCancellationRequested();
+
+        var dirRel = ToRelative(root, dir);
+        if (dirRel == ".") dirRel = "";
 
         // Load this directory's .gitignore before descending. At the repo root
         // ToRelative yields "." — normalize to "" so patterns aren't prefixed "./".
@@ -51,11 +60,17 @@ public sealed class FileSystemScanner
             var giPath = Path.Combine(dir, ".gitignore");
             if (File.Exists(giPath))
             {
-                var baseDir = ToRelative(root, dir);
-                if (baseDir == ".") baseDir = "";
-                try { gitignore.AddFile(baseDir, File.ReadAllText(giPath)); }
+                try { gitignore.AddFile(dirRel, File.ReadAllText(giPath)); }
                 catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { /* skip unreadable .gitignore */ }
             }
+        }
+
+        // .gitattributes is independent of .gitignore (read regardless).
+        var gaPath = Path.Combine(dir, ".gitattributes");
+        if (File.Exists(gaPath))
+        {
+            try { AddGitAttributes(dirRel, File.ReadAllText(gaPath), attrVendored, attrDocumentation); }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { /* skip unreadable .gitattributes */ }
         }
 
         string[] subDirs, dirFiles;
@@ -76,7 +91,8 @@ public sealed class FileSystemScanner
             var rel = ToRelative(root, file);
             if (_options.RespectGitignore && gitignore.IsIgnored(rel, isDirectory: false)) continue;
 
-            bool vendored = IsVendored(rel);
+            // vendored: vendor.yml patterns OR a .gitattributes linguist-vendored/-generated override.
+            bool vendored = IsVendored(rel) || attrVendored.IsIgnored(rel, isDirectory: false);
             if (vendored && !_options.IncludeVendored)
             {
                 // counted as total, kept (flagged) so downstream can exclude from stats
@@ -85,7 +101,7 @@ public sealed class FileSystemScanner
             // Documentation / example files are flagged but NEVER pruned from the
             // walk: example dirs must still surface as components. The flag only
             // excludes them from language statistics downstream.
-            bool documentation = IsDocumentation(rel);
+            bool documentation = IsDocumentation(rel) || attrDocumentation.IsIgnored(rel, isDirectory: false);
 
             long len;
             try { len = new FileInfo(file).Length; } catch { len = 0; }
@@ -126,8 +142,36 @@ public sealed class FileSystemScanner
                 continue;
             }
 
-            Walk(sub, root, gitignore, files, ignoredDirs, ref total, ct);
+            Walk(sub, root, gitignore, attrVendored, attrDocumentation, files, ignoredDirs, ref total, ct);
         }
+    }
+
+    // Parse a .gitattributes file: `pattern attr1 attr2 ...`. Positive linguist
+    // overrides feed the matchers; negated/`=false` forms are ignored (we never
+    // force-exclude on a negative). Pattern syntax matches .gitignore globs.
+    private static void AddGitAttributes(
+        string baseDir, string content, GitignoreMatcher vendored, GitignoreMatcher documentation)
+    {
+        foreach (var raw in content.Split('\n'))
+        {
+            var line = raw.Trim();
+            if (line.Length == 0 || line.StartsWith('#')) continue;
+            var sp = line.IndexOfAny([' ', '\t']);
+            if (sp < 0) continue;
+            var pattern = line[..sp];
+            var attrs = line[sp..];
+            if (HasAttr(attrs, "linguist-vendored") || HasAttr(attrs, "linguist-generated"))
+                vendored.AddFile(baseDir, pattern);
+            if (HasAttr(attrs, "linguist-documentation"))
+                documentation.AddFile(baseDir, pattern);
+        }
+    }
+
+    private static bool HasAttr(string attrs, string name)
+    {
+        foreach (var tok in attrs.Split([' ', '\t'], StringSplitOptions.RemoveEmptyEntries))
+            if (tok == name || tok == name + "=true") return true; // positive only
+        return false;
     }
 
     private bool IsVendored(string relativePath)

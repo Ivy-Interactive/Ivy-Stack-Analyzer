@@ -18,6 +18,27 @@ public class FileSystemScannerTests
     }
 
     [Fact]
+    public void GitAttributes_linguist_overrides_flag_files()
+    {
+        using var repo = new TempRepo();
+        repo.Write(".gitattributes",
+                "tests/data/** linguist-vendored\nschemas/*.gen.cs linguist-generated\nrefmanual/** linguist-documentation\n")
+            .Write("src/App.cs", "class A {}\n")
+            .Write("tests/data/fixture.tex", "\\documentclass{article}\n")
+            .Write("schemas/Model.gen.cs", "class M {}\n")
+            .Write("refmanual/guide.cs", "class D {}\n");
+
+        var scan = new FileSystemScanner(Harness.Data, new AnalyzerOptions()).Scan(repo.Root);
+        var byPath = scan.Files.ToDictionary(f => f.RelativePath);
+
+        Assert.False(byPath["src/App.cs"].IsVendored);
+        Assert.False(byPath["src/App.cs"].IsDocumentation);
+        Assert.True(byPath["tests/data/fixture.tex"].IsVendored);   // linguist-vendored
+        Assert.True(byPath["schemas/Model.gen.cs"].IsVendored);     // linguist-generated
+        Assert.True(byPath["refmanual/guide.cs"].IsDocumentation);  // linguist-documentation
+    }
+
+    [Fact]
     public void Prunes_vendored_dirs_and_gitignored_files_by_default()
     {
         using var repo = Sample();
