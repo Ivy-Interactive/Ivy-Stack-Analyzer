@@ -58,3 +58,27 @@
     deps:
       - { ecosystem: pypi, name: pytest }
   confidence: high
+
+- id: click
+  name: Click
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: click }
+  confidence: high
+
+- id: typer
+  name: Typer
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: typer }
+  confidence: high
+
+- id: fastmcp
+  name: FastMCP
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: fastmcp }
+  confidence: high
