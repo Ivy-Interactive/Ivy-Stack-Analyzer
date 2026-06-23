@@ -45,25 +45,6 @@
     depsRegex:
       - { ecosystem: npm, pattern: "^@chakra-ui\\/" }
   confidence: high
-- id: codemirror
-  name: CodeMirror
-  category: styling
-  match:
-    deps:
-      - { ecosystem: npm, name: codemirror }
-    depsRegex:
-      - { ecosystem: npm, pattern: "@codemirror\\/" }
-  confidence: high
-- id: d3js
-  name: D3.js
-  category: styling
-  match:
-    deps:
-      - { ecosystem: npm, name: d3 }
-      - { ecosystem: npm, name: d3-shape }
-      - { ecosystem: npm, name: "@types/d3" }
-      - { ecosystem: npm, name: "@types/d3-shape" }
-  confidence: high
 - id: daisyui
   name: daisyUI
   category: styling
@@ -207,11 +188,4 @@
   match:
     deps:
       - { ecosystem: npm, name: "@tanstack/react-router" }
-  confidence: high
-- id: tiptap
-  name: Tiptap
-  category: styling
-  match:
-    depsRegex:
-      - { ecosystem: npm, pattern: "^@tiptap\\/" }
   confidence: high
