@@ -1,4 +1,4 @@
-namespace Ivy.StackAnalyzer.Data;
+namespace Ivy.StackAnalyzer.Models;
 
 /// <summary>YAML wrapper for <c>vendor.yml</c>.</summary>
 public sealed class VendorFile

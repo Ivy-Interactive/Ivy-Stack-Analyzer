@@ -3,11 +3,12 @@ using System.Text.RegularExpressions;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace Ivy.StackAnalyzer.Data;
+namespace Ivy.StackAnalyzer.Models;
 
 /// <summary>
 /// Loads and indexes the data files (languages, vendor patterns, detector
-/// rules) from embedded resources plus any user-supplied rule directories.
+/// rules, infrastructure signals) from embedded resources plus any user-supplied
+/// rule directories.
 /// This is the single source of "what does the tool know" — adding a language
 /// or framework is purely a data change, never a code change.
 /// </summary>
@@ -16,6 +17,7 @@ public sealed class DataStore
     public IReadOnlyDictionary<string, LanguageDef> Languages { get; }
     public IReadOnlyList<Regex> VendorPatterns { get; }
     public IReadOnlyList<RuleDef> Rules { get; }
+    public InfraData Infra { get; }
 
     // Indexes built from Languages for fast per-file classification.
     public IReadOnlyDictionary<string, List<string>> ByExtension { get; }
@@ -28,11 +30,13 @@ public sealed class DataStore
     private DataStore(
         Dictionary<string, LanguageDef> languages,
         List<Regex> vendorPatterns,
-        List<RuleDef> rules)
+        List<RuleDef> rules,
+        InfraData infra)
     {
         Languages = languages;
         VendorPatterns = vendorPatterns;
         Rules = rules;
+        Infra = infra;
 
         var byExt = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
         var byFile = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -65,6 +69,7 @@ public sealed class DataStore
         var languages = LoadLanguages(asm);
         var vendor = LoadVendor(asm);
         var rules = LoadRules(asm);
+        var infra = LoadInfra(asm);
 
         // Overlay user-supplied directories (later wins / appends).
         foreach (var dir in additionalDirectories ?? [])
@@ -84,9 +89,29 @@ public sealed class DataStore
             if (Directory.Exists(detectorsDir))
                 foreach (var f in Directory.EnumerateFiles(detectorsDir, "*.yml"))
                     rules.AddRange(Yaml.Deserialize<List<RuleDef>>(File.ReadAllText(f)) ?? []);
+
+            var infraFile = Path.Combine(dir, "infra.yml");
+            if (File.Exists(infraFile))
+            {
+                var userInfra = Yaml.Deserialize<InfraData>(File.ReadAllText(infraFile));
+                if (userInfra is not null)
+                {
+                    infra.Signals.AddRange(userInfra.Signals);              // append: built-ins keep precedence
+                    foreach (var (k, v) in userInfra.Images) infra.Images[k] = v; // image mappings: user wins
+                }
+            }
         }
 
-        return new DataStore(languages, vendor, rules);
+        return new DataStore(languages, vendor, rules, infra);
+    }
+
+    private static InfraData LoadInfra(Assembly asm)
+    {
+        var text = ReadResource(asm, ".data.infra.yml");
+        var data = Yaml.Deserialize<InfraData>(text) ?? new InfraData();
+        // YamlDotNet replaces the dictionary, dropping the case-insensitive comparer.
+        data.Images = new Dictionary<string, InfraImageDef>(data.Images, StringComparer.OrdinalIgnoreCase);
+        return data;
     }
 
     private static Dictionary<string, LanguageDef> LoadLanguages(Assembly asm)

@@ -19,18 +19,34 @@ Language detection is seeded from [github-linguist][linguist]; technology detect
 is seeded from [specfy/stack-analyser][specfy]. Both are data files shipped as
 embedded resources, and both are extensible at runtime via `--rules`.
 
-## Install / build
+## Install
+
+As a **.NET tool** (published to nuget.org):
+
+```bash
+dotnet tool install -g ivy-stack-analyzer
+ivy-stack-analyzer ./my-repo
+```
+
+As a **library** (NuGet package `Ivy.StackAnalyzer`):
+
+```bash
+dotnet add package Ivy.StackAnalyzer
+```
+
+### Build from source
 
 Requires the **.NET 10 SDK**.
 
 ```bash
 dotnet build Ivy.StackAnalyzer.slnx
+dotnet test Ivy.StackAnalyzer.slnx
 ```
 
 ## Usage
 
 ```bash
-ivy-stack analyze <path> [options]
+ivy-stack-analyzer <path> [options]
   -o, --output  yaml | json     # default: yaml
   --out <file>                  # write to a file instead of stdout
   --rules <dir>                 # extra detector / language definitions (repeatable)
@@ -39,7 +55,7 @@ ivy-stack analyze <path> [options]
 ```
 
 ```bash
-dotnet run --project src/Ivy.StackAnalyzer.Console -- analyze ./my-repo
+dotnet run --project src/Ivy.StackAnalyzer.Console -- ./my-repo
 ```
 
 ### Example output (abridged)

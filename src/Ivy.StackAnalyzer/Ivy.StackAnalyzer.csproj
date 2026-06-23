@@ -3,11 +3,18 @@
   <PropertyGroup>
     <RootNamespace>Ivy.StackAnalyzer</RootNamespace>
     <AssemblyName>Ivy.StackAnalyzer</AssemblyName>
+    <PackageId>Ivy.StackAnalyzer</PackageId>
+    <Description>Deterministic, signal-rich repository stack analyzer: languages, components, frameworks, and infrastructure as structured data. Reports facts only — no semantic layer labelling.</Description>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="YamlDotNet" />
     <PackageReference Include="Tomlyn" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>
 
   <ItemGroup>

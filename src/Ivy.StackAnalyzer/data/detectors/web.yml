@@ -1,0 +1,9 @@
+# Hand-curated web/UI detectors that specfy defines but our one-shot importer
+# dropped (e.g. shadcn/ui's rule uses a TS `const x: T` form the eval-based
+# seeder couldn't parse). Kept here so a data regeneration doesn't lose them.
+- id: shadcn
+  name: shadcn/ui
+  category: styling
+  match:
+    files: ["components.json"]
+  confidence: high

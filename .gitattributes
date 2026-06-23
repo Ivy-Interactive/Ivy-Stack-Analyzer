@@ -1,0 +1,11 @@
+# Keep test fixtures and Verify snapshots byte-stable across OSes (their byte
+# sizes appear in snapshots, so line endings must not vary).
+src/Ivy.StackAnalyzer.Test/Fixtures/** text eol=lf
+src/Ivy.StackAnalyzer.Test/Snapshots/** text eol=lf
+
+# Data files are byte-significant for embedded resources / determinism.
+src/Ivy.StackAnalyzer/data/** text eol=lf
+
+# Scripts that are platform-conventional.
+*.ps1 text eol=crlf
+*.sh text eol=lf

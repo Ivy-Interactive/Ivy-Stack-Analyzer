@@ -7,7 +7,7 @@ using Spectre.Console.Cli;
 namespace Ivy.StackAnalyzer.Console.Commands;
 
 /// <summary>
-/// <c>ivy-stack analyze &lt;path&gt;</c> — produce a deterministic stack report
+/// <c>ivy-stack-analyzer &lt;path&gt;</c> — produce a deterministic stack report
 /// of a repository as YAML (default) or JSON.
 /// </summary>
 public sealed class AnalyzeCommand : AsyncCommand<AnalyzeCommand.Settings>

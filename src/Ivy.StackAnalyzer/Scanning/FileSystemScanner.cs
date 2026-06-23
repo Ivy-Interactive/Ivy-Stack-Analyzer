@@ -1,4 +1,4 @@
-using Ivy.StackAnalyzer.Data;
+using Ivy.StackAnalyzer.Models;
 
 namespace Ivy.StackAnalyzer.Scanning;
 
@@ -44,12 +44,17 @@ public sealed class FileSystemScanner
     {
         ct.ThrowIfCancellationRequested();
 
-        // Load this directory's .gitignore before descending.
+        // Load this directory's .gitignore before descending. At the repo root
+        // ToRelative yields "." — normalize to "" so patterns aren't prefixed "./".
         if (_options.RespectGitignore)
         {
             var giPath = Path.Combine(dir, ".gitignore");
             if (File.Exists(giPath))
-                gitignore.AddFile(ToRelative(root, dir), File.ReadAllText(giPath));
+            {
+                var baseDir = ToRelative(root, dir);
+                if (baseDir == ".") baseDir = "";
+                gitignore.AddFile(baseDir, File.ReadAllText(giPath));
+            }
         }
 
         string[] subDirs, dirFiles;

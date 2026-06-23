@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Ivy.StackAnalyzer.Models;
 using Ivy.StackAnalyzer.Scanning;
 
 namespace Ivy.StackAnalyzer.Infra;
@@ -6,98 +7,96 @@ namespace Ivy.StackAnalyzer.Infra;
 /// <summary>
 /// Surfaces deployment / operational signals that live outside dependency
 /// manifests: containers, orchestration, IaC, CI, and databases declared in
-/// compose files. Pure facts — files and evidence, no judgement.
+/// compose files. The match tables come from <c>infra.yml</c> (<see cref="InfraData"/>);
+/// this class only provides the mechanics (walking files, parsing compose
+/// <c>image:</c> values, sniffing Kubernetes manifests). Pure facts — no judgement.
 /// </summary>
 public sealed partial class InfraScanner
 {
-    private sealed record DbImage(string Name, TechCategory Category);
+    private readonly InfraData _data;
 
-    // docker image name (prefix before ':') -> reported technology
-    private static readonly Dictionary<string, DbImage> KnownImages = new(StringComparer.OrdinalIgnoreCase)
-    {
-        ["postgres"] = new("Postgres", TechCategory.Database),
-        ["postgis/postgis"] = new("PostGIS", TechCategory.Database),
-        ["mysql"] = new("MySQL", TechCategory.Database),
-        ["mariadb"] = new("MariaDB", TechCategory.Database),
-        ["mongo"] = new("MongoDB", TechCategory.Database),
-        ["redis"] = new("Redis", TechCategory.Database),
-        ["memcached"] = new("Memcached", TechCategory.Database),
-        ["cassandra"] = new("Cassandra", TechCategory.Database),
-        ["clickhouse/clickhouse-server"] = new("ClickHouse", TechCategory.Database),
-        ["cockroachdb/cockroach"] = new("CockroachDB", TechCategory.Database),
-        ["neo4j"] = new("Neo4j", TechCategory.Database),
-        ["elasticsearch"] = new("Elasticsearch", TechCategory.Database),
-        ["docker.elastic.co/elasticsearch/elasticsearch"] = new("Elasticsearch", TechCategory.Database),
-        ["rabbitmq"] = new("RabbitMQ", TechCategory.Queue),
-        ["confluentinc/cp-kafka"] = new("Kafka", TechCategory.Messaging),
-        ["apache/kafka"] = new("Kafka", TechCategory.Messaging),
-        ["nats"] = new("NATS", TechCategory.Messaging),
-        ["minio/minio"] = new("MinIO", TechCategory.Storage),
-    };
+    public InfraScanner(InfraData data) => _data = data;
 
     public IReadOnlyList<InfraSignal> Scan(IReadOnlyList<ClassifiedFile> files)
     {
-        var signals = new List<InfraSignal>();
-
-        var docker = new List<string>();
-        var compose = new List<string>();
-        var k8s = new List<string>();
-        var helm = new List<string>();
-        var terraform = new List<string>();
-        var ghActions = new List<string>();
-        var gitlabCi = new List<string>();
-        var azurePipelines = new List<string>();
-        var jenkins = new List<string>();
-        var circleci = new List<string>();
-        var dbSignals = new Dictionary<string, (TechCategory Cat, SortedSet<string> Files)>(StringComparer.OrdinalIgnoreCase);
+        // One bucket per signal, kept in definition order = match precedence.
+        var buckets = _data.Signals.Select(def => (Def: def, Paths: new List<string>())).ToList();
+        var images = new Dictionary<string, (TechCategory Cat, SortedSet<string> Files)>(StringComparer.OrdinalIgnoreCase);
 
         foreach (var cf in files)
         {
             if (cf.File.IsVendored) continue;
-            var path = cf.File.RelativePath;
-            var name = cf.File.FileName;
-
-            if (IsDockerfile(name)) docker.Add(path);
-            else if (IsCompose(name)) { compose.Add(path); ScanCompose(cf.File.FullPath, path, dbSignals); }
-            else if (path.EndsWith(".tf", StringComparison.OrdinalIgnoreCase)) terraform.Add(path);
-            else if (string.Equals(name, "Chart.yaml", StringComparison.OrdinalIgnoreCase)) helm.Add(path);
-            else if (path.Contains(".github/workflows/", StringComparison.OrdinalIgnoreCase)
-                     && (name.EndsWith(".yml", StringComparison.OrdinalIgnoreCase) || name.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase)))
-                ghActions.Add(path);
-            else if (string.Equals(name, ".gitlab-ci.yml", StringComparison.OrdinalIgnoreCase)) gitlabCi.Add(path);
-            else if (string.Equals(name, "azure-pipelines.yml", StringComparison.OrdinalIgnoreCase)) azurePipelines.Add(path);
-            else if (string.Equals(name, "Jenkinsfile", StringComparison.OrdinalIgnoreCase)) jenkins.Add(path);
-            else if (path.Contains(".circleci/", StringComparison.OrdinalIgnoreCase) && name.StartsWith("config", StringComparison.OrdinalIgnoreCase)) circleci.Add(path);
-            else if (IsKubernetesManifest(cf)) k8s.Add(path);
+            foreach (var (def, paths) in buckets)
+            {
+                if (!Matches(def, cf)) continue;
+                paths.Add(cf.File.RelativePath);
+                if (def.ScanComposeImages) ScanComposeImages(cf.File.FullPath, cf.File.RelativePath, images);
+                break; // first matching signal claims the file
+            }
         }
 
-        AddSignal(signals, "Docker", TechCategory.Build, docker);
-        AddSignal(signals, "Docker Compose", TechCategory.Build, compose);
-        AddSignal(signals, "Kubernetes", TechCategory.Cloud, k8s);
-        AddSignal(signals, "Helm", TechCategory.Cloud, helm);
-        AddSignal(signals, "Terraform", TechCategory.Iac, terraform);
-        AddSignal(signals, "GitHub Actions", TechCategory.Ci, ghActions);
-        AddSignal(signals, "GitLab CI", TechCategory.Ci, gitlabCi);
-        AddSignal(signals, "Azure Pipelines", TechCategory.Ci, azurePipelines);
-        AddSignal(signals, "Jenkins", TechCategory.Ci, jenkins);
-        AddSignal(signals, "CircleCI", TechCategory.Ci, circleci);
+        var signals = new List<InfraSignal>();
+        foreach (var (def, paths) in buckets)
+        {
+            if (paths.Count == 0) continue;
+            paths.Sort(StringComparer.Ordinal);
+            signals.Add(new InfraSignal(def.Kind, ParseCategory(def.Category), paths, null));
+        }
 
-        foreach (var (tech, info) in dbSignals.OrderBy(k => k.Key, StringComparer.Ordinal))
-            signals.Add(new InfraSignal(tech, info.Cat, info.Files.ToList(),
-                $"docker-compose image '{tech}'"));
+        foreach (var (tech, info) in images.OrderBy(k => k.Key, StringComparer.Ordinal))
+            signals.Add(new InfraSignal(tech, info.Cat, info.Files.ToList(), $"docker-compose image '{tech}'"));
 
         return signals;
     }
 
-    private static void AddSignal(List<InfraSignal> signals, string kind, TechCategory cat, List<string> files)
+    private static bool Matches(InfraSignalDef def, ClassifiedFile cf)
     {
-        if (files.Count == 0) return;
-        files.Sort(StringComparer.Ordinal);
-        signals.Add(new InfraSignal(kind, cat, files, null));
+        var name = cf.File.FileName;
+        var ext = cf.File.Extension;
+        var path = cf.File.RelativePath;
+
+        // name category — OR of exact / prefix / suffix, only enforced when specified
+        if (def.Files.Count > 0 || def.NamePrefix.Count > 0 || def.NameSuffix.Count > 0)
+        {
+            bool nameOk = def.Files.Any(f => string.Equals(f, name, StringComparison.OrdinalIgnoreCase))
+                || def.NamePrefix.Any(p => name.StartsWith(p, StringComparison.OrdinalIgnoreCase))
+                || def.NameSuffix.Any(s => name.EndsWith(s, StringComparison.OrdinalIgnoreCase));
+            if (!nameOk) return false;
+        }
+
+        if (def.Extensions.Count > 0
+            && !def.Extensions.Any(e => string.Equals(e, ext, StringComparison.OrdinalIgnoreCase)))
+            return false;
+
+        if (def.PathContains.Count > 0
+            && !def.PathContains.Any(p => path.Contains(p, StringComparison.OrdinalIgnoreCase)))
+            return false;
+
+        if (!string.IsNullOrEmpty(def.RequiresContent) && !ContentMatches(def.RequiresContent, cf.File.FullPath))
+            return false;
+
+        return true;
     }
 
-    private void ScanCompose(string fullPath, string relPath,
-        Dictionary<string, (TechCategory, SortedSet<string>)> dbSignals)
+    private static bool ContentMatches(string key, string fullPath) => key.ToLowerInvariant() switch
+    {
+        "k8s" => IsKubernetesContent(fullPath),
+        _ => true, // unknown sniff key: don't block on content we can't verify
+    };
+
+    private static bool IsKubernetesContent(string fullPath)
+    {
+        try
+        {
+            var head = File.ReadLines(fullPath).Take(40).ToList();
+            return head.Any(l => l.StartsWith("kind:", StringComparison.OrdinalIgnoreCase))
+                && head.Any(l => l.StartsWith("apiVersion:", StringComparison.OrdinalIgnoreCase));
+        }
+        catch (IOException) { return false; }
+    }
+
+    private void ScanComposeImages(string fullPath, string relPath,
+        Dictionary<string, (TechCategory Cat, SortedSet<string> Files)> images)
     {
         string content;
         try { content = File.ReadAllText(fullPath); }
@@ -105,48 +104,25 @@ public sealed partial class InfraScanner
 
         foreach (Match m in ImageRegex().Matches(content))
         {
-            var image = m.Groups["img"].Value.Trim();
-            var imageName = image.Split(':')[0];
-            if (!KnownImages.TryGetValue(imageName, out var db))
+            var imageName = m.Groups["img"].Value.Trim().Split(':')[0];
+            if (!_data.Images.TryGetValue(imageName, out var def))
             {
                 // try last path segment (e.g. "bitnami/postgresql" -> "postgresql")
                 var leaf = imageName.Split('/').Last();
-                if (!KnownImages.TryGetValue(leaf, out db)) continue;
+                if (!_data.Images.TryGetValue(leaf, out def)) continue;
             }
-            if (!dbSignals.TryGetValue(db.Name, out var entry))
-                entry = dbSignals[db.Name] = (db.Category, new SortedSet<string>(StringComparer.Ordinal));
-            entry.Item2.Add(relPath);
+            var cat = ParseCategory(def.Category);
+            if (!images.TryGetValue(def.Name, out var entry))
+                entry = images[def.Name] = (cat, new SortedSet<string>(StringComparer.Ordinal));
+            entry.Files.Add(relPath);
         }
     }
 
-    private static bool IsDockerfile(string name)
-        => string.Equals(name, "Dockerfile", StringComparison.OrdinalIgnoreCase)
-        || string.Equals(name, "Containerfile", StringComparison.OrdinalIgnoreCase)
-        || name.EndsWith(".Dockerfile", StringComparison.OrdinalIgnoreCase)
-        || name.StartsWith("Dockerfile.", StringComparison.OrdinalIgnoreCase);
-
-    private static bool IsCompose(string name)
-        => string.Equals(name, "docker-compose.yml", StringComparison.OrdinalIgnoreCase)
-        || string.Equals(name, "docker-compose.yaml", StringComparison.OrdinalIgnoreCase)
-        || string.Equals(name, "compose.yml", StringComparison.OrdinalIgnoreCase)
-        || string.Equals(name, "compose.yaml", StringComparison.OrdinalIgnoreCase);
-
-    private static bool IsKubernetesManifest(ClassifiedFile cf)
-    {
-        var name = cf.File.FileName;
-        if (!name.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase) && !name.EndsWith(".yml", StringComparison.OrdinalIgnoreCase))
-            return false;
-        if (!cf.File.RelativePath.Contains("k8s", StringComparison.OrdinalIgnoreCase)
-            && !cf.File.RelativePath.Contains("kubernetes", StringComparison.OrdinalIgnoreCase))
-            return false;
-        try
-        {
-            var head = File.ReadLines(cf.File.FullPath).Take(40);
-            return head.Any(l => l.StartsWith("kind:", StringComparison.OrdinalIgnoreCase))
-                && head.Any(l => l.StartsWith("apiVersion:", StringComparison.OrdinalIgnoreCase));
-        }
-        catch (IOException) { return false; }
-    }
+    // infra.yml categories are written to match TechCategory names directly, so a
+    // plain enum parse is correct here (and avoids CategoryMap's specfy-oriented
+    // bucketing, e.g. "tool" -> Build).
+    private static TechCategory ParseCategory(string category)
+        => Enum.TryParse<TechCategory>(category, ignoreCase: true, out var c) ? c : TechCategory.Library;
 
     [GeneratedRegex(@"image:\s*[""']?(?<img>[\w.\-\/]+(?::[\w.\-]+)?)[""']?")]
     private static partial Regex ImageRegex();

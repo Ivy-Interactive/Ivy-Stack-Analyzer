@@ -44,15 +44,25 @@ components:
     - name: mypy
       version: '>=1.10'
       scope: optional
-  technologies: []
+  technologies:
+  - name: pytest
+    category: testing
+    evidence: pypi dep 'pytest'
+    confidence: high
+    componentPath: .
   fileCount: 4
   sizeBytes: 498
   isWorkspaceRoot: false
   isAuxiliary: false
-technologies: []
+technologies:
+- name: pytest
+  category: testing
+  evidence: pypi dep 'pytest'
+  confidence: high
+  componentPath: .
 infrastructure: []
 metadata:
   analyzerVersion: 0.1.0
-  rulesLoaded: 732
+  rulesLoaded: 740
   languageDefsLoaded: 815
   ignoredDirectories: []

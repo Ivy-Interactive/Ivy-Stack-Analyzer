@@ -1,4 +1,4 @@
-namespace Ivy.StackAnalyzer.Data;
+namespace Ivy.StackAnalyzer.Models;
 
 /// <summary>A language definition as loaded from <c>languages.yml</c>.</summary>
 public sealed class LanguageDef
@@ -55,4 +55,39 @@ public sealed class RuleDef
     public MatchSpec Match { get; set; } = new();
     public List<string> Supersedes { get; set; } = [];
     public string Confidence { get; set; } = "high";
+}
+
+/// <summary>
+/// An infrastructure signal definition from <c>infra.yml</c>. A file matches when
+/// every <em>specified</em> constraint category holds (AND across categories):
+/// the name category (any of <see cref="Files"/> / <see cref="NamePrefix"/> /
+/// <see cref="NameSuffix"/>), <see cref="Extensions"/>, <see cref="PathContains"/>,
+/// and the optional <see cref="RequiresContent"/> sniff. Order in the file is the
+/// match precedence — the first matching signal claims a file.
+/// </summary>
+public sealed class InfraSignalDef
+{
+    public string Kind { get; set; } = "";
+    public string Category { get; set; } = "library";
+    public List<string> Files { get; set; } = [];        // exact file name
+    public List<string> NamePrefix { get; set; } = [];   // file name starts with
+    public List<string> NameSuffix { get; set; } = [];   // file name ends with
+    public List<string> Extensions { get; set; } = [];   // file extension (with dot)
+    public List<string> PathContains { get; set; } = []; // relative path contains
+    public string? RequiresContent { get; set; }         // content sniff key, e.g. "k8s"
+    public bool ScanComposeImages { get; set; }          // also extract `image:` values
+}
+
+/// <summary>A container image -> reported technology mapping from <c>infra.yml</c>.</summary>
+public sealed class InfraImageDef
+{
+    public string Name { get; set; } = "";
+    public string Category { get; set; } = "database";
+}
+
+/// <summary>The contents of <c>infra.yml</c>.</summary>
+public sealed class InfraData
+{
+    public List<InfraSignalDef> Signals { get; set; } = [];
+    public Dictionary<string, InfraImageDef> Images { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 }

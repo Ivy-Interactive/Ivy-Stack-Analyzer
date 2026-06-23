@@ -1,5 +1,5 @@
 using Ivy.StackAnalyzer.Components;
-using Ivy.StackAnalyzer.Data;
+using Ivy.StackAnalyzer.Models;
 using Ivy.StackAnalyzer.Detection;
 using Ivy.StackAnalyzer.Manifests;
 using Xunit;

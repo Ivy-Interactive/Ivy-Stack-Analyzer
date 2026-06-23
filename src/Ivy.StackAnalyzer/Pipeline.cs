@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using Ivy.StackAnalyzer.Components;
-using Ivy.StackAnalyzer.Data;
+using Ivy.StackAnalyzer.Models;
 using Ivy.StackAnalyzer.Detection;
 using Ivy.StackAnalyzer.Infra;
 using Ivy.StackAnalyzer.Manifests;
@@ -71,7 +71,7 @@ internal static class Pipeline
         components = components.OrderBy(c => c.RelativePath, StringComparer.Ordinal).ToList();
 
         // 6. Infra + readme
-        var infra = new InfraScanner().Scan(classified);
+        var infra = new InfraScanner(data.Infra).Scan(classified);
         var readme = ReadmeReader.Read(classified, options.MaxReadmeLines);
 
         // 7. Assemble

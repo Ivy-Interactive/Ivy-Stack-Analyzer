@@ -22,8 +22,9 @@ public class ConsoleE2ETests
         try
         {
             // Intentional synchronous in-process CLI invocation (no token needed).
+            // AnalyzeCommand is the default command, so the path is the first arg.
 #pragma warning disable xUnit1051
-            exit = app.Run(["analyze", FixturePath("go-service"), "--output", "yaml"]);
+            exit = app.Run([FixturePath("go-service"), "--output", "yaml"]);
 #pragma warning restore xUnit1051
         }
         finally

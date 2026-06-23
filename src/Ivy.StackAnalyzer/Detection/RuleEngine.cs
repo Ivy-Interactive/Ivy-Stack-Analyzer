@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using Ivy.StackAnalyzer.Components;
-using Ivy.StackAnalyzer.Data;
+using Ivy.StackAnalyzer.Models;
 
 namespace Ivy.StackAnalyzer.Detection;
 

@@ -1,0 +1,71 @@
+name: Release
+
+# Publishes two packages to nuget.org:
+#   - Ivy.StackAnalyzer       (class library)
+#   - ivy-stack-analyzer      (.NET tool: `dotnet tool install -g ivy-stack-analyzer`)
+#
+# Requires the NUGET_TOKEN repository secret (a nuget.org API key).
+# Triggered by publishing a GitHub Release (tag like v0.1.0) or manually.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Package version (e.g. 0.1.0)'
+        required: true
+        default: '0.1.0'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Resolve version
+        id: ver
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            v="${{ github.event.release.tag_name }}"
+            v="${v#v}"
+          else
+            v="${{ github.event.inputs.version }}"
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "Publishing version $v"
+
+      - name: Restore
+        run: dotnet restore Ivy.StackAnalyzer.slnx
+
+      - name: Build
+        run: dotnet build Ivy.StackAnalyzer.slnx -c Release --no-restore -p:Version=${{ steps.ver.outputs.version }}
+
+      - name: Test
+        run: dotnet test Ivy.StackAnalyzer.slnx -c Release --no-build
+
+      - name: Pack
+        run: |
+          dotnet pack src/Ivy.StackAnalyzer/Ivy.StackAnalyzer.csproj \
+            -c Release --no-build -o artifacts -p:Version=${{ steps.ver.outputs.version }}
+          dotnet pack src/Ivy.StackAnalyzer.Console/Ivy.StackAnalyzer.Console.csproj \
+            -c Release --no-build -o artifacts -p:Version=${{ steps.ver.outputs.version }}
+
+      - name: Push to nuget.org
+        run: >
+          dotnet nuget push "artifacts/*.nupkg"
+          --api-key "${{ secrets.NUGET_TOKEN }}"
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate
+
+      - name: Upload packages as workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nupkgs
+          path: artifacts/*

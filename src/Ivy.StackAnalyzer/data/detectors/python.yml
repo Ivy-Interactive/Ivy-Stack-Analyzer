@@ -1,0 +1,60 @@
+# Hand-curated Python web/ORM detectors. specfy is JavaScript-focused and ships
+# no FastAPI/SQLModel/Alembic/Pydantic rules (only "python" as a language), so
+# these fill a common gap. Same overlay approach as dotnet.yml / golang.yml.
+- id: fastapi
+  name: FastAPI
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: fastapi }
+  confidence: high
+
+- id: flask
+  name: Flask
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: Flask }
+  confidence: high
+
+- id: starlette
+  name: Starlette
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: starlette }
+  confidence: high
+
+- id: sqlmodel
+  name: SQLModel
+  category: orm
+  match:
+    deps:
+      - { ecosystem: pypi, name: sqlmodel }
+  supersedes: [sqlalchemy]
+  confidence: high
+
+- id: alembic
+  name: Alembic
+  category: orm
+  match:
+    deps:
+      - { ecosystem: pypi, name: alembic }
+    files: ["alembic.ini"]
+  confidence: high
+
+- id: pydantic
+  name: Pydantic
+  category: library
+  match:
+    deps:
+      - { ecosystem: pypi, name: pydantic }
+  confidence: high
+
+- id: pytest
+  name: pytest
+  category: testing
+  match:
+    deps:
+      - { ecosystem: pypi, name: pytest }
+  confidence: high

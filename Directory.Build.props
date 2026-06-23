@@ -14,4 +14,18 @@
     <Version>0.1.0</Version>
   </PropertyGroup>
 
+  <!-- Shared NuGet package metadata (applied to packable projects). -->
+  <PropertyGroup>
+    <Authors>Ivy Interactive</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Ivy-Interactive/Ivy-Stack-Analyser</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Ivy-Interactive/Ivy-Stack-Analyser</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>stack-analysis;tech-detection;linguist;specfy;sbom;monorepo</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+
 </Project>

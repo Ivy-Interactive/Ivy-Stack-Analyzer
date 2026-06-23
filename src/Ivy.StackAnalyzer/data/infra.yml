@@ -1,0 +1,84 @@
+# Infrastructure detection data. The InfraScanner keeps the mechanics (walking
+# files, parsing compose `image:` values, sniffing Kubernetes manifests); the
+# match tables below are data so new kinds/images need no recompile.
+#
+# A file matches a signal when every SPECIFIED constraint category holds:
+#   name     = file name in `files`, OR starts with a `namePrefix`, OR ends with a `nameSuffix`
+#   ext      = file extension in `extensions`
+#   path     = relative path contains one of `pathContains`
+#   content  = `requiresContent` sniff passes (k8s = has kind: + apiVersion:)
+# Signal order is match precedence: the first matching signal claims a file.
+signals:
+  - kind: Docker
+    category: build
+    files: [Dockerfile, Containerfile]
+    namePrefix: ["Dockerfile."]
+    nameSuffix: [".Dockerfile"]
+
+  - kind: Docker Compose
+    category: build
+    namePrefix: ["compose.", "docker-compose."]
+    extensions: [".yml", ".yaml"]
+    scanComposeImages: true
+
+  - kind: Terraform
+    category: iac
+    extensions: [".tf"]
+
+  - kind: Helm
+    category: cloud
+    files: [Chart.yaml]
+
+  - kind: GitHub Actions
+    category: ci
+    pathContains: [".github/workflows/"]
+    extensions: [".yml", ".yaml"]
+
+  - kind: GitLab CI
+    category: ci
+    files: [".gitlab-ci.yml"]
+
+  - kind: Azure Pipelines
+    category: ci
+    files: ["azure-pipelines.yml"]
+
+  - kind: Jenkins
+    category: ci
+    files: [Jenkinsfile]
+
+  - kind: CircleCI
+    category: ci
+    pathContains: [".circleci/"]
+    namePrefix: [config]
+
+  - kind: Kubernetes
+    category: cloud
+    pathContains: [k8s, kubernetes]
+    extensions: [".yml", ".yaml"]
+    requiresContent: k8s
+
+# Container image (name before ':') -> reported technology, for compose services.
+images:
+  postgres:                                       { name: Postgres, category: database }
+  postgis/postgis:                                { name: PostGIS, category: database }
+  mysql:                                          { name: MySQL, category: database }
+  mariadb:                                        { name: MariaDB, category: database }
+  mongo:                                          { name: MongoDB, category: database }
+  redis:                                          { name: Redis, category: database }
+  memcached:                                      { name: Memcached, category: database }
+  cassandra:                                      { name: Cassandra, category: database }
+  clickhouse/clickhouse-server:                   { name: ClickHouse, category: database }
+  cockroachdb/cockroach:                          { name: CockroachDB, category: database }
+  neo4j:                                          { name: Neo4j, category: database }
+  elasticsearch:                                  { name: Elasticsearch, category: database }
+  docker.elastic.co/elasticsearch/elasticsearch:  { name: Elasticsearch, category: database }
+  rabbitmq:                                       { name: RabbitMQ, category: queue }
+  confluentinc/cp-kafka:                          { name: Kafka, category: messaging }
+  apache/kafka:                                   { name: Kafka, category: messaging }
+  nats:                                           { name: NATS, category: messaging }
+  minio/minio:                                    { name: MinIO, category: storage }
+  adminer:                                        { name: Adminer, category: tool }
+  dpage/pgadmin4:                                 { name: pgAdmin, category: tool }
+  traefik:                                        { name: Traefik, category: hosting }
+  nginx:                                          { name: Nginx, category: hosting }
+  caddy:                                          { name: Caddy, category: hosting }

@@ -1,4 +1,4 @@
-using Ivy.StackAnalyzer.Data;
+using Ivy.StackAnalyzer.Models;
 
 namespace Ivy.StackAnalyzer.Scanning;
 
