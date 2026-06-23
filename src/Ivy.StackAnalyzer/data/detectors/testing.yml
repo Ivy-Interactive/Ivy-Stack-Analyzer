@@ -1,4 +1,34 @@
 # Technology detectors (category: testing) seeded from specfy/stack-analyser (MIT).
+- id: cypress
+  name: Cypress
+  category: testing
+  match:
+    deps:
+      - { ecosystem: npm, name: cypress }
+      - { ecosystem: npm, name: gatsby-cypress }
+      - { ecosystem: rubygems, name: cypress-on-rails }
+      - { ecosystem: githubAction, name: cypress-io/github-action }
+    depsRegex:
+      - { ecosystem: docker, pattern: cypress }
+    filesRegex: ["cypress.config.(js|ts|mjs|cjs)"]
+  confidence: high
+- id: go-testing
+  name: Go testing
+  category: testing
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/stretchr/testify }
+      - { ecosystem: go, name: github.com/frankban/quicktest }
+    filesRegex: ["_test\\.go$"]
+  confidence: high
+- id: insta
+  name: insta
+  category: testing
+  match:
+    deps:
+      - { ecosystem: cargo, name: insta }
+    filesRegex: ["\\.snap$"]
+  confidence: high
 - id: jest
   name: Jest
   category: testing
@@ -51,6 +81,20 @@
     deps:
       - { ecosystem: composer, name: phpunit/phpunit }
     files: [phpunit.xml.dist]
+  confidence: high
+- id: playwright
+  name: Playwright
+  category: testing
+  match:
+    deps:
+      - { ecosystem: npm, name: playwright }
+      - { ecosystem: npm, name: "@playwright/test" }
+      - { ecosystem: githubAction, name: microsoft/playwright-github-action }
+      - { ecosystem: docker, name: mcr.microsoft.com/playwright }
+      - { ecosystem: pypi, name: pytest-playwright }
+      - { ecosystem: nuget, name: Microsoft.Playwright.NUnit }
+      - { ecosystem: nuget, name: Microsoft.Playwright }
+    files: [playwright.config.ts]
   confidence: high
 - id: storybook
   name: Storybook
