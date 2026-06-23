@@ -9,8 +9,8 @@
     is appended to done.txt when its review finishes.
 
     Each review runs in the repository root (so the project-scoped skill resolves)
-    and its output is captured under src/.review-logs/. Any disagreements the skill
-    finds are written to src/.suggestions/ (git-ignored).
+    and its output is captured under src/.review/.review-logs/. Any disagreements
+    the skill finds are written to src/.review/ (git-ignored *.md).
 
 .PARAMETER Parallel
     How many reviews to run concurrently. Default: 1.
