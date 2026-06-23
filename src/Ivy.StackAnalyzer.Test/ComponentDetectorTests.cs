@@ -111,4 +111,22 @@ public class ComponentDetectorTests
         Assert.DoesNotContain("3000", root.EnvVarNames);
         Assert.DoesNotContain("ports", root.EnvVarNames);
     }
+
+    [Fact]
+    public void Test_fixture_and_suite_components_are_auxiliary()
+    {
+        using var repo = new TempRepo();
+        repo.Write("package.json", """{ "name": "root", "workspaces": ["apps/*"] }""")
+            .Write("apps/api/package.json", """{ "name": "api", "dependencies": { "vitest": "1.0.0" } }""")
+            .Write("apps/test-site/package.json", """{ "name": "firecrawl-test-site", "dependencies": { "astro": "4.0.0" } }""")
+            .Write("apps/test-suite/package.json", """{ "name": "test-suite", "devDependencies": { "jest": "29.0.0" } }""");
+
+        var byPath = Detect(repo).ToDictionary(c => c.RelativePath);
+
+        // hyphenated test-fixture / test-suite path segments are flagged auxiliary
+        Assert.True(byPath["apps/test-site"].IsAuxiliary);
+        Assert.True(byPath["apps/test-suite"].IsAuxiliary);
+        // a real product component is not auxiliary
+        Assert.False(byPath["apps/api"].IsAuxiliary);
+    }
 }

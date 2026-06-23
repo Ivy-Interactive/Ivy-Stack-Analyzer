@@ -14,7 +14,8 @@ public sealed class ComponentDetector
     private readonly AnalyzerOptions _options;
 
     private static readonly string[] AuxSegments =
-        ["test", "tests", "example", "examples", "fixture", "fixtures",
+        ["test", "tests", "test-site", "test-suite", "testdata",
+         "example", "examples", "fixture", "fixtures",
          "sample", "samples", "demo", "demos", "e2e", "docs"];
 
     private static readonly HashSet<string> WorkspaceDeclarators = new(StringComparer.OrdinalIgnoreCase)
