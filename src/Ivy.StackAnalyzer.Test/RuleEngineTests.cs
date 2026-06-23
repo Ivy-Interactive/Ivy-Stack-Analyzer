@@ -13,7 +13,8 @@ public class RuleEngineTests
         IEnumerable<string>? fileNames = null,
         IEnumerable<string>? sdks = null,
         IEnumerable<string>? extensions = null,
-        IEnumerable<string>? envVars = null)
+        IEnumerable<string>? envVars = null,
+        IEnumerable<string>? scripts = null)
     {
         var names = (fileNames ?? []).ToHashSet(StringComparer.OrdinalIgnoreCase);
         return new ComponentContext
@@ -30,6 +31,7 @@ public class RuleEngineTests
             FilePaths = names.Select(n => "apps/web/" + n).ToHashSet(StringComparer.Ordinal),
             Extensions = (extensions ?? []).ToHashSet(StringComparer.OrdinalIgnoreCase),
             EnvVarNames = (envVars ?? []).ToHashSet(StringComparer.OrdinalIgnoreCase),
+            Scripts = (scripts ?? []).ToHashSet(StringComparer.OrdinalIgnoreCase),
         };
     }
 
@@ -44,6 +46,24 @@ public class RuleEngineTests
         var engine = new RuleEngine(Data);
         var result = engine.Detect(Ctx(deps: [Npm("react")]));
         Assert.Contains(result, t => t.Name == "React" && t.Category == TechCategory.Framework);
+    }
+
+    [Theory]
+    [InlineData("bun test")]
+    [InlineData("bun test --coverage")]
+    public void Detects_bun_test_from_package_json_script(string command)
+    {
+        var engine = new RuleEngine(Data);
+        var result = engine.Detect(Ctx(scripts: [command]));
+        Assert.Contains(result, t => t.Name == "bun test" && t.Category == TechCategory.Testing);
+    }
+
+    [Fact]
+    public void Does_not_detect_bun_test_from_unrelated_script()
+    {
+        var engine = new RuleEngine(Data);
+        var result = engine.Detect(Ctx(scripts: ["bun run build", "vitest"]));
+        Assert.DoesNotContain(result, t => t.Name == "bun test");
     }
 
     [Fact]

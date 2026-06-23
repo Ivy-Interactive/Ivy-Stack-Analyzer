@@ -12,6 +12,7 @@ public sealed class NpmParser : IManifestParser
     {
         var deps = new List<Dependency>();
         var workspaces = new List<string>();
+        var scripts = new List<string>();
         try
         {
             using var doc = JsonDocument.Parse(content, new JsonDocumentOptions
@@ -24,6 +25,11 @@ public sealed class NpmParser : IManifestParser
             ReadDeps(root, "devDependencies", DependencyScope.Dev, deps);
             ReadDeps(root, "peerDependencies", DependencyScope.Peer, deps);
             ReadDeps(root, "optionalDependencies", DependencyScope.Optional, deps);
+
+            if (root.TryGetProperty("scripts", out var sc) && sc.ValueKind == JsonValueKind.Object)
+                foreach (var s in sc.EnumerateObject())
+                    if (s.Value.ValueKind == JsonValueKind.String && s.Value.GetString() is { Length: > 0 } cmd)
+                        scripts.Add(cmd);
 
             if (root.TryGetProperty("workspaces", out var ws))
             {
@@ -44,6 +50,7 @@ public sealed class NpmParser : IManifestParser
             Ecosystem = "npm",
             Dependencies = deps,
             Workspaces = workspaces,
+            Scripts = scripts,
         };
     }
 

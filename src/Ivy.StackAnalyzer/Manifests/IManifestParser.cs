@@ -14,6 +14,10 @@ public sealed record ParsedManifest
     /// <summary>Workspace member globs declared here (npm/pnpm/cargo/etc.), if any.</summary>
     public IReadOnlyList<string> Workspaces { get; init; } = [];
 
+    /// <summary>Run-script command strings declared here (e.g. <c>package.json</c> <c>scripts</c>
+    /// values like <c>"bun test"</c>). Lets the rule engine detect tools invoked only via a script.</summary>
+    public IReadOnlyList<string> Scripts { get; init; } = [];
+
     /// <summary>MSBuild <c>Sdk</c> attribute for <c>*.csproj</c> / <c>*.fsproj</c>.</summary>
     public string? Sdk { get; init; }
 

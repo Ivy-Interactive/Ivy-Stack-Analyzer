@@ -39,4 +39,8 @@ public sealed class ComponentContext
 
     /// <summary>Environment-variable names discovered in <c>.env*</c> files.</summary>
     public IReadOnlySet<string> EnvVarNames { get; init; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>Run-script command strings across this component's manifests (e.g. <c>package.json</c>
+    /// <c>scripts</c> values). Used to detect tools invoked only via a script, such as <c>bun test</c>.</summary>
+    public IReadOnlySet<string> Scripts { get; init; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 }

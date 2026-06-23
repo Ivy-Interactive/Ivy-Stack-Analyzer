@@ -44,6 +44,10 @@ public sealed class MatchSpec
     public List<string> Dotenv { get; set; } = [];
     public List<string> Sdk { get; set; } = [];
     public List<string> PathGlobs { get; set; } = [];
+
+    /// <summary>Regexes matched against run-script command strings (e.g. <c>package.json</c>
+    /// <c>scripts</c> values). Detects tools invoked only via a script, such as <c>bun test</c>.</summary>
+    public List<string> ScriptsRegex { get; set; } = [];
 }
 
 /// <summary>A technology detection rule as loaded from <c>detectors/*.yml</c>.</summary>

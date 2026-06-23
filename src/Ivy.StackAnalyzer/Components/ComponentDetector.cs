@@ -111,6 +111,7 @@ public sealed class ComponentDetector
                 FilePaths = filePaths,
                 Extensions = extensions,
                 EnvVarNames = ReadEnvVarNames(compFiles),
+                Scripts = manifests.SelectMany(m => m.Scripts).ToHashSet(StringComparer.OrdinalIgnoreCase),
             });
         }
 
