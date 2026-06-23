@@ -28,7 +28,7 @@ public sealed class NuGetParser : IManifestParser
                 sdk = (string?)root.Attribute("Sdk");
 
                 foreach (var pr in root.Descendants().Where(e =>
-                    e.Name.LocalName is "PackageReference" or "PackageVersion"))
+                    e.Name.LocalName is "PackageReference" or "PackageVersion" or "GlobalPackageReference"))
                 {
                     var name = (string?)pr.Attribute("Include") ?? (string?)pr.Attribute("Update");
                     if (string.IsNullOrEmpty(name)) continue;

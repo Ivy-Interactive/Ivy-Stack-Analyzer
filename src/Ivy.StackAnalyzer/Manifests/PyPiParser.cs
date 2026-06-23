@@ -77,8 +77,9 @@ public sealed partial class PyPiParser : IManifestParser
         {
             var line = raw.Trim();
             if (line.Length == 0 || line.StartsWith('#') || line.StartsWith('-')) continue;
-            var hash = line.IndexOf(" #", StringComparison.Ordinal);
-            if (hash >= 0) line = line[..hash].Trim();
+            // Strip an inline comment introduced by whitespace + '#'.
+            var hash = CommentRegex().Match(line);
+            if (hash.Success) line = line[..hash.Index].Trim();
             AddFromSpecifier(line, DependencyScope.Runtime, deps);
         }
         return deps;
@@ -102,6 +103,9 @@ public sealed partial class PyPiParser : IManifestParser
     private static void AddFromSpecifier(string? spec, DependencyScope scope, List<Dependency> into)
     {
         if (string.IsNullOrWhiteSpace(spec)) return;
+        // Drop an environment marker (PEP 508): "foo>=1; python_version<'3.9'" -> "foo>=1".
+        var semi = spec.IndexOf(';');
+        if (semi >= 0) spec = spec[..semi];
         var m = NameRegex().Match(spec.Trim());
         if (!m.Success) return;
         var name = m.Groups["name"].Value;
@@ -114,4 +118,7 @@ public sealed partial class PyPiParser : IManifestParser
 
     [GeneratedRegex(@"^(?<name>[A-Za-z0-9][A-Za-z0-9._-]*)(?:\[[^\]]*\])?\s*(?<ver>[<>=!~^].*)?$")]
     private static partial Regex NameRegex();
+
+    [GeneratedRegex(@"\s#")]
+    private static partial Regex CommentRegex();
 }

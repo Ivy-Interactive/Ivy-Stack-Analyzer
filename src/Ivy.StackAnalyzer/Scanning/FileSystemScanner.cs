@@ -53,7 +53,8 @@ public sealed class FileSystemScanner
             {
                 var baseDir = ToRelative(root, dir);
                 if (baseDir == ".") baseDir = "";
-                gitignore.AddFile(baseDir, File.ReadAllText(giPath));
+                try { gitignore.AddFile(baseDir, File.ReadAllText(giPath)); }
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { /* skip unreadable .gitignore */ }
             }
         }
 
@@ -63,8 +64,8 @@ public sealed class FileSystemScanner
             subDirs = Directory.GetDirectories(dir);
             dirFiles = Directory.GetFiles(dir);
         }
-        catch (UnauthorizedAccessException) { return; }
-        catch (DirectoryNotFoundException) { return; }
+        // One unreadable directory must never abort the whole scan.
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Security.SecurityException) { return; }
 
         Array.Sort(subDirs, StringComparer.Ordinal);
         Array.Sort(dirFiles, StringComparer.Ordinal);
@@ -100,6 +101,13 @@ public sealed class FileSystemScanner
             var name = Path.GetFileName(sub);
 
             if (name == ".git") { ignoredDirs.Add(rel); continue; }
+
+            // Skip symlinks / junctions (reparse points) to avoid cycles -> stack overflow.
+            try
+            {
+                if ((File.GetAttributes(sub) & FileAttributes.ReparsePoint) != 0) { ignoredDirs.Add(rel); continue; }
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { continue; }
 
             if (!_options.IncludeVendored && IsVendored(rel + "/"))
             {

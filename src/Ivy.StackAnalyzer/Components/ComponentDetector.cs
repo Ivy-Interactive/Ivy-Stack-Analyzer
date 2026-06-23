@@ -116,15 +116,20 @@ public sealed class ComponentDetector
         return components;
     }
 
+    // A pathologically large "manifest" must not be slurped into memory.
+    private const long MaxManifestBytes = 16 * 1024 * 1024;
+
     private static ParsedManifest? ParseSafely(IManifestParser parser, ScannedFile file)
     {
+        if (file.Length > MaxManifestBytes) return null;
         try
         {
             var content = File.ReadAllText(file.FullPath);
             return parser.Parse(file.RelativePath, content);
         }
-        catch (IOException) { return null; }
-        catch (UnauthorizedAccessException) { return null; }
+        // Defense-in-depth: no single malformed/locked manifest can abort the run.
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or FormatException
+            or InvalidOperationException or System.Xml.XmlException) { return null; }
     }
 
     private static IReadOnlySet<string> ReadEnvVarNames(List<ClassifiedFile> files)

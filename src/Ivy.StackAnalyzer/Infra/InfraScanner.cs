@@ -92,7 +92,7 @@ public sealed partial class InfraScanner
             return head.Any(l => l.StartsWith("kind:", StringComparison.OrdinalIgnoreCase))
                 && head.Any(l => l.StartsWith("apiVersion:", StringComparison.OrdinalIgnoreCase));
         }
-        catch (IOException) { return false; }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { return false; }
     }
 
     private void ScanComposeImages(string fullPath, string relPath,
@@ -100,7 +100,7 @@ public sealed partial class InfraScanner
     {
         string content;
         try { content = File.ReadAllText(fullPath); }
-        catch (IOException) { return; }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { return; }
 
         foreach (Match m in ImageRegex().Matches(content))
         {

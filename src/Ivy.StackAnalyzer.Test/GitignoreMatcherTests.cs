@@ -68,4 +68,14 @@ public class GitignoreMatcherTests
         Assert.True(m.IsIgnored("packages/app/dist", isDirectory: true));
         Assert.False(m.IsIgnored("dist", isDirectory: true));
     }
+
+    [Fact]
+    public void Nested_basename_rule_does_not_leak_to_siblings()
+    {
+        var m = new GitignoreMatcher();
+        m.AddFile("a", "*.log\n");                                   // non-anchored, in subtree "a"
+        Assert.True(m.IsIgnored("a/x.log", isDirectory: false));
+        Assert.True(m.IsIgnored("a/deep/x.log", isDirectory: false)); // applies within its subtree
+        Assert.False(m.IsIgnored("b/x.log", isDirectory: false));     // sibling unaffected
+    }
 }

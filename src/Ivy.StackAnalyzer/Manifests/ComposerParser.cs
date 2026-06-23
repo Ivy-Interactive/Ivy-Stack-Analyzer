@@ -26,9 +26,11 @@ public sealed class ComposerParser : IManifestParser
         if (!root.TryGetProperty(prop, out var obj) || obj.ValueKind != JsonValueKind.Object) return;
         foreach (var p in obj.EnumerateObject())
         {
-            // skip platform requirements like "php" or "ext-*"
-            if (p.Name is "php" || p.Name.StartsWith("ext-", StringComparison.Ordinal)) continue;
-            into.Add(new Dependency(p.Name, p.Value.GetString(), scope));
+            // Composer packages are always "vendor/name"; everything else is a platform
+            // requirement (php, hhvm, ext-*, lib-*, composer-*, php-64bit, ...).
+            if (!p.Name.Contains('/')) continue;
+            var version = p.Value.ValueKind == JsonValueKind.String ? p.Value.GetString() : null;
+            into.Add(new Dependency(p.Name, version, scope));
         }
     }
 }

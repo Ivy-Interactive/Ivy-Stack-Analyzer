@@ -95,8 +95,15 @@ public sealed class LanguageClassifier
         try
         {
             using var reader = new StreamReader(fullPath);
-            var first = reader.ReadLine();
-            if (first is null || !first.StartsWith("#!")) return null;
+            // Read a bounded prefix only: shebangs are short, and the file may be a
+            // huge single-line binary/data blob we must not load into memory.
+            var buf = new char[256];
+            int n = reader.Read(buf, 0, buf.Length);
+            if (n <= 0) return null;
+            var head = new string(buf, 0, n);
+            var nl = head.IndexOfAny(['\n', '\r']);
+            var first = nl >= 0 ? head[..nl] : head;
+            if (!first.StartsWith("#!")) return null;
             // "#!/usr/bin/env python3" -> python3 ; "#!/bin/bash" -> bash
             var parts = first[2..].Split([' ', '\t'], StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length == 0) return null;

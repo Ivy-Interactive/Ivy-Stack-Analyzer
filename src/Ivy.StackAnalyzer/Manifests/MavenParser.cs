@@ -17,7 +17,14 @@ public sealed class MavenParser : IManifestParser
             var doc = XDocument.Parse(content);
             XNamespace ns = doc.Root?.GetDefaultNamespace() ?? XNamespace.None;
 
-            foreach (var dep in doc.Descendants(ns + "dependency"))
+            // Only real project dependencies: <dependencies> directly under <project>
+            // or <profile>. Excludes <dependencyManagement> (version pins) and
+            // <plugin><dependencies> (build-time plugin deps).
+            var depElements = doc.Descendants(ns + "dependencies")
+                .Where(ds => ds.Parent is { } p && (p.Name.LocalName is "project" or "profile"))
+                .SelectMany(ds => ds.Elements(ns + "dependency"));
+
+            foreach (var dep in depElements)
             {
                 var group = (string?)dep.Element(ns + "groupId");
                 var artifact = (string?)dep.Element(ns + "artifactId");

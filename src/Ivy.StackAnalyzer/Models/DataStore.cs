@@ -71,38 +71,52 @@ public sealed class DataStore
         var rules = LoadRules(asm);
         var infra = LoadInfra(asm);
 
-        // Overlay user-supplied directories (later wins / appends).
+        // Overlay user-supplied directories (later wins / appends). A malformed
+        // user file is skipped rather than aborting the whole run.
         foreach (var dir in additionalDirectories ?? [])
         {
             if (!Directory.Exists(dir)) continue;
+
             var langFile = Path.Combine(dir, "languages.yml");
             if (File.Exists(langFile))
-                foreach (var (k, v) in Yaml.Deserialize<Dictionary<string, LanguageDef>>(File.ReadAllText(langFile)) ?? [])
+                foreach (var (k, v) in TryDeserialize<Dictionary<string, LanguageDef>>(langFile) ?? [])
                     languages[k] = v;
 
             var vendorFile = Path.Combine(dir, "vendor.yml");
             if (File.Exists(vendorFile))
-                foreach (var p in (Yaml.Deserialize<VendorFile>(File.ReadAllText(vendorFile))?.Patterns ?? []))
-                    vendor.Add(new Regex(p, RegexOptions.Compiled));
+                foreach (var p in (TryDeserialize<VendorFile>(vendorFile)?.Patterns ?? []))
+                {
+                    try { vendor.Add(new Regex(p, RegexOptions.Compiled | RegexOptions.CultureInvariant)); }
+                    catch (ArgumentException) { /* skip malformed user pattern */ }
+                }
 
             var detectorsDir = Path.Combine(dir, "detectors");
             if (Directory.Exists(detectorsDir))
                 foreach (var f in Directory.EnumerateFiles(detectorsDir, "*.yml"))
-                    rules.AddRange(Yaml.Deserialize<List<RuleDef>>(File.ReadAllText(f)) ?? []);
+                    rules.AddRange(TryDeserialize<List<RuleDef>>(f) ?? []);
 
             var infraFile = Path.Combine(dir, "infra.yml");
             if (File.Exists(infraFile))
             {
-                var userInfra = Yaml.Deserialize<InfraData>(File.ReadAllText(infraFile));
+                var userInfra = TryDeserialize<InfraData>(infraFile);
                 if (userInfra is not null)
                 {
-                    infra.Signals.AddRange(userInfra.Signals);              // append: built-ins keep precedence
+                    infra.Signals.AddRange(userInfra.Signals);                   // append: built-ins keep precedence
                     foreach (var (k, v) in userInfra.Images) infra.Images[k] = v; // image mappings: user wins
                 }
             }
         }
 
         return new DataStore(languages, vendor, rules, infra);
+    }
+
+    private static T? TryDeserialize<T>(string path) where T : class
+    {
+        try { return Yaml.Deserialize<T>(File.ReadAllText(path)); }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or YamlDotNet.Core.YamlException)
+        {
+            return null;
+        }
     }
 
     private static InfraData LoadInfra(Assembly asm)

@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -6,17 +7,12 @@ namespace Ivy.StackAnalyzer.Detection;
 /// <summary>Minimal glob matcher supporting <c>**</c>, <c>*</c>, and <c>?</c> over forward-slash paths.</summary>
 public static class Glob
 {
-    private static readonly Dictionary<string, Regex> Cache = [];
+    // Process-wide cache shared across concurrent Analyzer runs; must be thread-safe.
+    private static readonly ConcurrentDictionary<string, Regex> Cache = new();
 
     public static bool IsMatch(string path, string glob)
-    {
-        if (!Cache.TryGetValue(glob, out var rx))
-        {
-            rx = new Regex(Compile(glob), RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
-            Cache[glob] = rx;
-        }
-        return rx.IsMatch(path);
-    }
+        => Cache.GetOrAdd(glob, g => new Regex(Compile(g), RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+                .IsMatch(path);
 
     private static string Compile(string glob)
     {
