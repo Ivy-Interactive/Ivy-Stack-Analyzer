@@ -35,6 +35,24 @@
       - { ecosystem: go, name: github.com/go-chi/chi }
   confidence: high
 
+- id: cobra
+  name: Cobra
+  category: framework
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/spf13/cobra }
+  confidence: high
+
+- id: bubbletea
+  name: Bubble Tea
+  category: framework
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/charmbracelet/bubbletea }
+      - { ecosystem: go, name: github.com/charmbracelet/bubbles }
+      - { ecosystem: go, name: github.com/charmbracelet/lipgloss }
+  confidence: high
+
 - id: gorm
   name: GORM
   category: orm
