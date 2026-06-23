@@ -88,6 +88,26 @@
       - { ecosystem: npm, pattern: "@composio\\/" }
     dotenv: [COMPOSIO_]
   confidence: high
+- id: codemirror
+  name: CodeMirror
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: codemirror }
+    depsRegex:
+      - { ecosystem: npm, pattern: "@codemirror\\/" }
+      - { ecosystem: npm, pattern: "^@uiw\\/react-codemirror" }
+  confidence: high
+- id: d3js
+  name: D3.js
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: d3 }
+      - { ecosystem: npm, name: d3-shape }
+      - { ecosystem: npm, name: "@types/d3" }
+      - { ecosystem: npm, name: "@types/d3-shape" }
+  confidence: high
 - id: databricks
   name: Databricks
   category: library
@@ -296,6 +316,13 @@
     files: [.nango, nango.yaml]
     dotenv: [NANGO_]
   confidence: high
+- id: nettopologysuite
+  name: NetTopologySuite
+  category: library
+  match:
+    deps:
+      - { ecosystem: nuget, prefix: "NetTopologySuite" }
+  confidence: high
 - id: phosphoreicons
   name: Phosphor Icons
   category: library
@@ -357,6 +384,13 @@
       - { ecosystem: npm, name: "@tabler/icons-vue" }
       - { ecosystem: npm, name: "@steeze-ui/tabler-icons" }
       - { ecosystem: npm, name: "@iconify-json/tabler" }
+  confidence: high
+- id: tiptap
+  name: Tiptap
+  category: library
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@tiptap\\/" }
   confidence: high
 - id: trayio
   name: Tray.ai
