@@ -123,6 +123,14 @@ public sealed class RuleEngine
             if (ctx.Extensions.Contains(ext)) evidence.Add($"*{ext}");
         }
 
+        // Run-script commands (e.g. package.json scripts.test = "bun test")
+        foreach (var sr in m.ScriptsRegex)
+        {
+            var rx = GetRegex(sr);
+            var hit = ctx.Scripts.FirstOrDefault(s => rx.IsMatch(s));
+            if (hit is not null) evidence.Add($"script '{hit}'");
+        }
+
         // Every facet above is a strong signal; dotenv (below) is weak.
         bool strong = evidence.Count > 0;
 

@@ -12,6 +12,14 @@
       - { ecosystem: docker, pattern: cypress }
     filesRegex: ["cypress.config.(js|ts|mjs|cjs)"]
   confidence: high
+- id: bun-test
+  name: bun test
+  category: testing
+  match:
+    # bun's test runner has no dependency or config-file marker; it is wired
+    # through package.json scripts (e.g. "test": "bun test").
+    scriptsRegex: ['\bbun test\b']
+  confidence: high
 - id: go-testing
   name: Go testing
   category: testing

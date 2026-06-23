@@ -151,6 +151,6 @@ readme:
     in `frontend/`.
 metadata:
   analyzerVersion: 0.1.0
-  rulesLoaded: 759
+  rulesLoaded: 760
   languageDefsLoaded: 815
   ignoredDirectories: []
