@@ -53,6 +53,6 @@ technologies:
 infrastructure: []
 metadata:
   analyzerVersion: 0.1.0
-  rulesLoaded: 760
+  rulesLoaded: 778
   languageDefsLoaded: 815
   ignoredDirectories: []

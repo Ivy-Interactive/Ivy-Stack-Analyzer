@@ -61,6 +61,45 @@
     sdk: ["Microsoft.NET.Sdk.Worker"]
   confidence: high
 
+- id: avalonia
+  name: Avalonia
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Avalonia" }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Avalonia." }
+  confidence: high
+
+- id: monogame
+  name: MonoGame
+  category: framework
+  match:
+    depPrefix:
+      - { ecosystem: nuget, prefix: "MonoGame.Framework" }
+  confidence: high
+
+- id: elmish
+  name: Elmish
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Elmish" }
+      - { ecosystem: nuget, name: "Fable.Elmish" }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Elmish." }
+      - { ecosystem: nuget, prefix: "Fable.Elmish." }
+  confidence: high
+
+- id: linqpad
+  name: LINQPad
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nuget, name: "LINQPad.Runtime" }
+      - { ecosystem: nuget, name: "LINQPad" }
+  confidence: high
+
 - id: ivy-framework
   name: Ivy Framework
   category: framework
@@ -95,6 +134,17 @@
     deps:
       - { ecosystem: nuget, name: "NUnit" }
   confidence: low      # bare NUnit ref is weak evidence; needs Test.Sdk/adapter to be a real test framework
+
+# The test adapter proves a runnable NUnit suite; promote to high and supersede
+# the weak bare-NUnit signal so the `test:` hash slot is populated.
+- id: nunit-adapter
+  name: NUnit
+  category: testing
+  match:
+    deps:
+      - { ecosystem: nuget, name: "NUnit3TestAdapter" }
+  supersedes: [nunit]
+  confidence: high
 
 - id: mstest
   name: MSTest

@@ -34,6 +34,16 @@
     deps:
       - { ecosystem: go, name: gorm.io/gorm }
   confidence: high
+- id: hibernate
+  name: Hibernate
+  category: orm
+  match:
+    deps:
+      - { ecosystem: maven, name: "io.quarkus:quarkus-hibernate-orm-panache" }
+    depPrefix:
+      - { ecosystem: maven, prefix: "org.hibernate" }
+      - { ecosystem: maven, prefix: "io.quarkus:quarkus-hibernate" }
+  confidence: high
 - id: knex
   name: Knex
   category: orm
