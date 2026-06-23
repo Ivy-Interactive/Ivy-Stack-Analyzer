@@ -130,12 +130,23 @@
       - { ecosystem: cargo, name: openapi }
     files: [openapi.yaml, openapi.json, openapi.yml]
   confidence: high
+# ML frameworks are the defining choice of an ML repo -> framework slot. The PyPI
+# package is `torch` (`pytorch` is the conda name); match both.
 - id: pytorch
-  name: Pytorch
-  category: tool
+  name: PyTorch
+  category: framework
   match:
     deps:
+      - { ecosystem: pypi, name: torch }
       - { ecosystem: pypi, name: pytorch }
+  confidence: high
+- id: pytorch-lightning
+  name: PyTorch Lightning
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: pytorch-lightning }
+      - { ecosystem: pypi, name: lightning }
   confidence: high
 - id: reactemail
   name: React Email
@@ -154,8 +165,8 @@
       - { ecosystem: npm, name: "@opentelemetry/instrumentation-socket.io" }
   confidence: high
 - id: tensorflow
-  name: Tensorflow
-  category: tool
+  name: TensorFlow
+  category: framework
   match:
     deps:
       - { ecosystem: docker, name: tensorflow/tensorflow }

@@ -61,7 +61,7 @@
   confidence: high
 - id: gradio
   name: Gradio
-  category: styling
+  category: framework
   match:
     deps:
       - { ecosystem: pypi, name: gradio }
@@ -128,9 +128,11 @@
       - { ecosystem: npm, name: "@radix-ui/react-label" }
       - { ecosystem: npm, name: radix-ui }
   confidence: high
+# Routers are not a styling/UI choice; classify as library so they never pollute
+# the styling hash slot (the SDH spec drops routers).
 - id: reactrouterdom
   name: React Router
-  category: styling
+  category: library
   match:
     deps:
       - { ecosystem: npm, name: react-router-dom }
@@ -154,7 +156,7 @@
   confidence: high
 - id: remixrouter
   name: Remix Router
-  category: styling
+  category: library
   match:
     deps:
       - { ecosystem: npm, name: "@remix-run/router" }
@@ -184,7 +186,7 @@
   confidence: high
 - id: tanstackrouter
   name: TanStack Router
-  category: styling
+  category: library
   match:
     deps:
       - { ecosystem: npm, name: "@tanstack/react-router" }

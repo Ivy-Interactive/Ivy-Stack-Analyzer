@@ -29,13 +29,24 @@
       - { ecosystem: go, name: github.com/frankban/quicktest }
     filesRegex: ["_test\\.go$"]
   confidence: high
+# `.snap` files are shared by many snapshot tools (Jest, Vitest); they are not
+# proof of the Rust `insta` crate. Match the cargo dependency only.
 - id: insta
   name: insta
   category: testing
   match:
     deps:
       - { ecosystem: cargo, name: insta }
-    filesRegex: ["\\.snap$"]
+  confidence: high
+- id: junit
+  name: JUnit
+  category: testing
+  match:
+    deps:
+      - { ecosystem: maven, name: "junit:junit" }
+      - { ecosystem: maven, name: "io.quarkus:quarkus-junit5" }
+    depPrefix:
+      - { ecosystem: maven, prefix: "org.junit" }
   confidence: high
 - id: jest
   name: Jest

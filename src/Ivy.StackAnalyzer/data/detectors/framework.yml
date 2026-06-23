@@ -76,9 +76,34 @@
     deps:
       - { ecosystem: cargo, name: axum }
   confidence: high
+- id: tonic
+  name: tonic
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: tonic }
+      - { ecosystem: cargo, name: tonic-build }
+  confidence: high
+- id: ratatui
+  name: Ratatui
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: ratatui }
+      - { ecosystem: cargo, name: ratatui-macros }
+  confidence: high
+- id: pyo3
+  name: PyO3
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: pyo3 }
+  confidence: high
+# commander/yargs are argument parsers, not application frameworks; keep them out
+# of the framework hash slot (a CLI tool is a `lib`-role, language-only stack).
 - id: commander
   name: Commander
-  category: framework
+  category: library
   match:
     deps:
       - { ecosystem: npm, name: commander }
@@ -139,7 +164,7 @@
   confidence: high
 - id: yargs
   name: Yargs
-  category: framework
+  category: library
   match:
     deps:
       - { ecosystem: npm, name: yargs }
@@ -195,6 +220,32 @@
   match:
     deps:
       - { ecosystem: pypi, name: django }
+  confidence: high
+- id: quarkus
+  name: Quarkus
+  category: framework
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: "io.quarkus:" }
+      - { ecosystem: maven, prefix: "io.quarkiverse" }
+  confidence: high
+- id: langchain
+  name: LangChain
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: langchain }
+      - { ecosystem: pypi, name: langchain-core }
+      - { ecosystem: pypi, name: langchain-community }
+      - { ecosystem: npm, name: langchain }
+      - { ecosystem: npm, name: "@langchain/core" }
+  confidence: high
+- id: streamlit
+  name: Streamlit
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: streamlit }
   confidence: high
 - id: docsify
   name: Docsify
@@ -347,9 +398,11 @@
     depsRegex:
       - { ecosystem: npm, pattern: "@ionic\\/" }
   confidence: high
+# Jekyll is a static-site/docs generator, not an application framework; classify
+# as documentation (like MkDocs/Docusaurus) so it never fills the framework slot.
 - id: jekyll
   name: Jekyll
-  category: framework
+  category: documentation
   match:
     deps:
       - { ecosystem: githubAction, name: jeffreytse/jekyll-deploy-action }

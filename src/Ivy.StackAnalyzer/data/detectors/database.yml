@@ -935,6 +935,9 @@
       - { ecosystem: nuget, name: sqlite-net-pcl }
       # --- pypi (pysqlite3/sqlite3 are stdlib; aiosqlite is the safe signal) ---
       - { ecosystem: pypi, name: aiosqlite }
+      # --- maven (JVM JDBC drivers) ---
+      - { ecosystem: maven, name: "org.xerial:sqlite-jdbc" }
+      - { ecosystem: maven, name: "io.quarkiverse.jdbc:quarkus-jdbc-sqlite" }
     depPrefix:
       - { ecosystem: nuget, prefix: "SQLitePCLRaw." }
     depsRegex:
@@ -1025,9 +1028,12 @@
       - { ecosystem: composer, name: typesense/laravel-scout-typesense-driver }
       - { ecosystem: terraform, name: airbyte_destination_typesense }
   confidence: high
+# Upstash Redis is a serverless cache/SaaS (commonly a rate-limiter), not the
+# application's database engine; classify as saas so it never fills the db slot.
+# A real self-hosted Redis is still caught by the generic `redis` rule.
 - id: upstash.redis
   name: Upstash Redis
-  category: database
+  category: saas
   match:
     deps:
       - { ecosystem: npm, name: "@upstash/redis" }

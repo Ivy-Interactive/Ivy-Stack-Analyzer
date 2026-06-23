@@ -1,4 +1,40 @@
 # Technology detectors (category: library) seeded from specfy/stack-analyser (MIT).
+# Hand-added libraries below are surfaced as facts but are NOT framework/db/orm
+# slots, so they never enter the stack hash.
+- id: protobuf
+  name: Protocol Buffers
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: protobufjs }
+      - { ecosystem: pypi, name: protobuf }
+      - { ecosystem: cargo, name: prost }
+      - { ecosystem: go, name: google.golang.org/protobuf }
+    depPrefix:
+      - { ecosystem: maven, prefix: "com.google.protobuf" }
+    extensions: [proto]
+  confidence: high
+- id: transformers
+  name: Transformers
+  category: library
+  match:
+    deps:
+      - { ecosystem: pypi, name: transformers }
+  confidence: high
+- id: diffusers
+  name: Diffusers
+  category: library
+  match:
+    deps:
+      - { ecosystem: pypi, name: diffusers }
+  confidence: high
+- id: sharpdx
+  name: SharpDX
+  category: library
+  match:
+    depPrefix:
+      - { ecosystem: nuget, prefix: "SharpDX" }
+  confidence: high
 - id: airbyte
   name: Airbyte
   category: library
