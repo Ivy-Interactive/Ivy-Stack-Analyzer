@@ -123,7 +123,7 @@ env-var placeholders), incidental libraries the hash already ignores, or naming
 style. Focus only on what would change the hash.
 
 For **each** distinct disagreement (factual or hash) create
-`src\.suggestions\<kebab-name>.md` (relative to THIS repo; create the dir if
+`src\.review\<kebab-name>.md` (relative to THIS repo; create the dir if
 missing — it is gitignored). Each file:
 
 ```markdown
