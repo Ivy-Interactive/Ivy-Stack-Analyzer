@@ -8,59 +8,29 @@
   - TSX
   componentCount: 3
 languages:
-- name: XML
-  type: data
-  files: 1
-  bytes: 337
-  percent: 26.8
-- name: JSON
-  type: data
-  files: 1
-  bytes: 250
-  percent: 19.9
 - name: TypeScript
   type: programming
   files: 1
   bytes: 171
-  percent: 13.6
+  percent: 37
 - name: C#
   type: programming
   files: 1
   bytes: 120
-  percent: 9.5
-- name: Markdown
-  type: prose
-  files: 1
-  bytes: 110
-  percent: 8.8
-- name: YAML
-  type: data
-  files: 1
-  bytes: 98
-  percent: 7.8
+  percent: 26
 - name: JavaScript
   type: programming
   files: 1
   bytes: 91
-  percent: 7.2
+  percent: 19.7
 - name: TSX
   type: programming
   files: 1
   bytes: 80
-  percent: 6.4
+  percent: 17.3
 components:
 - relativePath: .
-  languages:
-  - name: Markdown
-    type: prose
-    files: 1
-    bytes: 110
-    percent: 52.9
-  - name: YAML
-    type: data
-    files: 1
-    bytes: 98
-    percent: 47.1
+  languages: []
   manifests: []
   technologies: []
   fileCount: 2
@@ -69,26 +39,21 @@ components:
   isAuxiliary: false
 - relativePath: apps/web
   languages:
-  - name: JSON
-    type: data
-    files: 1
-    bytes: 250
-    percent: 42.2
   - name: TypeScript
     type: programming
     files: 1
     bytes: 171
-    percent: 28.9
+    percent: 50
   - name: JavaScript
     type: programming
     files: 1
     bytes: 91
-    percent: 15.4
+    percent: 26.6
   - name: TSX
     type: programming
     files: 1
     bytes: 80
-    percent: 13.5
+    percent: 23.4
   manifests:
   - path: apps/web/package.json
     ecosystem: npm
@@ -143,16 +108,11 @@ components:
   isAuxiliary: false
 - relativePath: src/Api
   languages:
-  - name: XML
-    type: data
-    files: 1
-    bytes: 337
-    percent: 73.7
   - name: C#
     type: programming
     files: 1
     bytes: 120
-    percent: 26.3
+    percent: 100
   manifests:
   - path: src/Api/Api.csproj
     ecosystem: nuget

@@ -16,6 +16,13 @@ public sealed class DataStore
 {
     public IReadOnlyDictionary<string, LanguageDef> Languages { get; }
     public IReadOnlyList<Regex> VendorPatterns { get; }
+
+    /// <summary>
+    /// Documentation / example / sample path patterns (mirrors github-linguist
+    /// <c>documentation.yml</c>). Matching files are flagged but NOT pruned from
+    /// the walk; they are excluded only from language statistics.
+    /// </summary>
+    public IReadOnlyList<Regex> DocumentationPatterns { get; }
     public IReadOnlyList<RuleDef> Rules { get; }
     public InfraData Infra { get; }
 
@@ -30,11 +37,13 @@ public sealed class DataStore
     private DataStore(
         Dictionary<string, LanguageDef> languages,
         List<Regex> vendorPatterns,
+        List<Regex> documentationPatterns,
         List<RuleDef> rules,
         InfraData infra)
     {
         Languages = languages;
         VendorPatterns = vendorPatterns;
+        DocumentationPatterns = documentationPatterns;
         Rules = rules;
         Infra = infra;
 
@@ -68,6 +77,7 @@ public sealed class DataStore
 
         var languages = LoadLanguages(asm);
         var vendor = LoadVendor(asm);
+        var documentation = LoadDocumentation(asm);
         var rules = LoadRules(asm);
         var infra = LoadInfra(asm);
 
@@ -90,6 +100,14 @@ public sealed class DataStore
                     catch (ArgumentException) { /* skip malformed user pattern */ }
                 }
 
+            var documentationFile = Path.Combine(dir, "documentation.yml");
+            if (File.Exists(documentationFile))
+                foreach (var p in (TryDeserialize<VendorFile>(documentationFile)?.Patterns ?? []))
+                {
+                    try { documentation.Add(new Regex(p, RegexOptions.Compiled | RegexOptions.CultureInvariant)); }
+                    catch (ArgumentException) { /* skip malformed user pattern */ }
+                }
+
             var detectorsDir = Path.Combine(dir, "detectors");
             if (Directory.Exists(detectorsDir))
                 foreach (var f in Directory.EnumerateFiles(detectorsDir, "*.yml"))
@@ -107,7 +125,7 @@ public sealed class DataStore
             }
         }
 
-        return new DataStore(languages, vendor, rules, infra);
+        return new DataStore(languages, vendor, documentation, rules, infra);
     }
 
     private static T? TryDeserialize<T>(string path) where T : class
@@ -138,6 +156,19 @@ public sealed class DataStore
     private static List<Regex> LoadVendor(Assembly asm)
     {
         var text = ReadResource(asm, ".data.vendor.yml");
+        var file = Yaml.Deserialize<VendorFile>(text);
+        var list = new List<Regex>();
+        foreach (var p in file?.Patterns ?? [])
+        {
+            try { list.Add(new Regex(p, RegexOptions.Compiled | RegexOptions.CultureInvariant)); }
+            catch (ArgumentException) { /* skip malformed pattern */ }
+        }
+        return list;
+    }
+
+    private static List<Regex> LoadDocumentation(Assembly asm)
+    {
+        var text = ReadResource(asm, ".data.documentation.yml");
         var file = Yaml.Deserialize<VendorFile>(text);
         var list = new List<Regex>();
         foreach (var p in file?.Patterns ?? [])

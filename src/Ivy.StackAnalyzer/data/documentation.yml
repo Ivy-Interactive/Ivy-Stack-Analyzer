@@ -1,0 +1,13 @@
+# Paths detected but excluded from language statistics (mirrors
+# github-linguist documentation.yml). Files still participate in the directory
+# walk and component detection; they are dropped only from the language-share
+# denominator. Each entry is a .NET regex tested against forward-slash relative paths.
+patterns:
+  - "(^|/)[Ee]xamples?/"
+  - "(^|/)[Ss]amples?/"
+  - "(^|/)[Dd]emos?/"
+  - "(^|/)[Dd]ocs?/"
+  - "(^|/)[Dd]ocumentation/"
+  - "(^|/)[Cc]hangelog(\\.md)?$"
+  - "(^|/)README\\."
+  - "(^|/)[Ll]icen[sc]e$"

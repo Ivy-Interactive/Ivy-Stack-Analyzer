@@ -5,29 +5,19 @@
   - Python
   componentCount: 1
 languages:
-- name: TOML
-  type: data
-  files: 1
-  bytes: 294
-  percent: 59
 - name: Python
   type: programming
   files: 3
   bytes: 204
-  percent: 41
+  percent: 100
 components:
 - relativePath: .
   languages:
-  - name: TOML
-    type: data
-    files: 1
-    bytes: 294
-    percent: 59
   - name: Python
     type: programming
     files: 3
     bytes: 204
-    percent: 41
+    percent: 100
   manifests:
   - path: pyproject.toml
     ecosystem: pypi

@@ -10,40 +10,20 @@ languages:
   type: programming
   files: 2
   bytes: 442
-  percent: 39.9
-- name: JSON
-  type: data
-  files: 1
-  bytes: 174
-  percent: 15.7
+  percent: 60
 - name: Vue
   type: markup
   files: 1
   bytes: 165
-  percent: 14.9
+  percent: 22.4
 - name: TypeScript
   type: programming
   files: 1
   bytes: 130
-  percent: 11.7
-- name: Markdown
-  type: prose
-  files: 1
-  bytes: 115
-  percent: 10.4
-- name: Pip Requirements
-  type: data
-  files: 1
-  bytes: 82
-  percent: 7.4
+  percent: 17.6
 components:
 - relativePath: .
-  languages:
-  - name: Markdown
-    type: prose
-    files: 1
-    bytes: 115
-    percent: 100
+  languages: []
   manifests: []
   technologies: []
   fileCount: 1
@@ -56,12 +36,7 @@ components:
     type: programming
     files: 2
     bytes: 442
-    percent: 84.4
-  - name: Pip Requirements
-    type: data
-    files: 1
-    bytes: 82
-    percent: 15.6
+    percent: 100
   manifests:
   - path: backend/requirements.txt
     ecosystem: pypi
@@ -90,21 +65,16 @@ components:
   isAuxiliary: false
 - relativePath: frontend
   languages:
-  - name: JSON
-    type: data
-    files: 1
-    bytes: 174
-    percent: 37.1
   - name: Vue
     type: markup
     files: 1
     bytes: 165
-    percent: 35.2
+    percent: 55.9
   - name: TypeScript
     type: programming
     files: 1
     bytes: 130
-    percent: 27.7
+    percent: 44.1
   manifests:
   - path: frontend/package.json
     ecosystem: npm

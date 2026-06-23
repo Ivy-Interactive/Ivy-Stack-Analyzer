@@ -82,6 +82,11 @@ public sealed class FileSystemScanner
                 // counted as total, kept (flagged) so downstream can exclude from stats
             }
 
+            // Documentation / example files are flagged but NEVER pruned from the
+            // walk: example dirs must still surface as components. The flag only
+            // excludes them from language statistics downstream.
+            bool documentation = IsDocumentation(rel);
+
             long len;
             try { len = new FileInfo(file).Length; } catch { len = 0; }
 
@@ -91,6 +96,7 @@ public sealed class FileSystemScanner
                 FullPath = file,
                 Length = len,
                 IsVendored = vendored,
+                IsDocumentation = documentation,
             });
             total++;
         }
@@ -127,6 +133,13 @@ public sealed class FileSystemScanner
     private bool IsVendored(string relativePath)
     {
         foreach (var rx in _data.VendorPatterns)
+            if (rx.IsMatch(relativePath)) return true;
+        return false;
+    }
+
+    private bool IsDocumentation(string relativePath)
+    {
+        foreach (var rx in _data.DocumentationPatterns)
             if (rx.IsMatch(relativePath)) return true;
         return false;
     }

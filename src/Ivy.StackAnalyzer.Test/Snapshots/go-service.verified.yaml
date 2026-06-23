@@ -10,17 +10,12 @@ languages:
   type: programming
   files: 1
   bytes: 177
-  percent: 40.9
+  percent: 54.8
 - name: Dockerfile
   type: programming
   files: 1
   bytes: 146
-  percent: 33.7
-- name: Go Module
-  type: data
-  files: 1
-  bytes: 110
-  percent: 25.4
+  percent: 45.2
 components:
 - relativePath: .
   languages:
@@ -28,17 +23,12 @@ components:
     type: programming
     files: 1
     bytes: 177
-    percent: 40.9
+    percent: 54.8
   - name: Dockerfile
     type: programming
     files: 1
     bytes: 146
-    percent: 33.7
-  - name: Go Module
-    type: data
-    files: 1
-    bytes: 110
-    percent: 25.4
+    percent: 45.2
   manifests:
   - path: go.mod
     ecosystem: go

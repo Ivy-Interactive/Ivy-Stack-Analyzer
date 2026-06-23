@@ -9,6 +9,13 @@ public sealed record ScannedFile
     public required long Length { get; init; }
     public bool IsVendored { get; init; }
 
+    /// <summary>
+    /// The file lives under a documentation / example / sample path (mirrors
+    /// github-linguist <c>documentation.yml</c>). Such files are still detected
+    /// for component purposes but are excluded from language statistics.
+    /// </summary>
+    public bool IsDocumentation { get; init; }
+
     public string FileName => RelativePath[(RelativePath.LastIndexOf('/') + 1)..];
     public string Extension => Path.GetExtension(RelativePath);
 }
