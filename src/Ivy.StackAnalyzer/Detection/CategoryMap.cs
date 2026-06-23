@@ -30,6 +30,7 @@ public static class CategoryMap
         "queue" => TechCategory.Queue,
         "saas" => TechCategory.Saas,
         "iac" => TechCategory.Iac,
+        "documentation" => TechCategory.Documentation,
         _ => TechCategory.Library,
     };
 

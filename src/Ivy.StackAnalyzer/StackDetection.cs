@@ -115,6 +115,7 @@ public enum TechCategory
     Saas,
     Tool,
     Iac,
+    Documentation,
 }
 
 public enum DependencyScope { Runtime, Dev, Peer, Optional }

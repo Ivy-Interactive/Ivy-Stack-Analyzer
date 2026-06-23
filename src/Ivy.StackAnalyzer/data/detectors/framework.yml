@@ -54,6 +54,96 @@
       - { ecosystem: npm, name: astro }
     files: [astro.config.mjs]
   confidence: high
+- id: starlight
+  name: Starlight
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: "@astrojs/starlight" }
+  supersedes: [astro]
+  confidence: high
+- id: actix-web
+  name: Actix Web
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: actix-web }
+  confidence: high
+- id: axum
+  name: Axum
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: axum }
+  confidence: high
+- id: commander
+  name: Commander
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: commander }
+  confidence: high
+- id: elysia
+  name: ElysiaJS
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: elysia }
+  confidence: high
+- id: express
+  name: Express
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: express }
+  confidence: high
+- id: fastify
+  name: Fastify
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: fastify }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-fastify" }
+  confidence: high
+- id: hapi
+  name: hapi
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: "@hapi/hapi" }
+      - { ecosystem: npm, name: hapi }
+  confidence: high
+- id: koa
+  name: Koa
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: koa }
+      - { ecosystem: npm, name: "@opentelemetry/instrumentation-koa" }
+  confidence: high
+- id: oclif
+  name: oclif
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: oclif }
+    depsRegex:
+      - { ecosystem: npm, pattern: "^@oclif\\/" }
+  confidence: high
+- id: rocket
+  name: Rocket
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: rocket }
+  confidence: high
+- id: yargs
+  name: Yargs
+  category: framework
+  match:
+    deps:
+      - { ecosystem: npm, name: yargs }
+  confidence: high
 - id: blitzjs
   name: Blitzjs
   category: framework
@@ -108,7 +198,7 @@
   confidence: high
 - id: docsify
   name: Docsify
-  category: framework
+  category: documentation
   match:
     deps:
       - { ecosystem: npm, name: docsify-cli }
@@ -151,7 +241,7 @@
   confidence: high
 - id: fumadocs
   name: FumaDocs
-  category: framework
+  category: documentation
   match:
     deps:
       - { ecosystem: npm, name: fumadocs-ui }
@@ -323,7 +413,7 @@
   confidence: high
 - id: mkdocs
   name: MkDocs
-  category: framework
+  category: documentation
   match:
     deps:
       - { ecosystem: pypi, name: mkdocs }
@@ -354,29 +444,6 @@
       - { ecosystem: npm, name: "@netlify/plugin-nextjs" }
     files: [next.config.js, next.config.mjs]
   supersedes: [react]
-  confidence: high
-- id: nginx
-  name: Nginx
-  category: framework
-  match:
-    deps:
-      - { ecosystem: docker, name: nginx }
-      - { ecosystem: docker, name: unit }
-      - { ecosystem: docker, name: nginxinc/nginx-unprivileged }
-      - { ecosystem: docker, name: nginx/nginx-ingress }
-      - { ecosystem: docker, name: nginxinc/nginx-s3-gateway }
-      - { ecosystem: docker, name: nginx/unit }
-      - { ecosystem: docker, name: nginxproxy/nginx-proxy }
-      - { ecosystem: docker, name: bitnami/nginx }
-      - { ecosystem: docker, name: bitnami/nginx-ingress-controller }
-      - { ecosystem: docker, name: ubuntu/nginx }
-      - { ecosystem: docker, name: kasmweb/nginx }
-      - { ecosystem: docker, name: rancher/nginx-ingress-controller }
-      - { ecosystem: docker, name: rancher/nginx }
-      - { ecosystem: docker, name: linuxserver/nginx }
-      - { ecosystem: docker, name: privatebin/nginx-fpm-alpine }
-      - { ecosystem: docker, name: wodby/nginx }
-    files: [nginx.conf]
   confidence: high
 - id: nuxtjs
   name: Nuxt.js
@@ -427,7 +494,7 @@
   confidence: high
 - id: readthedocs
   name: Read The Docs
-  category: framework
+  category: documentation
   match:
     deps:
       - { ecosystem: docker, name: readthedocs/build }

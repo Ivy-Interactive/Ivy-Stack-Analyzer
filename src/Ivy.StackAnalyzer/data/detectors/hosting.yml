@@ -371,6 +371,29 @@
     deps:
       - { ecosystem: terraform, name: qovery_cluster }
   confidence: high
+- id: nginx
+  name: Nginx
+  category: hosting
+  match:
+    deps:
+      - { ecosystem: docker, name: nginx }
+      - { ecosystem: docker, name: unit }
+      - { ecosystem: docker, name: nginxinc/nginx-unprivileged }
+      - { ecosystem: docker, name: nginx/nginx-ingress }
+      - { ecosystem: docker, name: nginxinc/nginx-s3-gateway }
+      - { ecosystem: docker, name: nginx/unit }
+      - { ecosystem: docker, name: nginxproxy/nginx-proxy }
+      - { ecosystem: docker, name: bitnami/nginx }
+      - { ecosystem: docker, name: bitnami/nginx-ingress-controller }
+      - { ecosystem: docker, name: ubuntu/nginx }
+      - { ecosystem: docker, name: kasmweb/nginx }
+      - { ecosystem: docker, name: rancher/nginx-ingress-controller }
+      - { ecosystem: docker, name: rancher/nginx }
+      - { ecosystem: docker, name: linuxserver/nginx }
+      - { ecosystem: docker, name: privatebin/nginx-fpm-alpine }
+      - { ecosystem: docker, name: wodby/nginx }
+    files: [nginx.conf]
+  confidence: high
 - id: render
   name: Render
   category: hosting
