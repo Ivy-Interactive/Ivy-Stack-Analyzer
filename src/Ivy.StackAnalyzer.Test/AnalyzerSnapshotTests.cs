@@ -22,8 +22,10 @@ public class AnalyzerSnapshotTests
         return Verifier.Verify(yaml, "yaml")
             .UseDirectory("Snapshots")
             .UseFileName(name)
-            // durationMs is timing-dependent; repoPath is machine-dependent.
-            .ScrubLinesContaining("durationMs", "repoPath");
+            // durationMs is timing-dependent; repoPath is machine-dependent;
+            // rulesLoaded / languageDefsLoaded are data-file counts that change
+            // whenever a detector or language entry is added (not detection behavior).
+            .ScrubLinesContaining("durationMs", "repoPath", "rulesLoaded", "languageDefsLoaded");
     }
 
     [Fact]

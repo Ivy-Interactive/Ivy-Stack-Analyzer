@@ -341,4 +341,160 @@ public class ManifestParserTests
         Assert.IsType<GoModParser>(reg.Resolve("go.mod"));
         Assert.Null(reg.Resolve("random.txt"));
     }
+
+    [Fact]
+    public void Gradle_version_catalog_and_interpolated_versions()
+    {
+        // libs.versions.toml [libraries] entries (module / group+name forms).
+        var catalog = """
+        [libraries]
+        retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+        core = { group = "androidx.core", name = "core-ktx", version = "1.12.0" }
+        """;
+        var cat = new GradleParser().Parse("gradle/libs.versions.toml", catalog);
+        Assert.Equal("maven", cat.Ecosystem);
+        Assert.Contains(cat.Dependencies, d => d.Name == "com.squareup.retrofit2:retrofit");
+        Assert.Contains(cat.Dependencies, d => d.Name == "androidx.core:core-ktx");
+
+        // an interpolated version ("g:a:$ver") must not drop the whole declaration.
+        var script = """implementation "org.koin:koin-android:$versions.koinVersion" """;
+        var s = new GradleParser().Parse("build.gradle", script);
+        Assert.Contains(s.Dependencies, d => d.Name == "org.koin:koin-android");
+    }
+
+    [Fact]
+    public void Julia_crystal_nim_cpan_parse_deps()
+    {
+        var jl = new JuliaProjectParser().Parse("Project.toml",
+            "name = \"X\"\n[deps]\nFlux = \"abc\"\nDataFrames = \"def\"\n");
+        Assert.Equal("julia", jl.Ecosystem);
+        Assert.Contains(jl.Dependencies, d => d.Name == "Flux");
+
+        var cr = new CrystalShardParser().Parse("shard.yml",
+            "name: app\ndependencies:\n  kemal:\n    github: kemalcr/kemal\n");
+        Assert.Equal("shards", cr.Ecosystem);
+        Assert.Contains(cr.Dependencies, d => d.Name == "kemal");
+
+        var nim = new NimbleParser().Parse("app.nimble", "requires \"nim >= 1.6\"\nrequires \"jester\"\n");
+        Assert.Contains(nim.Dependencies, d => d.Name == "jester");
+        Assert.DoesNotContain(nim.Dependencies, d => d.Name == "nim");
+
+        var cpan = new CpanfileParser().Parse("cpanfile", "requires 'Catalyst::Runtime', '5.9';\n");
+        Assert.Contains(cpan.Dependencies, d => d.Name == "Catalyst::Runtime");
+    }
+
+    [Fact]
+    public void Zig_zon_captures_multiple_dependencies()
+    {
+        // Brace-matched so a multi-dependency block is captured whole.
+        var zon = """
+        .{
+          .name = "x",
+          .dependencies = .{
+            .raylib = .{ .url = "a", .hash = "b" },
+            .mach = .{ .url = "c" },
+          },
+          .paths = .{""},
+        }
+        """;
+        var z = new ZigZonParser().Parse("build.zig.zon", zon);
+        Assert.Equal("zig", z.Ecosystem);
+        Assert.Contains(z.Dependencies, d => d.Name == "raylib");
+        Assert.Contains(z.Dependencies, d => d.Name == "mach");
+    }
+
+    [Fact]
+    public void Swift_rebar_opam_cabal_parse_deps()
+    {
+        var sw = new SwiftPackageParser().Parse("Package.swift",
+            ".package(url: \"https://github.com/vapor/vapor.git\", from: \"4.0.0\")");
+        Assert.Equal("swiftpm", sw.Ecosystem);
+        Assert.Contains(sw.Dependencies, d => d.Name == "vapor");
+
+        var rebar = new RebarConfigParser().Parse("rebar.config", "{deps, [\n  {cowboy, \"2.9\"},\n  ranch\n]}.\n");
+        Assert.Equal("rebar", rebar.Ecosystem);
+        Assert.Contains(rebar.Dependencies, d => d.Name == "cowboy");
+
+        var opam = new OpamParser().Parse("x.opam", "depends: [ \"ocaml\" \"dream\" {>= \"1.0\"} \"lwt\" ]\n");
+        Assert.Contains(opam.Dependencies, d => d.Name == "dream");
+        Assert.DoesNotContain(opam.Dependencies, d => d.Name == "ocaml");
+
+        // package.yaml dependencies may sit at column 0 (valid YAML block sequence).
+        var hs = new CabalParser().Parse("package.yaml", "name: app\ndependencies:\n- base\n- warp\n");
+        Assert.Equal("hackage", hs.Ecosystem);
+        Assert.Contains(hs.Dependencies, d => d.Name == "warp");
+        Assert.DoesNotContain(hs.Dependencies, d => d.Name == "base");
+    }
+
+    [Fact]
+    public void Cabal_build_depends_stops_at_following_stanza_fields()
+    {
+        // The multi-line build-depends must not absorb following fields
+        // (hs-source-dirs / ghc-options / default-language) as dependencies.
+        var cabal = "name: app\nlibrary\n" +
+                    "  build-depends:    base >= 4.7 && < 5\n" +
+                    "                  , yesod\n" +
+                    "                  , persistent-postgresql\n" +
+                    "  hs-source-dirs:   src\n" +
+                    "  ghc-options:      -Wall\n" +
+                    "  default-language: Haskell2010\n";
+        var m = new CabalParser().Parse("app.cabal", cabal);
+        var names = m.Dependencies.Select(d => d.Name).ToHashSet();
+        Assert.Contains("yesod", names);
+        Assert.Contains("persistent-postgresql", names);
+        Assert.DoesNotContain("base", names); // excluded by Add()
+        Assert.DoesNotContain("hs-source-dirs", names);
+        Assert.DoesNotContain("ghc-options", names);
+        Assert.DoesNotContain("default-language", names);
+    }
+
+    [Fact]
+    public void Opam_excludes_version_constraints()
+    {
+        var opam = new OpamParser().Parse("x.opam", "depends: [ \"ocaml\" {>= \"4.08\"} \"dream\" {>= \"1.0.0\"} \"lwt\" ]\n");
+        var names = opam.Dependencies.Select(d => d.Name).ToHashSet();
+        Assert.Contains("dream", names);
+        Assert.Contains("lwt", names);
+        Assert.DoesNotContain("4.08", names);  // version literal inside {…}
+        Assert.DoesNotContain("1.0.0", names);
+    }
+
+    [Fact]
+    public void Rebar_takes_only_leading_atom_of_each_element()
+    {
+        // A git source tuple must yield only the package atom, not git/branch/https.
+        var rebar = new RebarConfigParser().Parse("rebar.config",
+            "{deps, [\n  {cowboy, \"2.9.0\"},\n  {jsx, {git, \"https://github.com/x/jsx.git\", {branch, \"main\"}}},\n  ranch\n]}.\n");
+        var names = rebar.Dependencies.Select(d => d.Name).ToHashSet();
+        Assert.Equal(new HashSet<string> { "cowboy", "jsx", "ranch" }, names);
+    }
+
+    [Fact]
+    public void Gradle_build_script_scopes_test_dependencies_as_dev()
+    {
+        var gradle = "dependencies {\n" +
+                     "  implementation \"org.springframework.boot:spring-boot-starter\"\n" +
+                     "  testImplementation \"org.junit.jupiter:junit-jupiter\"\n" +
+                     "}\n";
+        var m = new GradleParser().Parse("build.gradle", gradle);
+        Assert.Contains(m.Dependencies, d => d.Name == "org.springframework.boot:spring-boot-starter" && d.Scope == DependencyScope.Runtime);
+        Assert.Contains(m.Dependencies, d => d.Name == "org.junit.jupiter:junit-jupiter" && d.Scope == DependencyScope.Dev);
+    }
+
+    [Fact]
+    public void Registry_resolves_community_parsers()
+    {
+        var reg = new ManifestParserRegistry();
+        Assert.IsType<JuliaProjectParser>(reg.Resolve("Project.toml"));
+        Assert.IsType<CrystalShardParser>(reg.Resolve("shard.yml"));
+        Assert.IsType<NimbleParser>(reg.Resolve("app.nimble"));
+        Assert.IsType<CpanfileParser>(reg.Resolve("cpanfile"));
+        Assert.IsType<RebarConfigParser>(reg.Resolve("rebar.config"));
+        Assert.IsType<OpamParser>(reg.Resolve("dune-project"));
+        Assert.IsType<SwiftPackageParser>(reg.Resolve("Package.swift"));
+        Assert.IsType<ZigZonParser>(reg.Resolve("build.zig.zon"));
+        Assert.IsType<CabalParser>(reg.Resolve("app.cabal"));
+        Assert.IsType<CabalParser>(reg.Resolve("package.yaml"));
+        Assert.IsType<GradleParser>(reg.Resolve("gradle/libs.versions.toml".Split('/')[^1]));
+    }
 }

@@ -19,7 +19,7 @@ ASN.1: { type: data, extensions: [.asn, .asn1] }
 ASP.NET: { type: programming, extensions: [.asax, .ascx, .ashx, .asmx, .aspx, .axd] }
 ATS: { type: programming, extensions: [.dats, .hats, .sats] }
 ActionScript: { type: programming, extensions: [.as] }
-Ada: { type: programming, extensions: [.adb, .ada, .ads] }
+Ada: { type: programming, extensions: [.adb, .ada, .ads, .adc] }
 Adblock Filter List: { type: data, extensions: [.txt] }
 Adobe Font Metrics: { type: data, extensions: [.afm] }
 Agda: { type: programming, extensions: [.agda] }

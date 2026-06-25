@@ -82,3 +82,45 @@
     deps:
       - { ecosystem: pypi, name: fastmcp }
   confidence: high
+
+- id: tornado
+  name: Tornado
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: tornado }
+  confidence: high
+
+- id: dash
+  name: Dash
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: dash }
+  confidence: high
+
+- id: kivy
+  name: Kivy
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: kivy }
+    extensions: ['.kv']
+  confidence: high
+
+- id: pyqt
+  name: PyQt
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: PyQt5 }
+      - { ecosystem: pypi, name: PyQt6 }
+  confidence: high
+
+- id: pyramid
+  name: Pyramid
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pypi, name: pyramid }
+  confidence: high

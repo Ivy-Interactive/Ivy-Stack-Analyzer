@@ -486,7 +486,10 @@
   match:
     deps:
       - { ecosystem: npm, name: "@nestjs/cli" }
+    depPrefix:
+      - { ecosystem: npm, prefix: "@nestjs/" }
     files: [nest-cli.json]
+  supersedes: [express]
   confidence: high
 - id: nextjs
   name: Next.js
@@ -535,6 +538,8 @@
   match:
     deps:
       - { ecosystem: npm, name: rails }
+      - { ecosystem: rubygems, name: rails }
+      - { ecosystem: rubygems, name: railties }
     depsRegex:
       - { ecosystem: npm, pattern: "@rails\\/" }
   confidence: high
@@ -628,6 +633,7 @@
   match:
     deps:
       - { ecosystem: composer, name: symfony/symfony }
+      - { ecosystem: composer, name: symfony/framework-bundle }
   confidence: high
 - id: tanstackstart
   name: Tanstack Start
@@ -724,4 +730,1672 @@
       - { ecosystem: composer, name: sparkinfluence/zookeeper }
     depsRegex:
       - { ecosystem: docker, pattern: zookeeper }
+  confidence: high
+
+- id: flutter
+  name: Flutter
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pub, name: flutter_test }
+    filesRegex:
+      - '(^|/)ios/Flutter/AppFrameworkInfo\.plist$'
+  confidence: high
+
+- id: angulardart
+  name: AngularDart
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pub, name: angular }
+      - { ecosystem: pub, name: angular_router }
+  confidence: high
+
+- id: aqueduct
+  name: Aqueduct
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pub, name: aqueduct }
+  confidence: high
+
+- id: shelf
+  name: Shelf
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pub, name: shelf }
+  confidence: high
+
+- id: getx
+  name: GetX
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pub, name: get }
+  confidence: high
+
+- id: get
+  name: get
+  category: framework
+  match:
+    deps:
+      - { ecosystem: pub, name: get }
+  confidence: high
+
+- id: phoenix
+  name: Phoenix
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hex, name: phoenix }
+  confidence: high
+
+- id: phoenix-liveview
+  name: Phoenix LiveView
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hex, name: phoenix_live_view }
+  confidence: high
+
+- id: nerves
+  name: Nerves
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hex, name: nerves }
+  confidence: high
+
+- id: ash
+  name: Ash
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hex, name: ash }
+  confidence: high
+
+- id: spring
+  name: Spring
+  category: framework
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: "org.springframework:" }
+      - { ecosystem: maven, prefix: "org.springframework.boot:" }
+      - { ecosystem: maven, prefix: "org.springframework.data:" }
+      - { ecosystem: maven, prefix: "org.springframework.security:" }
+      - { ecosystem: maven, prefix: "org.springframework.cloud:" }
+  confidence: high
+
+- id: spring-boot
+  name: Spring Boot
+  category: framework
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: "org.springframework.boot:" }
+  supersedes: [spring]
+  confidence: high
+
+- id: jakarta-ee
+  name: Jakarta EE
+  category: framework
+  match:
+    deps:
+      - { ecosystem: maven, name: "jakarta.platform:jakarta.jakartaee-web-api" }
+      - { ecosystem: maven, name: "jakarta.platform:jakarta.jakartaee-api" }
+      - { ecosystem: maven, name: "javax:javaee-web-api" }
+      - { ecosystem: maven, name: "javax:javaee-api" }
+      - { ecosystem: maven, name: "org.jboss.spec:jboss-javaee-7.0" }
+      - { ecosystem: maven, name: "org.jboss.spec:jboss-javaee-8.0" }
+    depPrefix:
+      - { ecosystem: maven, prefix: "jakarta.platform:" }
+  confidence: high
+
+- id: micronaut
+  name: Micronaut
+  category: framework
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: "io.micronaut:" }
+      - { ecosystem: maven, prefix: "io.micronaut." }
+  confidence: high
+
+- id: struts
+  name: Struts
+  category: framework
+  match:
+    deps:
+      - { ecosystem: maven, name: "org.apache.struts:struts2-core" }
+    depPrefix:
+      - { ecosystem: maven, prefix: "org.apache.struts:struts2" }
+  confidence: high
+
+- id: jsf
+  name: JavaServer Faces
+  category: framework
+  match:
+    deps:
+      - { ecosystem: maven, name: "org.primefaces:primefaces" }
+      - { ecosystem: maven, name: "org.omnifaces:omnifaces" }
+      - { ecosystem: maven, name: "com.sun.faces:jsf-api" }
+      - { ecosystem: maven, name: "com.sun.faces:jsf-impl" }
+      - { ecosystem: maven, name: "org.glassfish:jakarta.faces" }
+      - { ecosystem: maven, name: "jakarta.faces:jakarta.faces-api" }
+      - { ecosystem: maven, name: "org.apache.myfaces.core:myfaces-impl" }
+  confidence: high
+
+- id: vaadin
+  name: Vaadin
+  category: framework
+  match:
+    deps:
+      - { ecosystem: maven, name: "com.vaadin:vaadin" }
+      - { ecosystem: maven, name: "com.vaadin:vaadin-core" }
+      - { ecosystem: maven, name: "com.vaadin:vaadin-bom" }
+      - { ecosystem: maven, name: "com.vaadin:vaadin-spring-boot-starter" }
+    depPrefix:
+      - { ecosystem: maven, prefix: "com.vaadin:flow-" }
+  confidence: high
+
+- id: dropwizard
+  name: Dropwizard
+  category: framework
+  match:
+    deps:
+      - { ecosystem: maven, name: "io.dropwizard:dropwizard-core" }
+      - { ecosystem: maven, name: "com.yammer.dropwizard:dropwizard-core" }
+    depPrefix:
+      - { ecosystem: maven, prefix: "io.dropwizard:dropwizard-" }
+      - { ecosystem: maven, prefix: "com.yammer.dropwizard:dropwizard-" }
+  confidence: high
+
+- id: android-sdk
+  name: Android SDK
+  category: framework
+  match:
+    files: [AndroidManifest.xml]
+  confidence: high
+
+- id: jetpack-compose
+  name: Jetpack Compose
+  category: framework
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: "androidx.compose" }
+  confidence: high
+
+- id: ktor
+  name: Ktor
+  category: framework
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: "io.ktor:ktor-server" }
+    deps:
+      - { ecosystem: maven, name: "io.ktor:ktor-server-core" }
+  confidence: high
+
+- id: sylius
+  name: Sylius
+  category: framework
+  match:
+    deps:
+      - { ecosystem: composer, name: sylius/sylius }
+      - { ecosystem: composer, name: sylius/sylius-standard }
+    depPrefix:
+      - { ecosystem: composer, prefix: 'sylius/' }
+  confidence: high
+
+- id: codeigniter
+  name: CodeIgniter
+  category: framework
+  match:
+    deps:
+      - { ecosystem: composer, name: codeigniter4/framework }
+    files: [CodeIgniter.php]
+  confidence: high
+
+- id: cakephp
+  name: CakePHP
+  category: framework
+  match:
+    deps:
+      - { ecosystem: composer, name: cakephp/cakephp }
+  confidence: high
+
+- id: slim
+  name: Slim
+  category: framework
+  match:
+    deps:
+      - { ecosystem: composer, name: slim/slim }
+  confidence: high
+
+- id: sinatra
+  name: Sinatra
+  category: framework
+  match:
+    deps:
+      - { ecosystem: rubygems, name: sinatra }
+  confidence: high
+
+- id: hanami
+  name: Hanami
+  category: framework
+  match:
+    deps:
+      - { ecosystem: rubygems, name: hanami }
+  confidence: high
+
+- id: roda
+  name: Roda
+  category: framework
+  match:
+    deps:
+      - { ecosystem: rubygems, name: roda }
+  confidence: high
+
+- id: grape
+  name: Grape
+  category: framework
+  match:
+    deps:
+      - { ecosystem: rubygems, name: grape }
+  confidence: high
+
+- id: padrino
+  name: Padrino
+  category: framework
+  match:
+    deps:
+      - { ecosystem: rubygems, name: padrino }
+      - { ecosystem: rubygems, name: padrino-core }
+  confidence: high
+
+- id: hotwire
+  name: Hotwire
+  category: framework
+  match:
+    deps:
+      - { ecosystem: rubygems, name: hotwire-rails }
+      - { ecosystem: rubygems, name: turbo-rails }
+      - { ecosystem: rubygems, name: stimulus-rails }
+  confidence: high
+
+- id: warp
+  name: Warp
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: warp }
+  confidence: high
+
+- id: yew
+  name: Yew
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: yew }
+  confidence: high
+
+- id: bevy
+  name: Bevy
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cargo, name: bevy }
+  confidence: high
+
+- id: gtk
+  name: GTK
+  category: framework
+  match:
+    contentRegex:
+      - '#include\s*<gtk/gtk\.h>'
+  confidence: high
+
+- id: sdl
+  name: SDL
+  category: framework
+  match:
+    contentRegex:
+      - '#include\s*[<"]SDL'
+  confidence: high
+
+- id: raylib
+  name: Raylib
+  category: framework
+  match:
+    contentRegex:
+      - '#include\s*[<"]raylib\.h'
+  confidence: high
+
+# openresty bundles nginx via patch sets + build scripts (no nginx C source on
+# disk). Match the characteristic nginx patch tree and the nginx packaging script.
+
+- id: nginx-openresty
+  name: Nginx
+  category: framework
+  match:
+    filesRegex:
+      - '(^|/)patches/nginx/'
+      - '(^|/)package-nginx\.sh$'
+  confidence: high
+
+- id: qt
+  name: Qt
+  category: framework
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.pro$'
+    contentRegex:
+      - '#include\s*<Q(Application|Widget|Object|GuiApplication|MainWindow)>'
+      - '#include\s*<QtWidgets/'
+  confidence: high
+
+- id: juce
+  name: JUCE
+  category: framework
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.jucer$'
+    contentRegex:
+      - '#include\s*[<"]juce_[a-z_]+/'
+      - '#include\s*[<"]JuceHeader\.h'
+  confidence: high
+
+- id: wxwidgets
+  name: wxWidgets
+  category: framework
+  match:
+    contentRegex:
+      - '#include\s*<wx/'
+  confidence: high
+
+- id: unreal
+  name: Unreal Engine
+  category: framework
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.uproject$'
+  confidence: high
+
+- id: kemal
+  name: Kemal
+  category: framework
+  match:
+    deps:
+      - { ecosystem: shards, name: kemal }
+  confidence: high
+
+- id: lucky
+  name: Lucky
+  category: framework
+  match:
+    deps:
+      - { ecosystem: shards, name: lucky }
+  confidence: high
+
+- id: amber
+  name: Amber
+  category: framework
+  match:
+    deps:
+      - { ecosystem: shards, name: amber }
+  confidence: high
+
+- id: marten
+  name: Marten
+  category: framework
+  match:
+    deps:
+      - { ecosystem: shards, name: marten }
+  confidence: high
+
+- id: athena
+  name: Athena
+  category: framework
+  match:
+    deps:
+      - { ecosystem: shards, name: athena }
+  confidence: high
+
+- id: cowboy
+  name: Cowboy
+  category: framework
+  match:
+    deps:
+      - { ecosystem: rebar, name: cowboy }
+  confidence: high
+
+- id: otp
+  name: OTP
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*-behaviou?r\(\s*(gen_server|gen_statem|gen_fsm|supervisor|application)\s*\)'
+  confidence: high
+
+- id: riak-core
+  name: Riak Core
+  category: framework
+  match:
+    deps:
+      - { ecosystem: rebar, name: riak_core }
+  confidence: high
+
+- id: chicagoboss
+  name: ChicagoBoss
+  category: framework
+  match:
+    deps:
+      - { ecosystem: rebar, name: boss }
+      - { ecosystem: rebar, name: chicago_boss }
+  confidence: high
+
+- id: nitrogen
+  name: Nitrogen
+  category: framework
+  match:
+    deps:
+      - { ecosystem: rebar, name: nitrogen_core }
+      - { ecosystem: rebar, name: nprocreg }
+      - { ecosystem: rebar, name: simple_bridge }
+  confidence: high
+
+- id: yaws
+  name: Yaws
+  category: framework
+  match:
+    deps:
+      - { ecosystem: rebar, name: yaws }
+    files: [yaws.conf]
+  confidence: high
+
+- id: giraffe
+  name: Giraffe
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Giraffe" }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Giraffe." }
+  confidence: high
+
+- id: saturn
+  name: Saturn
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Saturn" }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Saturn." }
+  supersedes: [giraffe, giraffe]
+  confidence: high
+
+- id: suave
+  name: Suave
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Suave" }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Suave." }
+  confidence: high
+
+- id: fable
+  name: Fable
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Fable.Core" }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Fable.Core." }
+  confidence: high
+
+- id: grails
+  name: Grails
+  category: framework
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: 'org.grails:' }
+      - { ecosystem: maven, prefix: 'org.grails.plugins:' }
+    filesRegex:
+      - '(^|/)grails-app/'
+  supersedes: [spring-boot]
+  confidence: high
+
+- id: ratpack
+  name: Ratpack
+  category: framework
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: 'io.ratpack:' }
+    filesRegex:
+      - '(^|/)src/ratpack/ratpack\.groovy$'
+  confidence: high
+
+- id: griffon
+  name: Griffon
+  category: framework
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: 'org.codehaus.griffon:' }
+      - { ecosystem: maven, prefix: 'org.codehaus.griffon.plugins:' }
+  confidence: high
+
+- id: yesod
+  name: Yesod
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hackage, name: yesod }
+      - { ecosystem: hackage, name: yesod-core }
+    depPrefix:
+      - { ecosystem: hackage, prefix: yesod- }
+  supersedes: [warp-haskell]
+  confidence: high
+
+- id: servant
+  name: Servant
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hackage, name: servant }
+      - { ecosystem: hackage, name: servant-server }
+  supersedes: [warp-haskell]
+  confidence: high
+
+- id: snap
+  name: Snap
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hackage, name: snap }
+      - { ecosystem: hackage, name: snap-core }
+      - { ecosystem: hackage, name: snap-server }
+    contentRegex:
+      - '(?m)^\s*import\s+(qualified\s+)?Snap\.Core\b'
+  supersedes: [warp-haskell]
+  confidence: high
+
+- id: happstack
+  name: Happstack
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hackage, name: happstack-server }
+  confidence: high
+
+- id: scotty
+  name: Scotty
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hackage, name: scotty }
+  supersedes: [warp-haskell]
+  confidence: high
+
+- id: ihp
+  name: IHP
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hackage, name: ihp }
+  supersedes: [warp-haskell]
+  confidence: high
+
+- id: spock-haskell
+  name: Spock
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hackage, name: Spock }
+    depPrefix:
+      - { ecosystem: hackage, prefix: Spock- }
+  supersedes: [warp-haskell]
+  confidence: high
+
+- id: reflex
+  name: Reflex
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hackage, name: reflex }
+      - { ecosystem: hackage, name: reflex-dom }
+    depPrefix:
+      - { ecosystem: hackage, prefix: reflex-dom }
+  confidence: high
+
+- id: miso
+  name: Miso
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hackage, name: miso }
+  confidence: high
+
+- id: warp-haskell
+  name: WAI/Warp
+  category: framework
+  match:
+    deps:
+      - { ecosystem: hackage, name: warp }
+      - { ecosystem: hackage, name: wai }
+  confidence: high
+
+- id: flux
+  name: Flux.jl
+  category: framework
+  match:
+    deps:
+      - { ecosystem: julia, name: Flux }
+  confidence: high
+
+- id: genie
+  name: Genie.jl
+  category: framework
+  match:
+    deps:
+      - { ecosystem: julia, name: Genie }
+  confidence: high
+
+- id: pluto
+  name: Pluto.jl
+  category: framework
+  match:
+    deps:
+      - { ecosystem: julia, name: Pluto }
+  confidence: high
+
+- id: love
+  name: LÖVE
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)\blove\.(graphics|load|update|draw|keyboard|mouse|audio|physics|window|filesystem|timer|event|math|conf)\b'
+  confidence: high
+
+- id: openresty
+  name: OpenResty
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)\b(content|access|rewrite|init|init_worker|header_filter|body_filter|log|set|balancer)_by_lua(_block|_file)?\b'
+      - '(?m)\blua_(package_path|package_cpath|shared_dict|code_cache)\b'
+  confidence: high
+
+- id: corona
+  name: Corona SDK
+  category: framework
+  match:
+    files: [build.settings]
+  confidence: high
+
+- id: lapis
+  name: Lapis
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)require[ (][''"]lapis'
+  confidence: high
+
+- id: kong-lua
+  name: Kong
+  category: framework
+  match:
+    filesRegex:
+      - '(^|/)kong/plugins/[^/]+/handler\.lua$'
+    contentRegex:
+      - '(?m)require[ (][''"]kong\.plugins'
+  supersedes: [openresty]
+  confidence: high
+
+- id: defold
+  name: Defold
+  category: framework
+  match:
+    files: [game.project]
+  confidence: high
+
+- id: sailor
+  name: Sailor
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)require\s+[''"]sailor[''"]'
+  confidence: high
+
+- id: jester
+  name: Jester
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nimble, name: jester }
+    contentRegex:
+      - '(?m)^\s*import\s+jester\b'
+  confidence: high
+
+- id: prologue
+  name: Prologue
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nimble, name: prologue }
+    contentRegex:
+      - '(?m)^\s*import\s+prologue\b'
+  confidence: high
+
+- id: karax
+  name: Karax
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nimble, name: karax }
+    contentRegex:
+      - '(?m)^\s*import\s+karax\b'
+  confidence: high
+
+- id: happyx
+  name: HappyX
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nimble, name: happyx }
+    contentRegex:
+      - '(?m)^\s*import\s+happyx\b'
+  confidence: high
+
+- id: cocoa
+  name: Cocoa
+  category: framework
+  match:
+    contentRegex:
+      - '#import\s*<Cocoa/Cocoa\.h>'
+      - '(?m)^\s*@import\s+Cocoa\s*;'
+  confidence: high
+
+- id: uikit
+  name: Cocoa Touch (UIKit)
+  category: framework
+  match:
+    contentRegex:
+      - '#import\s*<UIKit/UIKit\.h>'
+      - '(?m)^\s*@import\s+UIKit\s*;'
+  confidence: high
+
+- id: foundation
+  name: Foundation
+  category: framework
+  match:
+    contentRegex:
+      - '#import\s*<Foundation/Foundation\.h>'
+      - '(?m)^\s*@import\s+Foundation\s*;'
+  confidence: high
+
+- id: appkit
+  name: AppKit
+  category: framework
+  match:
+    contentRegex:
+      - '#import\s*<AppKit/AppKit\.h>'
+      - '(?m)^\s*@import\s+AppKit\s*;'
+  confidence: high
+
+- id: dream
+  name: Dream
+  category: framework
+  match:
+    deps:
+      - { ecosystem: opam, name: dream }
+  confidence: high
+
+- id: opium
+  name: Opium
+  category: framework
+  match:
+    deps:
+      - { ecosystem: opam, name: opium }
+  confidence: high
+
+- id: mirage
+  name: MirageOS
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*open\s+Mirage\b'
+  confidence: high
+
+- id: catalyst
+  name: Catalyst
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cpan, name: Catalyst::Runtime }
+      - { ecosystem: cpan, name: Catalyst }
+    contentRegex:
+      - '(?m)^\s*use\s+Catalyst\b'
+  confidence: high
+
+- id: dancer
+  name: Dancer
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cpan, name: Dancer2 }
+      - { ecosystem: cpan, name: Dancer }
+    contentRegex:
+      - '(?m)^\s*use\s+Dancer2?\b'
+  confidence: high
+
+- id: mojolicious
+  name: Mojolicious
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cpan, name: Mojolicious }
+    contentRegex:
+      - '(?m)^\s*use\s+Mojolicious\b'
+      - '(?m)^\s*use\s+Mojo::Base\b'
+  confidence: high
+
+- id: mason
+  name: Mason
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cpan, name: HTML::Mason }
+      - { ecosystem: cpan, name: Mason }
+    contentRegex:
+      - '(?m)^\s*use\s+(HTML::)?Mason\b'
+  confidence: high
+
+- id: plack
+  name: Plack
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cpan, name: Plack }
+    filesRegex: ['(^|/)[^/]+\.psgi$']
+    contentRegex:
+      - '(?m)^\s*use\s+Plack(::|\b)'
+  confidence: high
+
+- id: cgi-application
+  name: CGI::Application
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cpan, name: CGI::Application }
+    contentRegex:
+      - '(?m)^\s*use\s+(base|parent)\s+["'']?CGI::Application'
+      - '(?m)^\s*use\s+CGI::Application\b'
+  confidence: high
+
+- id: poe
+  name: POE
+  category: framework
+  match:
+    deps:
+      - { ecosystem: cpan, name: POE }
+    contentRegex:
+      - '(?m)^\s*use\s+POE\b'
+  confidence: high
+
+- id: shiny
+  name: Shiny
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)(library|require)\(\s*shiny\s*\)'
+      - '(?m)\bshinyApp\s*\('
+  confidence: high
+
+- id: plumber
+  name: plumber
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)(library|require)\(\s*plumber\s*\)'
+      - '(?m)^\s*#\*\s*@(get|post|put|delete|serializer|filter)\b'
+      - '(?m)\bplumber::'
+  confidence: high
+
+- id: play
+  name: Play Framework
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+play\.api\.'
+    filesRegex:
+      - '(^|/)conf/routes$'
+  confidence: high
+
+- id: akka
+  name: Akka
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+akka\.'
+  confidence: high
+
+- id: spark
+  name: Apache Spark
+  category: framework
+  match:
+    deps:
+      - { ecosystem: maven, name: 'org.apache.spark:spark-core' }
+      - { ecosystem: maven, name: 'org.apache.spark:spark-sql' }
+    contentRegex:
+      - '(?m)^\s*import\s+org\.apache\.spark[\._]'
+  confidence: high
+
+- id: cats
+  name: Cats
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+cats\.'
+  confidence: high
+
+- id: zio
+  name: ZIO
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+zio\.'
+  confidence: high
+
+- id: http4s
+  name: http4s
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+org\.http4s\.'
+  confidence: high
+
+- id: lift
+  name: Lift
+  category: framework
+  match:
+    deps:
+      - { ecosystem: maven, name: 'net.liftweb:lift-mapper' }
+      - { ecosystem: maven, name: 'net.liftweb:lift-webkit' }
+    contentRegex:
+      - '(?m)^\s*import\s+net\.liftweb[\._]'
+  confidence: high
+
+- id: scalatra
+  name: Scalatra
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+org\.scalatra[\._]'
+  confidence: high
+
+- id: finagle
+  name: Finagle
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+com\.twitter\.finagle[\._]'
+  confidence: high
+
+- id: swiftui
+  name: SwiftUI
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+SwiftUI\b'
+  confidence: high
+
+- id: uikit-swift
+  name: UIKit
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+UIKit\b'
+  confidence: high
+
+- id: vapor
+  name: Vapor
+  category: framework
+  match:
+    deps:
+      - { ecosystem: swiftpm, name: vapor }
+    contentRegex:
+      - '(?m)^\s*import\s+Vapor\b'
+  confidence: high
+
+- id: kitura
+  name: Kitura
+  category: framework
+  match:
+    deps:
+      - { ecosystem: swiftpm, name: Kitura }
+    contentRegex:
+      - '(?m)^\s*import\s+Kitura\b'
+  confidence: high
+
+- id: perfect
+  name: Perfect
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+Perfect(HTTP|HTTPServer|Lib)\b'
+  confidence: high
+
+- id: winforms
+  name: Windows Forms
+  category: framework
+  match:
+    contentRegex:
+      - '(?im)^\s*Inherits\s+System\.Windows\.Forms\.(Form|UserControl)\b'
+  supersedes: [windows-forms]
+  confidence: high
+
+# ADO.NET — the System.Data.SqlClient data-access library. `Imports
+# System.Data.SqlClient` (VB) is the distinctive on-disk marker.
+
+- id: raylib-zig
+  name: raylib-zig
+  category: framework
+  match:
+    deps:
+      - { ecosystem: zig, name: raylib-zig }
+      - { ecosystem: zig, name: raylib }
+    contentRegex:
+      - '@import\("raylib"\)'
+  confidence: high
+
+- id: zig-gamedev
+  name: zig-gamedev
+  category: framework
+  match:
+    deps:
+      - { ecosystem: zig, name: zig-gamedev }
+      - { ecosystem: zig, name: zgui }
+      - { ecosystem: zig, name: zgpu }
+    contentRegex:
+      - '@import\("zgui"\)'
+      - '@import\("zgpu"\)'
+  confidence: high
+
+- id: mach
+  name: Mach
+  category: framework
+  match:
+    deps:
+      - { ecosystem: zig, name: mach }
+    contentRegex:
+      - '@import\("mach"\)'
+  confidence: high
+
+- id: zap
+  name: zap
+  category: framework
+  match:
+    deps:
+      - { ecosystem: zig, name: zap }
+    contentRegex:
+      - '@import\("zap"\)'
+  confidence: high
+
+- id: httpz
+  name: httpz
+  category: framework
+  match:
+    deps:
+      - { ecosystem: zig, name: httpz }
+    contentRegex:
+      - '@import\("httpz"\)'
+  confidence: high
+
+- id: rap
+  name: ABAP RESTful Application Programming Model (RAP)
+  category: framework
+  match:
+    extensions: ['.asbdef']            # RAP behavior-definition source
+    filesRegex: ['(^|/)[^/]+\.bdef\.(asbdef|xml)$']
+    contentRegex:
+      - '(?im)^\s*define\s+behavior\s+for\b'
+  confidence: high
+
+- id: cds
+  name: Core Data Services (CDS)
+  category: framework
+  match:
+    extensions: ['.asddls', '.ddls']   # ABAP CDS DDL source
+    contentRegex:
+      - '(?im)^\s*@AbapCatalog\b'
+      - '(?im)^\s*define\s+view\b'
+  confidence: high
+
+- id: gateway-odata
+  name: Gateway (OData)
+  category: framework
+  match:
+    extensions: ['.iwsv', '.iwsg', '.iwmo', '.iwom', '.iwpr']  # SAP Gateway service objects
+    filesRegex: ['(^|/)[^/]+_dpc(_ext)?\.clas\.abap$', '(^|/)[^/]+_mpc(_ext)?\.clas\.abap$']
+  confidence: high
+
+- id: webdynpro
+  name: Web Dynpro ABAP
+  category: framework
+  match:
+    filesRegex: ['(^|/)[^/]+\.wdyn\.xml$', '(^|/)[^/]+\.wdya\.xml$']  # WD component / application
+  confidence: high
+
+- id: ui5
+  name: SAP UI5
+  category: framework
+  match:
+    # UI5 manifest descriptor key / MVC controller import — distinctive to SAPUI5/OpenUI5
+    contentRegex:
+      - '"sap\.ui5"\s*:'
+      - '(?i)sap/ui/core/mvc/Controller'
+  confidence: high
+
+- id: gtkada
+  name: GtkAda
+  category: framework
+  match:
+    contentRegex:
+      - '(?im)\bwith\s+(Gtkada|Gtk)\.'
+  confidence: high
+
+- id: aws-ada
+  name: Ada Web Server
+  category: framework
+  match:
+    contentRegex:
+      - '(?im)\bwith\s+AWS\.'
+  confidence: high
+
+- id: polyorb
+  name: PolyORB
+  category: framework
+  match:
+    contentRegex:
+      - '(?im)\b(with|package)\s+PolyORB'
+  confidence: high
+
+- id: salesforce-dx
+  name: Salesforce DX
+  category: framework
+  match:
+    files: [sfdx-project.json]
+  confidence: high
+
+# --- Lightning Web Components (line 483) ---
+# LWC bundles live under a /lwc/ dir with a *.js-meta.xml component descriptor.
+
+- id: lwc
+  name: Lightning Web Components
+  category: framework
+  match:
+    filesRegex:
+      - '(^|/)lwc/[^/]+/[^/]+\.js-meta\.xml$'
+  confidence: high
+
+# --- Aura Components (line 484) ---
+# Aura bundles live under an /aura/ dir with a *.cmp markup file.
+
+- id: aura
+  name: Aura Components
+  category: framework
+  match:
+    filesRegex:
+      - '(^|/)aura/[^/]+/[^/]+\.cmp$'
+  confidence: high
+
+# --- Visualforce (line 485) ---
+# Visualforce pages/components use the .page / .component extensions.
+
+- id: visualforce
+  name: Visualforce
+  category: framework
+  match:
+    extensions: ['.page', '.component']
+  confidence: high
+
+# --- fflib-apex-common (line 487) ---
+# Apex Enterprise Patterns base lib; distinctive fflib_Application factory class.
+
+- id: hla
+  name: HLA (High Level Assembly)
+  category: framework
+  match:
+    # HLA has its own .hla extension and a distinctive program/#include header.
+    extensions: ['.hla']
+    contentRegex:
+      - '(?im)^\s*program\s+\w+\s*;'
+      - '#include\s*\(\s*"[^"]*\.hhf"'
+  confidence: high
+
+- id: ring
+  name: Ring
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)\[ring/ring(-[a-z]+)?\s+"'
+      - '(?m)ring/ring\s+\{:mvn/version'
+      - '(?m)\(:require\b[^)]*\[ring\.(adapter|middleware|util|core)\b'
+  confidence: high
+
+- id: compojure
+  name: Compojure
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)\[compojure\s+"'
+      - '(?m)compojure/compojure\s+\{:mvn/version'
+      - '(?m)\(:require\b[^)]*\[compojure\.(core|route|coercions)\b'
+  confidence: high
+
+- id: luminus
+  name: Luminus
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)\[luminus-(immutant|migrations|nrepl|transit|jetty|undertow|aleph|http-kit)\s+"'
+      - '(?m)\(:require\b[^)]*\bluminus\.'
+  confidence: high
+
+- id: reagent
+  name: Reagent
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)\[reagent\s+"'
+      - '(?m)reagent/reagent\s+\{:mvn/version'
+      - '(?m)\(:require\b[^)]*\[reagent\.(core|dom|ratom)\b'
+  confidence: high
+
+- id: re-frame
+  name: Re-frame
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)\[re-frame\s+"'
+      - '(?m)re-frame/re-frame\s+[#]?\{?:mvn/version'
+      - '(?m)\(:require\b[^)]*\[re-frame\.core\b'
+  confidence: high
+
+- id: pedestal
+  name: Pedestal
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)\[io\.pedestal/pedestal\.'
+      - '(?m)io\.pedestal/pedestal\.[a-z]+\s+\{:mvn/version'
+      - '(?m)\(:require\b[^)]*\[io\.pedestal\.'
+  confidence: high
+
+- id: cics
+  name: CICS
+  category: framework
+  match:
+    contentRegex:
+      - '(?im)^\s*EXEC\s+CICS\b'
+  confidence: high
+
+- id: firemonkey
+  name: FireMonkey (FMX)
+  category: framework
+  match:
+    # Require a real FMX unit (matching is case-insensitive, so a bare `fmx.` token
+    # over-fires); these are the common FireMonkey units referenced in `uses`.
+    contentRegex:
+      - '(?i)\bFMX\.(Forms|Controls|Types|Graphics|Dialogs|StdCtrls|Layouts|Objects|Edit|ListView|ListBox|Memo|Grid|TabControl)\b'
+  confidence: high
+
+- id: vcl
+  name: Visual Component Library (VCL)
+  category: framework
+  match:
+    # Require a real VCL unit (case-insensitive match makes a bare `vcl.` token
+    # over-fire); these are the common VCL units referenced in `uses`.
+    contentRegex:
+      - '(?i)\bVcl\.(Forms|Controls|Graphics|Dialogs|StdCtrls|ComCtrls|ExtCtrls|Buttons|Menus|Grids|DBGrids|DBCtrls|Imaging|Themes)\b'
+  confidence: high
+
+- id: mormot
+  name: mORMot
+  category: framework
+  match:
+    contentRegex:
+      - '\bmormot[12]?\.(core|crypt|db|net|rest|orm|soa|lib)\.[a-z]'
+      - '\bSynCommons\b'
+  confidence: high
+
+- id: lazarus-lcl
+  name: Lazarus LCL
+  category: framework
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.lp[ir]$'
+    contentRegex:
+      - '\bLCL(Type|Version|Intf|Proc|Class|StrConsts)\b'
+  confidence: high
+
+- id: hunchentoot
+  name: Hunchentoot
+  category: framework
+  match:
+    contentRegex:
+      - '(?im)^\s*[:#"]?hunchentoot\b'
+      - '\bhunchentoot:'
+  confidence: high
+
+- id: clack
+  name: Clack
+  category: framework
+  match:
+    contentRegex:
+      - '\bclack:'
+      - '(?im):depends-on[^)]*"clack"'
+      - '\bmake-clack-app\b'
+  confidence: high
+
+- id: caveman2
+  name: Caveman2
+  category: framework
+  match:
+    contentRegex:
+      - '\bcaveman2\b'
+      - '(?im):depends-on[^)]*caveman2'
+  confidence: high
+
+- id: mcclim
+  name: McCLIM
+  category: framework
+  match:
+    contentRegex:
+      - '(?im):depends-on[^)]*#?:?(mc)?clim\b'
+      - '\bclim:'
+      - '\bmcclim\b'
+  confidence: high
+
+- id: simulink
+  name: Simulink
+  category: framework
+  match:
+    extensions: ['.slx', '.mdl']
+  confidence: high
+
+# --- App Designer (line 160): .mlapp app files ---
+
+- id: appdesigner
+  name: App Designer
+  category: framework
+  match:
+    extensions: ['.mlapp']
+  confidence: high
+
+# --- GUIDE (line 161): .fig layout file, or the GUIDE-generated .m signature ---
+
+- id: guide
+  name: GUIDE
+  category: framework
+  match:
+    # NB: no bare `.fig` extension — it collides with Figma exports / xfig / FIGlet
+    # and would fire this framework (a hash slot) on unrelated repos. Key on the
+    # MATLAB GUIDE autogenerated header.
+    contentRegex:
+      - '(?m)^%\s*Last Modified by GUIDE'
+  confidence: high
+
+# --- Image Processing Toolbox (line 153) ---
+# imdilate/imerode/imfilter/imadjust/imbinarize are unambiguous IP toolbox functions.
+
+- id: pode
+  name: Pode
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)\bImport-Module\s+Pode\b'
+      - '(?m)\bStart-PodeServer\b'
+      - '(?m)\bAdd-Pode(Route|Endpoint)\b'
+  confidence: high
+
+# --- PSFramework (line 318): Import-Module PSFramework / Write-PSFMessage ---
+
+- id: polaris
+  name: Polaris
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)\bImport-Module\s+Polaris\b'
+      - '(?m)\bNew-Polaris(Get|Post|Put|Delete)?Route\b'
+      - '(?m)\bStart-Polaris\b'
+  confidence: high
+
+# --- UniversalDashboard (line 320): New-UDDashboard / Start-UDDashboard / Import-Module UniversalDashboard ---
+
+- id: universaldashboard
+  name: UniversalDashboard
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)\bImport-Module\s+UniversalDashboard\b'
+      - '(?m)\b(New|Start)-UDDashboard\b'
+  confidence: high
+
+# --- ImportExcel (line 321): Export-Excel / Import-Excel / Import-Module ImportExcel ---
+
+- id: swi
+  name: SWI-Prolog
+  category: framework
+  match:
+    files: [pack.pl]
+  confidence: high
+
+- id: logtalk
+  name: Logtalk
+  category: framework
+  match:
+    extensions: ['.lgt']
+    contentRegex:
+      - '(?m)^\s*:-\s*object\('
+  confidence: high
+
+- id: tau
+  name: Tau Prolog
+  category: framework
+  match:
+    files: [tau-prolog.js]
+    depsRegex:
+      - { ecosystem: npm, pattern: '^tau-prolog$' }
+    contentRegex:
+      - 'require\(\s*["'']tau-prolog'
+  confidence: high
+
+- id: ciao
+  name: Ciao
+  category: framework
+  match:
+    files: [Manifest.pl]
+    contentRegex:
+      - '(?m)^\s*:-\s*module\(\s*\w+\s*,\s*\[[^\]]*\]\s*,\s*\[(assertions|regtypes|dcg|fsyntax|datafacts)'
+  confidence: high
+
+- id: eclipse
+  name: ECLiPSe
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*:-\s*lib\(\s*(ic|ic_global|fd|fd_global|branch_and_bound|eplex)\s*\)'
+  confidence: high
+
+- id: xsb
+  name: XSB
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*:-\s*import\s+[\w/,\s]+\s+from\s+(basics|intern|standard|setof|machine|num_vars)\b'
+  confidence: high
+
+- id: racket
+  name: Racket
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^#lang\s+racket\b'
+  confidence: high
+
+- id: typed-racket
+  name: Typed Racket
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^#lang\s+typed/racket\b'
+  confidence: high
+
+- id: web-server
+  name: web-server
+  category: framework
+  match:
+    contentRegex:
+      - '\(require\s+web-server/'
+  confidence: high
+
+- id: racket-scheme
+  name: Racket
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^#lang\s+(at-exp\s+)?racket\b'
+  confidence: high
+
+# --- Guile (runtime) -------------------------------------------------------
+# Guile module form uses the #:use-module keyword, which is unique to Guile.
+
+- id: guile
+  name: Guile
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*\(define-module\s+\([^)]+\)[\s\S]{0,400}#:use-module'
+      - '(?m)^\s*\(use-modules\s+\('
+  confidence: high
+
+# --- Chicken Scheme (runtime) ---------------------------------------------
+# .egg files are CHICKEN's egg (package) descriptors.
+
+- id: chicken
+  name: Chicken Scheme
+  category: framework
+  match:
+    # A committed `.egg` in a source repo is a CHICKEN egg (an s-expr metadata file);
+    # Python `.egg`s are build artifacts that are gitignored/vendored, not committed.
+    # `.egg` is not a classified language so its content can't be sampled — hence the
+    # extension facet, paired with the CHICKEN import form for egg-less repos.
+    extensions: ['.egg']
+    contentRegex:
+      - '(?m)^\s*\(import\s+\(chicken\b'
+  confidence: high
+
+# --- Gambit (runtime) ------------------------------------------------------
+# Gambit-specific compiler declarations.
+
+- id: gambit
+  name: Gambit
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*\(declare\s+\(not\s+safe\)\)'
+      - '(?m)^\s*\(declare\s+\(proper-tail-calls\)\)'
+  confidence: high
+
+# --- Bigloo (runtime) ------------------------------------------------------
+# Bigloo module form imports a binding from a source file path string.
+
+- id: bigloo
+  name: Bigloo
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*\(module\s+[\w-]+[\s\S]{0,400}\(import\s+\([\w-]+\s+"[^"]+\.scm"'
+      - '(?m)^\s*\(module\s+[\w-]+[\s\S]{0,200}\(library\s+'
+  confidence: high
+
+# --- Chez Scheme (runtime) -------------------------------------------------
+# R6RS library importing the (chezscheme) builtin library.
+
+- id: chez
+  name: Chez Scheme
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*\(import[\s\S]{0,400}\(chezscheme\)'
+      - '(?m)^\s*\(library\s+\([\s\S]{0,400}\(chezscheme\)'
+  confidence: high
+
+# --- Gauche (runtime) ------------------------------------------------------
+# define-gauche-package in package.scm is the Gauche package descriptor.
+
+- id: gauche
+  name: Gauche
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*\(define-gauche-package\b'
+  confidence: high
+
+# --- Kawa (JVM Scheme runtime) --------------------------------------------
+# Bundled kawa.jar is the distinctive on-disk Kawa marker.
+
+- id: kawa
+  name: Kawa
+  category: framework
+  match:
+    filesRegex: ['(^|/)kawa\.jar$']
+  confidence: high
+
+- id: bash-bashible
+  name: bashible
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^#!.*\bbashible\b'
+      - '(?m)^\s*bashible_version\s*\(\)'
+    filesRegex:
+      - '(^|/)[^/]+\.ble$'
+  confidence: high
+
+- id: bash-oh-my-bash
+  name: Oh My Bash
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*export\s+OSH=.*oh-my-bash'
+      - '(?m)^\s*source\s+\S*oh-my-bash/oh-my-bash\.sh'
+  confidence: high
+
+- id: bash-bash-it
+  name: bash-it
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*export\s+BASH_IT='
+      - '(?m)^\s*source\s+"?\$BASH_IT"?/bash_it\.sh'
+  confidence: high
+
+- id: chisel
+  name: Chisel
+  category: framework
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+chisel3\b'
+      - '(?m)^\s*import\s+Chisel\b'
+  confidence: high
+
+- id: scribble
+  name: Scribble
+  category: documentation
+  match:
+    contentRegex:
+      - '(?m)^#lang\s+scribble/'
+    filesRegex:
+      - '(^|/)[^/]+\.scrbl$'
   confidence: high

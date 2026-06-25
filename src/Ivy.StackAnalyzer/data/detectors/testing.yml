@@ -138,3 +138,159 @@
       - { ecosystem: npm, name: vitest }
     files: [vitest.config.js, vitest.config.ts]
   confidence: high
+
+- id: rspec
+  name: RSpec
+  category: testing
+  match:
+    deps:
+      - { ecosystem: rubygems, name: rspec }
+      - { ecosystem: rubygems, name: rspec-rails }
+      - { ecosystem: rubygems, name: rspec-core }
+  confidence: high
+
+- id: capybara
+  name: Capybara
+  category: testing
+  match:
+    deps:
+      - { ecosystem: rubygems, name: capybara }
+  confidence: high
+
+- id: spec
+  name: Spec (Crystal)
+  category: testing
+  match:
+    contentRegex:
+      - '(?m)^\s*require\s+"spec"\s*$'
+  confidence: high
+
+- id: expecto
+  name: Expecto
+  category: testing
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Expecto" }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Expecto." }
+  confidence: high
+
+- id: spock
+  name: Spock
+  category: testing
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: 'org.spockframework:' }
+    contentRegex:
+      - '(?m)^\s*import\s+spock\.lang\.'
+  confidence: high
+
+- id: geb
+  name: Geb
+  category: testing
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: 'org.gebish:' }
+  confidence: high
+
+- id: apex-mocks
+  name: Apex Mocks
+  category: testing
+  match:
+    contentRegex:
+      - '\bnew\s+fflib_ApexMocks\s*\('
+  confidence: high
+
+- id: dunitx
+  name: DUnitX
+  category: testing
+  match:
+    contentRegex:
+      - '\bDUnitX\.[A-Za-z][A-Za-z0-9.]*'
+  confidence: high
+
+- id: pester
+  name: Pester
+  category: testing
+  match:
+    filesRegex: ['(^|/)[^/]+\.Tests\.ps1$']
+    contentRegex:
+      - '(?m)^\s*Describe\s+["''$].*\{'
+  confidence: high
+
+# --- PSScriptAnalyzer (line 313): settings file or Invoke-ScriptAnalyzer ---
+
+- id: rackunit
+  name: Rackunit
+  category: testing
+  match:
+    contentRegex:
+      - '\(require\s+(typed/)?rackunit\b'
+      - '\(require\s+[^)]*\brackunit\b'
+  confidence: high
+
+- id: bash-bats
+  name: Bats
+  category: testing
+  match:
+    extensions: ['.bats']
+    contentRegex:
+      - '(?m)^#!.*\bbats\b'
+      - '(?m)^\s*@test\s'
+  confidence: high
+
+- id: bash-shunit2
+  name: shUnit2
+  category: testing
+  match:
+    contentRegex:
+      - '(?m)^\s*\.\s+\S*shunit2\b'
+      - '(?m)^\s*(oneTimeSetUp|oneTimeTearDown)\s*\(\)'
+  confidence: high
+
+- id: cocotb
+  name: cocotb
+  category: testing
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+cocotb\b'
+      - '(?m)^\s*from\s+cocotb\b'
+  confidence: high
+
+- id: vunit
+  name: VUnit
+  category: testing
+  match:
+    contentRegex:
+      - '(?m)^\s*from\s+vunit\s+import\b'
+      - '(?m)^\s*import\s+vunit\b'
+  confidence: high
+
+- id: osvvm
+  name: OSVVM
+  category: testing
+  match:
+    contentRegex:
+      - '(?im)^\s*library\s+osvvm\s*;'
+      - '(?im)^\s*use\s+osvvm\.'
+  confidence: high
+
+- id: uvvm
+  name: UVVM
+  category: testing
+  match:
+    contentRegex:
+      - '(?im)^\s*library\s+uvvm_util\b'
+      - '(?im)^\s*library\s+uvvm_vvc_framework\b'
+      - '(?im)^\s*use\s+uvvm_util\.'
+  confidence: high
+
+- id: cocotb-vhdl
+  name: cocotb
+  category: testing
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+cocotb\b'
+      - '(?m)^\s*from\s+cocotb\b'
+      - '@cocotb\.test\b'
+  confidence: high

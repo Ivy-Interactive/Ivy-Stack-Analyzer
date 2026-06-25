@@ -102,3 +102,11 @@
       - { ecosystem: terraform, name: registry.terraform.io/AxtonGrams/wiz }
     dotenv: [WIZ_]
   confidence: high
+
+- id: sobelow
+  name: Sobelow
+  category: security
+  match:
+    deps:
+      - { ecosystem: hex, name: sobelow }
+  confidence: high

@@ -27,21 +27,18 @@
     deps:
       - { ecosystem: go, name: entgo.io/ent }
   confidence: high
-- id: gorm
-  name: GORM
-  category: orm
-  match:
-    deps:
-      - { ecosystem: go, name: gorm.io/gorm }
-  confidence: high
 - id: hibernate
   name: Hibernate
   category: orm
   match:
     deps:
       - { ecosystem: maven, name: "io.quarkus:quarkus-hibernate-orm-panache" }
+      - { ecosystem: maven, name: "org.hibernate:hibernate-entitymanager" }
     depPrefix:
-      - { ecosystem: maven, prefix: "org.hibernate" }
+      # ORM-specific artifacts only; org.hibernate.validator (Bean Validation) is
+      # a separate library and must NOT match.
+      - { ecosystem: maven, prefix: "org.hibernate:hibernate-core" }
+      - { ecosystem: maven, prefix: "org.hibernate.orm:" }
       - { ecosystem: maven, prefix: "io.quarkus:quarkus-hibernate" }
   confidence: high
 - id: knex
@@ -94,4 +91,63 @@
   match:
     deps:
       - { ecosystem: npm, name: typeorm }
+  confidence: high
+
+- id: ecto
+  name: Ecto
+  category: orm
+  match:
+    deps:
+      - { ecosystem: hex, name: ecto }
+      - { ecosystem: hex, name: ecto_sql }
+  confidence: high
+
+- id: exposed
+  name: Exposed
+  category: orm
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: "org.jetbrains.exposed" }
+  confidence: high
+
+- id: granite
+  name: Granite
+  category: orm
+  match:
+    deps:
+      - { ecosystem: shards, name: granite }
+  confidence: high
+
+- id: crecto
+  name: Crecto
+  category: orm
+  match:
+    deps:
+      - { ecosystem: shards, name: crecto }
+  confidence: high
+
+- id: dbix-class
+  name: DBIx::Class
+  category: orm
+  match:
+    deps:
+      - { ecosystem: cpan, name: DBIx::Class }
+    contentRegex:
+      - '(?m)^\s*use\s+DBIx::Class\b'
+  confidence: high
+
+- id: slick
+  name: Slick
+  category: orm
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+slick\.'
+  confidence: high
+
+- id: firedac
+  name: FireDAC
+  category: orm
+  match:
+    contentRegex:
+      - '\bFireDAC\.[A-Za-z][A-Za-z0-9.]*'
   confidence: high

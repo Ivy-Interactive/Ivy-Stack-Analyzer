@@ -122,6 +122,7 @@ public sealed class ComponentDetector
                 Extensions = extensions,
                 EnvVarNames = ReadEnvVarNames(compFiles),
                 Scripts = manifests.SelectMany(m => m.Scripts).ToHashSet(StringComparer.OrdinalIgnoreCase),
+                SourceTexts = BuildSourceTexts(compFiles),
             });
         }
 
@@ -319,6 +320,53 @@ public sealed class ComponentDetector
         => WorkspaceDeclarators.Contains(fileName)
         || fileName.EndsWith(".sln", StringComparison.OrdinalIgnoreCase)
         || fileName.EndsWith(".slnx", StringComparison.OrdinalIgnoreCase);
+
+    // Bounds for the lazy source-text sample used by `contentRegex` rules. Generous
+    // enough to catch a marker import/include anywhere in a normal component, capped
+    // so a huge monorepo subtree can't blow up memory or time.
+    private const int MaxSourceFiles = 800;
+    private const long MaxSourceFileBytes = 512 * 1024;
+    private const long MaxSourceTotalBytes = 12L * 1024 * 1024;
+    private const int SourceFileReadCap = 128 * 1024;
+
+    /// <summary>Lazily read a bounded sample of a component's programming/markup source
+    /// files for <c>contentRegex</c> matching. Vendored, oversized, and binary/data
+    /// files are skipped; each file is truncated and the total is capped.</summary>
+    private static Lazy<IReadOnlyList<SourceText>> BuildSourceTexts(IReadOnlyList<ClassifiedFile> files)
+        => new(() =>
+        {
+            var result = new List<SourceText>();
+            long total = 0;
+            foreach (var f in files)
+            {
+                if (result.Count >= MaxSourceFiles || total >= MaxSourceTotalBytes) break;
+                if (f.Language is null || f.File.IsVendored) continue;
+                if (f.Type is not (LanguageType.Programming or LanguageType.Markup)) continue;
+                if (f.File.Length == 0 || f.File.Length > MaxSourceFileBytes) continue;
+                string text;
+                try
+                {
+                    // Size the read buffer to the file (bytes >= chars, so this never
+                    // truncates below the cap) instead of always allocating the full
+                    // 128KB cap — most source files are a few KB.
+                    var cap = (int)Math.Min(SourceFileReadCap, f.File.Length);
+                    text = ReadCapped(f.File.FullPath, cap);
+                }
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { continue; }
+                if (text.Length == 0) continue;
+                result.Add(new SourceText(f.File.RelativePath, text));
+                total += text.Length;
+            }
+            return result;
+        });
+
+    private static string ReadCapped(string path, int cap)
+    {
+        using var reader = new StreamReader(path);
+        var buffer = new char[cap];
+        int read = reader.Read(buffer, 0, cap);
+        return read <= 0 ? "" : new string(buffer, 0, read);
+    }
 
     private static bool IsAuxiliary(string dir)
     {

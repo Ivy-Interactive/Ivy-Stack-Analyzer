@@ -193,3 +193,245 @@
     deps:
       - { ecosystem: composer, name: twig/twig }
   confidence: high
+
+- id: hardhat
+  name: Hardhat
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: hardhat }
+    files: [hardhat.config.js, hardhat.config.ts]
+  confidence: high
+
+- id: truffle
+  name: Truffle
+  category: tool
+  match:
+    deps:
+      - { ecosystem: npm, name: truffle }
+    files: [truffle-config.js, truffle.js]
+  confidence: high
+
+- id: foundry
+  name: Foundry
+  category: tool
+  match:
+    files: [foundry.toml]
+  confidence: high
+
+- id: brownie
+  name: Brownie
+  category: tool
+  match:
+    files: [brownie-config.yaml, brownie-config.yml]
+    deps:
+      - { ecosystem: pypi, name: eth-brownie }
+  confidence: high
+
+- id: dapptools
+  name: DappTools
+  category: tool
+  match:
+    contentRegex:
+      - '(?m)^\s*\w+\s*:;\s*dapp\s'
+  confidence: high
+
+- id: zls
+  name: zls
+  category: tool
+  match:
+    deps:
+      - { ecosystem: zig, name: zls }
+    contentRegex:
+      - '@import\("zls"\)'
+  confidence: high
+
+- id: abapgit
+  name: abapGit
+  category: tool
+  match:
+    files: ['.abapgit.xml']
+  confidence: high
+
+- id: gnat
+  name: GNAT
+  category: tool
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.gpr$'
+  confidence: high
+
+- id: spark-ada
+  name: SPARK
+  category: tool
+  match:
+    contentRegex:
+      - '(?im)\bSPARK_Mode\b'
+  confidence: high
+
+- id: jcl
+  name: JCL
+  category: tool
+  match:
+    filesRegex:
+      - '(?i)\.jcl$'
+    contentRegex:
+      - '(?im)^//\w+\s+JOB\b'
+  confidence: high
+
+- id: ford
+  name: FORD
+  category: tool
+  match:
+    files: [ford.md, ford.yml, ford.yaml]
+    filesRegex: ['(^|/)\.?ford-settings\.(md|yml|yaml)$']
+  confidence: medium
+
+- id: psscriptanalyzer
+  name: PSScriptAnalyzer
+  category: tool
+  match:
+    files: [PSScriptAnalyzerSettings.psd1]
+    contentRegex:
+      - '\bInvoke-ScriptAnalyzer\b'
+  confidence: high
+
+# --- Plaster (line 314): plasterManifest.xml template manifest ---
+
+- id: plaster
+  name: Plaster
+  category: tool
+  match:
+    files: [plasterManifest.xml]
+    filesRegex: ['(^|/)plasterManifest[^/]*\.xml$']
+  confidence: high
+
+# --- PSReadLine (line 315): Set-PSReadLineOption / Import-Module PSReadLine ---
+
+- id: drracket
+  name: DrRacket
+  category: tool
+  match:
+    contentRegex:
+      - '(?m)^\s*\(define\s+drracket-tool-names\b'
+      - '\bdrracket:get/extend:extend-(definitions|interactions|unit-frame)\b'
+  confidence: high
+
+- id: viya
+  name: SAS Viya
+  category: tool
+  match:
+    contentRegex:
+      - '(?im)^\s*proc\s+cas\b'
+      - '(?i)\bcaslib\b'
+  confidence: high
+
+- id: enterprise-guide
+  name: SAS Enterprise Guide
+  category: tool
+  match:
+    filesRegex:
+      - '(?i)(^|/)[^/]+\.egp$'
+  confidence: high
+
+- id: bash-argbash
+  name: Argbash
+  category: tool
+  match:
+    contentRegex:
+      - '(?m)^\s*#\s*ARG_(OPTIONAL|POSITIONAL|HELP|VERSION)_'
+      - 'Argbash is FREE SOFTWARE'
+  confidence: high
+
+- id: verilator
+  name: Verilator
+  category: tool
+  match:
+    contentRegex:
+      # Make var / build artifacts produced by Verilator (not the lint pragma).
+      - '\bVERILATOR_[A-Z]'
+      - '\bverilated\b'
+      # `verilator` as a build target/sim selection or command invocation.
+      - '(?m)^\s*verilator\s+[-+\w]'
+      - '\bSIM\b[^\n]*\bverilator\b'
+  confidence: high
+
+- id: icarus
+  name: Icarus Verilog
+  category: tool
+  match:
+    contentRegex:
+      # iverilog invoked with its standard -g<std> flag (excludes prose mentions).
+      - '\biverilog\s+-g'
+      - '\bSIM\b[^\n]*\bicarus\b'
+  confidence: high
+
+- id: yosys
+  name: Yosys
+  category: tool
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.ys$'
+    contentRegex:
+      - '\bread_verilog\b'
+      - '\byosys\s+-[ps]\b'
+      - '\bYOSYS\s*[:?]?='
+  confidence: high
+
+- id: vivado
+  name: Vivado
+  category: tool
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.xpr$'
+  confidence: high
+
+- id: quartus
+  name: Quartus
+  category: tool
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.qpf$'
+      - '(^|/)[^/]+\.qsf$'
+    contentRegex:
+      - '(?m)^\s*syn_tool\s*=\s*["'']quartus'
+  confidence: high
+
+- id: ghdl
+  name: GHDL
+  category: tool
+  match:
+    contentRegex:
+      - '(?m)^\s*[A-Za-z_]*ghdl[A-Za-z_]*\s*[:?]?=\s*ghdl\b'
+      - '(?m)\bghdl\s+-a\b'
+      - '(?m)\bghdl\s+--std='
+  confidence: high
+
+- id: quartus-vhdl
+  name: Quartus
+  category: tool
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.qpf$'
+      - '(^|/)[^/]+\.qsf$'
+  confidence: high
+
+- id: vivado-vhdl
+  name: Vivado
+  category: tool
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.xpr$'
+      - '(^|/)[^/]+\.xdc$'
+      - '(^|/)[^/]+\.xci$'
+  confidence: high
+
+- id: symbiflow
+  name: Symbiflow
+  category: tool
+  match:
+    contentRegex:
+      - '(?m)\bsymbiflow_synth\b'
+      - '(?m)\bsymbiflow_pack\b'
+      - '(?m)\bf4pga\b'
+  confidence: high

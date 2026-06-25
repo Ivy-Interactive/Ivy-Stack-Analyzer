@@ -15,11 +15,13 @@ public class RuleEngineTests
         IEnumerable<string>? extensions = null,
         IEnumerable<string>? envVars = null,
         IEnumerable<string>? scripts = null,
-        IEnumerable<KeyValuePair<string, string>>? properties = null)
+        IEnumerable<KeyValuePair<string, string>>? properties = null,
+        IEnumerable<SourceText>? sourceTexts = null)
     {
         var names = (fileNames ?? []).ToHashSet(StringComparer.OrdinalIgnoreCase);
         return new ComponentContext
         {
+            SourceTexts = new Lazy<IReadOnlyList<SourceText>>(() => (sourceTexts ?? []).ToList()),
             RelativePath = "apps/web",
             Files = [],
             Manifests = [],
@@ -68,6 +70,22 @@ public class RuleEngineTests
         var engine = new RuleEngine(Data);
         var result = engine.Detect(Ctx(scripts: ["bun run build", "vitest"]));
         Assert.DoesNotContain(result, t => t.Name == "bun test");
+    }
+
+    [Fact]
+    public void Detects_technology_by_content_marker()
+    {
+        var rule = new RuleDef
+        {
+            Id = "gtk", Name = "GTK", Category = "framework", Confidence = "high",
+            Match = new MatchSpec { ContentRegex = [@"#include\s*<gtk/gtk\.h>"] },
+        };
+        var engine = new RuleEngine([rule]);
+        var hit = engine.Detect(Ctx(sourceTexts: [new SourceText("main.c", "#include <gtk/gtk.h>\n")]));
+        Assert.Contains(hit, t => t.Name == "GTK" && t.Confidence == Confidence.High);
+
+        var miss = engine.Detect(Ctx(sourceTexts: [new SourceText("main.c", "#include <stdio.h>\n")]));
+        Assert.DoesNotContain(miss, t => t.Name == "GTK");
     }
 
     [Fact]
