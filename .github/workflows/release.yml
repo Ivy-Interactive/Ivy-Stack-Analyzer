@@ -63,30 +63,29 @@ jobs:
           dotnet pack src/Ivy.StackAnalyzer.Console/Ivy.StackAnalyzer.Console.csproj \
             -c Release --no-build -o artifacts -p:Version=${{ steps.ver.outputs.version }}
 
-      # The Ivy-Interactive nuget.org account has a registered certificate, so every
-      # package (and symbol package) must be author-signed with it before upload.
-      - name: Sign packages
-        shell: bash
-        env:
-          CERT_B64: ${{ secrets.SIGNING_CERTIFICATE_BASE64 }}
-          CERT_PWD: ${{ secrets.SIGNING_CERTIFICATE_PASSWORD }}
+      # The Ivy-Interactive nuget.org account has a registered certificate, so packages
+      # must be author-signed before upload. Signed via SSL.com eSigner (cloud signing,
+      # org-level SSL_COM_* secrets) — same approach as Ivy-Framework. Symbol packages
+      # (.snupkg) are dropped rather than signed/published.
+      - name: Clean output before signing
         run: |
-          if [ -z "$CERT_B64" ]; then
-            echo "::error::SIGNING_CERTIFICATE_BASE64 secret is not set — cannot sign packages."
-            exit 1
-          fi
-          cert="$RUNNER_TEMP/signing-cert.pfx"
-          echo "$CERT_B64" | base64 -d > "$cert"
-          shopt -s nullglob
-          for pkg in artifacts/*.nupkg artifacts/*.snupkg; do
-            echo "Signing $pkg"
-            dotnet nuget sign "$pkg" \
-              --certificate-path "$cert" \
-              --certificate-password "$CERT_PWD" \
-              --timestamper http://timestamp.digicert.com \
-              --overwrite
-          done
-          rm -f "$cert"
+          find artifacts -mindepth 1 -maxdepth 1 -not -name "*.nupkg" -exec rm -rf {} +
+          mkdir -p artifacts_signed
+
+      - name: Sign NuGet packages
+        uses: sslcom/esigner-codesign@develop
+        with:
+          command: batch_sign
+          username: ${{ secrets.SSL_COM_USERNAME }}
+          password: ${{ secrets.SSL_COM_PASSWORD }}
+          credential_id: ${{ secrets.SSL_COM_CREDENTIAL_ID }}
+          totp_secret: ${{ secrets.SSL_COM_TOTP_SECRET }}
+          malware_block: true
+          dir_path: artifacts
+          output_path: artifacts_signed
+
+      - name: Use signed packages
+        run: cp -f artifacts_signed/*.nupkg artifacts/
 
       - name: NuGet trusted-publishing login
         id: nuget-login
