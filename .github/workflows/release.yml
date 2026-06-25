@@ -67,7 +67,7 @@ jobs:
         id: nuget-login
         uses: NuGet/login@v1
         with:
-          user: "niels@bosmainteractive.se"   # nuget.org account that owns the trusted-publishing policies
+          user: bosmainteractive   # nuget.org account that owns the trusted-publishing policies
 
       - name: Push to nuget.org
         run: >
