@@ -1,11 +1,13 @@
 name: Release
 
-# Publishes two packages to nuget.org:
-#   - Ivy.StackAnalyzer       (class library)
-#   - ivy-stack-analyzer      (.NET tool: `dotnet tool install -g ivy-stack-analyzer`)
+# Publishes two packages to nuget.org via NuGet Trusted Publishing (OIDC — no
+# long-lived API key):
+#   - Ivy.StackAnalyzer    (class library)
+#   - ivy-stack-analyzer   (.NET tool: `dotnet tool install -g ivy-stack-analyzer`)
 #
-# Requires the NUGET_TOKEN repository secret (a nuget.org API key).
-# Triggered by publishing a GitHub Release (tag like v0.1.0) or manually.
+# Each package id needs its own Trusted Publishing policy on nuget.org under the
+# owner account, pointing at this repository and this workflow file (release.yml).
+# Triggered by publishing a GitHub Release (tag like v1.0.1) or manually.
 
 on:
   release:
@@ -13,9 +15,13 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Package version (e.g. 0.1.0)'
+        description: 'Package version (e.g. 1.0.1)'
         required: true
-        default: '0.1.0'
+        default: '1.0.1'
+
+permissions:
+  id-token: write   # required to mint a short-lived NuGet key via OIDC
+  contents: read
 
 jobs:
   publish:
@@ -57,10 +63,16 @@ jobs:
           dotnet pack src/Ivy.StackAnalyzer.Console/Ivy.StackAnalyzer.Console.csproj \
             -c Release --no-build -o artifacts -p:Version=${{ steps.ver.outputs.version }}
 
+      - name: NuGet trusted-publishing login
+        id: nuget-login
+        uses: NuGet/login@v1
+        with:
+          user: Ivy-Interactive   # the nuget.org account that owns the packages/policies
+
       - name: Push to nuget.org
         run: >
           dotnet nuget push "artifacts/*.nupkg"
-          --api-key "${{ secrets.NUGET_TOKEN }}"
+          --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
           --source https://api.nuget.org/v3/index.json
           --skip-duplicate
 

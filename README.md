@@ -139,8 +139,9 @@ This project derives data from two MIT-licensed projects:
 - **[github-linguist][linguist]** — `data/languages.yml` and `data/vendor.yml`.
 - **[specfy/stack-analyser][specfy]** — `data/detectors/*.yml`.
 
-See [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md). Ivy.StackAnalyzer itself is
-licensed under the terms in [LICENSE](LICENSE).
+See [THIRD-PARTY-NOTICES.md](https://github.com/Ivy-Interactive/Ivy-Stack-Analyzer/blob/main/THIRD-PARTY-NOTICES.md).
+Ivy.StackAnalyzer itself is licensed under the terms in
+[LICENSE](https://github.com/Ivy-Interactive/Ivy-Stack-Analyzer/blob/main/LICENSE).
 
 [linguist]: https://github.com/github-linguist/linguist
 [specfy]: https://github.com/specfy/stack-analyser

@@ -11,7 +11,7 @@
     <Deterministic>true</Deterministic>
     <Company>Ivy</Company>
     <Product>Ivy.StackAnalyzer</Product>
-    <Version>0.1.0</Version>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <!-- Shared NuGet package metadata (applied to packable projects). -->
