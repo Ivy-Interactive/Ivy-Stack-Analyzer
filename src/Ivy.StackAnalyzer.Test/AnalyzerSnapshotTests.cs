@@ -24,8 +24,9 @@ public class AnalyzerSnapshotTests
             .UseFileName(name)
             // durationMs is timing-dependent; repoPath is machine-dependent;
             // rulesLoaded / languageDefsLoaded are data-file counts that change
-            // whenever a detector or language entry is added (not detection behavior).
-            .ScrubLinesContaining("durationMs", "repoPath", "rulesLoaded", "languageDefsLoaded");
+            // whenever a detector or language entry is added; analyzerVersion changes
+            // every release — none reflect detection behavior, so scrub them all.
+            .ScrubLinesContaining("durationMs", "repoPath", "rulesLoaded", "languageDefsLoaded", "analyzerVersion");
     }
 
     [Fact]

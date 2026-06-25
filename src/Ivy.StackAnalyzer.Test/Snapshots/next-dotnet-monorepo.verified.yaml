@@ -219,5 +219,4 @@ readme:
 
     backed by Postgres.
 metadata:
-  analyzerVersion: 0.1.0
   ignoredDirectories: []
