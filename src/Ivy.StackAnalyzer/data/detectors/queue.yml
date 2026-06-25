@@ -163,3 +163,30 @@
     deps:
       - { ecosystem: npm, name: "@upstash/qstash" }
   confidence: high
+
+- id: oban
+  name: Oban
+  category: queue
+  match:
+    deps:
+      - { ecosystem: hex, name: oban }
+  confidence: high
+
+- id: sidekiq
+  name: Sidekiq
+  category: queue
+  match:
+    deps:
+      - { ecosystem: rubygems, name: sidekiq }
+  confidence: high
+
+- id: sidekiq-crystal
+  name: Sidekiq.cr
+  category: queue
+  match:
+    deps:
+      - { ecosystem: shards, name: sidekiq }
+  confidence: high
+
+# Crystal built-in Spec test framework. Signal: `require "spec"` in source
+# (test files live under spec/). Anchored to avoid matching require "spec-kemal".

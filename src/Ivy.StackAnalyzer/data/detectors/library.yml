@@ -463,3 +463,1151 @@
     deps:
       - { ecosystem: npm, name: zod }
   confidence: high
+
+- id: provider
+  name: provider
+  category: library
+  match:
+    deps:
+      - { ecosystem: pub, name: provider }
+  confidence: high
+
+- id: riverpod
+  name: Riverpod
+  category: library
+  match:
+    deps:
+      - { ecosystem: pub, name: flutter_riverpod }
+      - { ecosystem: pub, name: riverpod }
+      - { ecosystem: pub, name: hooks_riverpod }
+      - { ecosystem: pub, name: riverpod_annotation }
+  confidence: high
+
+- id: bloc
+  name: Bloc
+  category: library
+  match:
+    deps:
+      - { ecosystem: pub, name: bloc }
+      - { ecosystem: pub, name: flutter_bloc }
+  confidence: high
+
+- id: dio
+  name: Dio
+  category: library
+  match:
+    deps:
+      - { ecosystem: pub, name: dio }
+  confidence: high
+
+- id: plug
+  name: Plug
+  category: library
+  match:
+    deps:
+      - { ecosystem: hex, name: plug }
+      - { ecosystem: hex, name: plug_cowboy }
+  confidence: high
+
+- id: absinthe
+  name: Absinthe
+  category: library
+  match:
+    deps:
+      - { ecosystem: hex, name: absinthe }
+      - { ecosystem: hex, name: absinthe_plug }
+  confidence: high
+
+- id: broadway
+  name: Broadway
+  category: library
+  match:
+    deps:
+      - { ecosystem: hex, name: broadway }
+  confidence: high
+
+- id: jquery
+  name: jQuery
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: jquery }
+  confidence: high
+
+- id: ktor-client
+  name: Ktor Client
+  category: library
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: "io.ktor:ktor-client" }
+  confidence: high
+
+- id: koin
+  name: Koin
+  category: library
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: "io.insert-koin:" }
+      - { ecosystem: maven, prefix: "org.koin:" }
+  confidence: high
+
+- id: retrofit
+  name: Retrofit
+  category: library
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: "com.squareup.retrofit2:" }
+  confidence: high
+
+- id: coroutines
+  name: Coroutines
+  category: library
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: "org.jetbrains.kotlinx:kotlinx-coroutines" }
+  confidence: high
+
+- id: tokio
+  name: Tokio
+  category: library
+  match:
+    deps:
+      - { ecosystem: cargo, name: tokio }
+  confidence: high
+
+- id: hyper
+  name: Hyper
+  category: library
+  match:
+    deps:
+      - { ecosystem: cargo, name: hyper }
+  confidence: high
+
+- id: glib
+  name: GLib
+  category: library
+  match:
+    contentRegex:
+      - '#include\s*<glib\.h>'
+  confidence: high
+
+- id: libcurl
+  name: libcurl
+  category: library
+  match:
+    contentRegex:
+      - '#include\s*<curl/curl\.h>'
+  confidence: high
+
+- id: openssl
+  name: OpenSSL
+  category: library
+  match:
+    contentRegex:
+      - '#include\s*<openssl/'
+  confidence: high
+
+- id: libuv
+  name: libuv
+  category: library
+  match:
+    contentRegex:
+      - '#include\s*<uv\.h>'
+  confidence: high
+
+- id: ncurses
+  name: ncurses
+  category: library
+  match:
+    contentRegex:
+      - '#include\s*<(ncurses|curses)\.h>'
+  confidence: high
+
+- id: boost
+  name: Boost
+  category: library
+  match:
+    contentRegex:
+      - '#include\s*<boost/'
+  confidence: high
+
+- id: poco
+  name: POCO
+  category: library
+  match:
+    contentRegex:
+      - '#include\s*[<"]Poco/'
+  confidence: high
+
+- id: opencv
+  name: OpenCV
+  category: library
+  match:
+    contentRegex:
+      - '#include\s*<opencv2/'
+  confidence: high
+
+- id: imgui
+  name: Dear ImGui
+  category: library
+  match:
+    contentRegex:
+      - '#include\s*[<"]imgui\.h[">]'
+  confidence: high
+
+- id: grpc
+  name: gRPC
+  category: library
+  match:
+    contentRegex:
+      - '#include\s*<grpcpp/'
+      - 'grpc::CreateChannel\b'
+  confidence: high
+
+- id: cinder
+  name: Cinder
+  category: library
+  match:
+    contentRegex:
+      - '#include\s*[<"]cinder/'
+  confidence: high
+
+- id: ranch
+  name: Ranch
+  category: library
+  match:
+    deps:
+      - { ecosystem: rebar, name: ranch }
+  confidence: high
+
+- id: lager
+  name: Lager
+  category: library
+  match:
+    deps:
+      - { ecosystem: rebar, name: lager }
+  confidence: high
+
+- id: fshttp
+  name: FsHttp
+  category: library
+  match:
+    deps:
+      - { ecosystem: nuget, name: "FsHttp" }
+  confidence: high
+
+- id: gpars
+  name: GPars
+  category: library
+  match:
+    depPrefix:
+      - { ecosystem: maven, prefix: 'org.codehaus.gpars:' }
+    contentRegex:
+      - '(?m)^\s*import\s+groovyx\.gpars\.'
+  confidence: high
+
+- id: groovyfx
+  name: GroovyFX
+  category: library
+  match:
+    deps:
+      - { ecosystem: maven, name: 'org.groovyfx:groovyfx' }
+    depPrefix:
+      - { ecosystem: maven, prefix: 'org.groovyfx:' }
+  confidence: high
+
+- id: dataframes
+  name: DataFrames.jl
+  category: library
+  match:
+    deps:
+      - { ecosystem: julia, name: DataFrames }
+  confidence: high
+
+- id: plots
+  name: Plots.jl
+  category: library
+  match:
+    deps:
+      - { ecosystem: julia, name: Plots }
+      # StatsPlots is the Plots.jl statistics recipe package; it re-exports and
+      # depends on Plots, so its presence indicates the Plots.jl ecosystem.
+      - { ecosystem: julia, name: StatsPlots }
+  confidence: high
+
+- id: jump
+  name: JuMP.jl
+  category: library
+  match:
+    deps:
+      - { ecosystem: julia, name: JuMP }
+  confidence: high
+
+- id: differentialequations
+  name: DifferentialEquations.jl
+  category: library
+  match:
+    deps:
+      - { ecosystem: julia, name: DifferentialEquations }
+  confidence: high
+
+- id: makie
+  name: Makie.jl
+  category: library
+  match:
+    deps:
+      - { ecosystem: julia, name: Makie }
+      - { ecosystem: julia, name: CairoMakie }
+      - { ecosystem: julia, name: GLMakie }
+      - { ecosystem: julia, name: WGLMakie }
+      - { ecosystem: julia, name: RPRMakie }
+  confidence: high
+
+- id: mlj
+  name: MLJ.jl
+  category: library
+  match:
+    deps:
+      - { ecosystem: julia, name: MLJ }
+  confidence: high
+
+- id: zygote
+  name: Zygote.jl
+  category: library
+  match:
+    deps:
+      - { ecosystem: julia, name: Zygote }
+  confidence: high
+
+- id: torch
+  name: Torch
+  category: library
+  match:
+    contentRegex:
+      - '(?m)^\s*require\s+[''"]torch[''"]'
+  confidence: high
+
+- id: arraymancer
+  name: Arraymancer
+  category: library
+  match:
+    deps:
+      - { ecosystem: nimble, name: arraymancer }
+    contentRegex:
+      - '(?m)^\s*import\s+arraymancer\b'
+  confidence: high
+
+- id: nigui
+  name: NiGui
+  category: library
+  match:
+    deps:
+      - { ecosystem: nimble, name: nigui }
+    contentRegex:
+      - '(?m)^\s*import\s+nigui\b'
+  confidence: high
+
+- id: ws
+  name: ws
+  category: library
+  match:
+    deps:
+      - { ecosystem: nimble, name: ws }
+    contentRegex:
+      - '(?m)^\s*import\s+ws\b'
+  confidence: high
+
+- id: pixie
+  name: Pixie
+  category: library
+  match:
+    deps:
+      - { ecosystem: nimble, name: pixie }
+    contentRegex:
+      - '(?m)^\s*import\s+pixie\b'
+  confidence: high
+
+- id: boxy
+  name: Boxy
+  category: library
+  match:
+    deps:
+      - { ecosystem: nimble, name: boxy }
+    contentRegex:
+      - '(?m)^\s*import\s+boxy\b'
+  confidence: high
+
+- id: coredata
+  name: Core Data
+  category: library
+  match:
+    filesRegex:
+      - '\.xcdatamodeld(/|$)'
+    contentRegex:
+      - '#import\s*<CoreData/CoreData\.h>'
+      - '(?m)^\s*@import\s+CoreData\s*;'
+  confidence: high
+
+- id: coreanimation
+  name: Core Animation
+  category: library
+  match:
+    contentRegex:
+      - '#import\s*<QuartzCore/'
+      - '(?m)^\s*@import\s+QuartzCore\s*;'
+  confidence: high
+
+- id: afnetworking
+  name: AFNetworking
+  category: library
+  match:
+    contentRegex:
+      - '#import\s*[<"]AFNetworking'
+  confidence: high
+
+- id: sdwebimage
+  name: SDWebImage
+  category: library
+  match:
+    contentRegex:
+      - '#import\s*[<"](SDWebImage|UIImageView\+WebCache)'
+  confidence: high
+
+- id: gpuimage
+  name: GPUImage
+  category: library
+  match:
+    contentRegex:
+      - '#import\s*[<"]GPUImage'
+  confidence: high
+
+- id: reactivecocoa
+  name: ReactiveCocoa
+  category: library
+  match:
+    contentRegex:
+      - '#import\s*[<"]ReactiveCocoa'
+      - '\bRACObserve\s*\('
+      - '\b@import\s+ReactiveCocoa\s*;'
+  confidence: high
+
+- id: lwt
+  name: Lwt
+  category: library
+  match:
+    deps:
+      - { ecosystem: opam, name: lwt }
+  confidence: high
+
+- id: async
+  name: Async
+  category: library
+  match:
+    deps:
+      - { ecosystem: opam, name: async }
+  confidence: high
+
+- id: core
+  name: Core
+  category: library
+  match:
+    deps:
+      - { ecosystem: opam, name: core }
+  confidence: high
+
+- id: base
+  name: Base
+  category: library
+  match:
+    deps:
+      - { ecosystem: opam, name: base }
+    contentRegex:
+      - '(?m)^\s*open\s+Base\b'
+  confidence: high
+
+- id: cohttp
+  name: Cohttp
+  category: library
+  match:
+    depsRegex:
+      - { ecosystem: opam, pattern: '^cohttp(-lwt|-lwt-unix|-async)?$' }
+    contentRegex:
+      - '(?m)^\s*open\s+Cohttp(_lwt(_unix)?)?\b'
+  confidence: high
+
+- id: js-of-ocaml
+  name: js_of_ocaml
+  category: library
+  match:
+    depsRegex:
+      - { ecosystem: opam, pattern: '^js_of_ocaml(-compiler|-lwt|-ppx|-tyxml|-toplevel)?$' }
+  confidence: high
+
+- id: moose
+  name: Moose
+  category: library
+  match:
+    deps:
+      - { ecosystem: cpan, name: Moose }
+    contentRegex:
+      - '(?m)^\s*use\s+Moose\s*;'
+  confidence: high
+
+- id: template-toolkit
+  name: Template Toolkit
+  category: library
+  match:
+    deps:
+      - { ecosystem: cpan, name: Template }
+      - { ecosystem: cpan, name: Template::Toolkit }
+    extensions: ['.tt', '.tt2']
+    contentRegex:
+      - '(?m)^\s*use\s+Template\s*;'
+  confidence: medium
+
+- id: ggplot2
+  name: ggplot2
+  category: library
+  match:
+    contentRegex:
+      - '(?m)(library|require)\(\s*ggplot2\s*\)'
+      - '(?m)\bggplot2::'
+      - '(?m)\bggplot\s*\('
+  confidence: high
+
+- id: dplyr
+  name: dplyr
+  category: library
+  match:
+    contentRegex:
+      - '(?m)(library|require)\(\s*dplyr\s*\)'
+      - '(?m)\bdplyr::'
+  confidence: high
+
+- id: tidyverse
+  name: tidyverse
+  category: library
+  match:
+    contentRegex:
+      - '(?m)(library|require)\(\s*tidyverse\s*\)'
+  confidence: high
+
+- id: data-table
+  name: data.table
+  category: library
+  match:
+    contentRegex:
+      - '(?m)(library|require)\(\s*data\.table\s*\)'
+      - '(?m)\bdata\.table::'
+  confidence: high
+
+- id: caret
+  name: caret
+  category: library
+  match:
+    contentRegex:
+      - '(?m)(library|require)\(\s*caret\s*\)'
+      - '(?m)\bcaret::'
+  confidence: high
+
+- id: rmarkdown
+  name: R Markdown
+  category: library
+  match:
+    extensions: ['.rmd']
+    filesRegex: ['(?i)\.rmd$']
+  confidence: high
+
+- id: tidymodels
+  name: Tidymodels
+  category: library
+  match:
+    contentRegex:
+      - '(?m)(library|require)\(\s*tidymodels\s*\)'
+      - '(?m)\btidymodels::'
+  confidence: high
+
+- id: knitr
+  name: knitr
+  category: library
+  match:
+    contentRegex:
+      - '(?m)(library|require)\(\s*knitr\s*\)'
+      - '(?m)\bknitr::'
+  confidence: high
+
+- id: openzeppelin
+  name: OpenZeppelin Contracts
+  category: library
+  match:
+    depsRegex:
+      - { ecosystem: npm, pattern: '^@openzeppelin/contracts' }
+  confidence: high
+
+- id: web3js
+  name: Web3.js
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: web3 }
+  confidence: high
+
+- id: ethersjs
+  name: Ethers.js
+  category: library
+  match:
+    deps:
+      - { ecosystem: npm, name: ethers }
+  confidence: high
+
+- id: solmate
+  name: Solmate
+  category: library
+  match:
+    filesRegex:
+      - '(^|/)lib/solmate/'
+    contentRegex:
+      - '(?m)^\s*import\s+.*"solmate/'
+  confidence: high
+
+- id: combine
+  name: Combine
+  category: library
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+Combine\b'
+  confidence: high
+
+- id: alamofire
+  name: Alamofire
+  category: library
+  match:
+    deps:
+      - { ecosystem: swiftpm, name: Alamofire }
+    contentRegex:
+      - '(?m)^\s*import\s+Alamofire\b'
+  confidence: high
+
+- id: rxswift
+  name: RxSwift
+  category: library
+  match:
+    deps:
+      - { ecosystem: swiftpm, name: RxSwift }
+    contentRegex:
+      - '(?m)^\s*import\s+RxSwift\b'
+  confidence: high
+
+- id: coredata-swift
+  name: Core Data
+  category: library
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.xcdatamodeld(/|$)'
+    contentRegex:
+      - '(?m)^\s*import\s+CoreData\b'
+  confidence: high
+
+- id: swiftdata
+  name: SwiftData
+  category: library
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+SwiftData\b'
+  confidence: high
+
+- id: adonet
+  name: ADO.NET
+  category: library
+  match:
+    deps:
+      - { ecosystem: nuget, name: System.Data.SqlClient }
+      - { ecosystem: nuget, name: Microsoft.Data.SqlClient }
+    contentRegex:
+      - '(?im)^\s*Imports\s+System\.Data\.SqlClient\b'
+  confidence: high
+
+# ComponentOne (GrapeCity/MESCIUS C1.* UI suite). Vendor assemblies are referenced
+# as C1.* and used via `Imports C1.` in VB source.
+
+- id: componentone
+  name: ComponentOne
+  category: library
+  match:
+    depPrefix:
+      - { ecosystem: nuget, prefix: 'C1.' }
+    contentRegex:
+      - '(?im)^\s*Imports\s+C1\.'
+  confidence: high
+
+# DevExpress (WinForms/WPF Xtra* UI suite). Used via `Imports DevExpress.` in VB
+# source; nuget id prefix DevExpress. covers SDK-style projects.
+
+- id: devexpress
+  name: DevExpress
+  category: library
+  match:
+    depPrefix:
+      - { ecosystem: nuget, prefix: 'DevExpress.' }
+    contentRegex:
+      - '(?im)^\s*Imports\s+DevExpress\.'
+  confidence: high
+
+# Telerik UI (RadControls / Telerik.Windows.* / Telerik.WinControls.*). Matched on
+# the real vendor nuget id or vendor `Imports` namespace. NOTE: a repo merely named
+# after Telerik or that targets Telerik output is NOT a Telerik UI consumer — the
+# anchored vendor namespace avoids that false positive.
+
+- id: telerik
+  name: Telerik UI
+  category: library
+  match:
+    depPrefix:
+      - { ecosystem: nuget, prefix: 'Telerik.UI.' }
+      - { ecosystem: nuget, prefix: 'Telerik.Windows.' }
+      - { ecosystem: nuget, prefix: 'Telerik.WinControls.' }
+    contentRegex:
+      - '(?im)^\s*Imports\s+Telerik\.(Windows|WinControls|Web)\b'
+  confidence: high
+
+- id: clap
+  name: zig-clap
+  category: library
+  match:
+    deps:
+      - { ecosystem: zig, name: clap }
+    contentRegex:
+      - '@import\("clap"\)'
+  confidence: high
+
+- id: zigimg
+  name: zigimg
+  category: library
+  match:
+    deps:
+      - { ecosystem: zig, name: zigimg }
+    contentRegex:
+      - '@import\("zigimg"\)'
+  confidence: high
+
+- id: libxev
+  name: libxev
+  category: library
+  match:
+    deps:
+      - { ecosystem: zig, name: libxev }
+      - { ecosystem: zig, name: xev }
+    contentRegex:
+      - '@import\("xev"\)'
+  confidence: high
+
+- id: csv-abap2xlsx
+  name: ABAP2XLSX
+  category: library
+  match:
+    contentRegex:
+      - '\bzcl_excel\b'
+  confidence: high
+
+- id: gnatcoll
+  name: GNATcoll
+  category: library
+  match:
+    contentRegex:
+      - '(?im)\bwith\s+GNATCOLL\b'
+  confidence: high
+
+- id: ravenscar
+  name: Ravenscar
+  category: library
+  match:
+    contentRegex:
+      - '(?im)pragma\s+Profile\s*\(\s*Ravenscar\b'
+  confidence: high
+
+- id: florist
+  name: Florist
+  category: library
+  match:
+    # Require the Ada `with POSIX.<child>;` / `with POSIX;` clause form — a bare
+    # `POSIX` token is a common identifier across many languages and over-fires.
+    contentRegex:
+      - '(?im)^\s*with\s+POSIX\s*[.;]'
+  confidence: high
+
+- id: win32ada
+  name: Win32Ada
+  category: library
+  match:
+    contentRegex:
+      - '(?im)\bwith\s+Win32\b'
+  confidence: high
+
+- id: fflib-apex-common
+  name: fflib-apex-common
+  category: library
+  match:
+    contentRegex:
+      - '\bfflib_Application\b'
+  confidence: high
+
+# --- Apex Mocks (line 488) ---
+# fflib_ApexMocks mocking framework; distinctive constructor usage.
+
+- id: keystone
+  name: Keystone Engine
+  category: library
+  match:
+    # Keystone is an assembler *library* (not a dialect). Detectable only when the
+    # binding is declared in a PARSED manifest (requirements.txt / pyproject / npm).
+    # setup.py install_requires is NOT parsed, so a setup.py-only repo stays a miss.
+    deps:
+      - { ecosystem: pypi, name: keystone-engine }
+      - { ecosystem: npm, name: keystone-engine }
+  confidence: high
+
+- id: core-async
+  name: core.async
+  category: library
+  match:
+    contentRegex:
+      - '(?m)\[org\.clojure/core\.async\s+"'
+      - '(?m)org\.clojure/core\.async\s+\{:mvn/version'
+      - '(?m)\(:require\b[^)]*\[(clojure|cljs)\.core\.async\b'
+  confidence: high
+
+- id: hiccup
+  name: Hiccup
+  category: library
+  match:
+    contentRegex:
+      - '(?m)\[hiccup\s+"'
+      - '(?m)hiccup/hiccup\s+\{:mvn/version'
+      - '(?m)\(:require\b[^)]*\[hiccup\.(core|page|element|form)\b'
+  confidence: high
+
+- id: spring4d
+  name: Spring4D
+  category: library
+  match:
+    contentRegex:
+      - '\bSpring\.(Collections|Container|Reflection|Mocking|Persistence|Logging|Cryptography|Interception|DesignPatterns)\b'
+  confidence: high
+
+- id: indy
+  name: Indy (Internet Direct)
+  category: library
+  match:
+    contentRegex:
+      - '\bId(TCPServer|TCPClient|HTTP|HTTPServer|Global|Context|TCPConnection|Socket|SMTP|POP3)\b'
+  confidence: high
+
+- id: devexpress-vcl
+  name: DevExpress VCL
+  category: library
+  match:
+    contentRegex:
+      - '\bcx(Grid|GridDBTableView|Edit|TextEdit|Button|Controls|Lookup|PivotGrid)\b'
+      - '\bdxBar\b'
+  confidence: high
+
+- id: tms
+  name: TMS Components
+  category: library
+  match:
+    contentRegex:
+      - '\bWEBLib\.[A-Za-z][A-Za-z0-9]*'
+  confidence: high
+
+- id: lapack
+  name: LAPACK
+  category: library
+  match:
+    contentRegex:
+      - '(?i)\bcall\s+[sdcz]ge(sv|trf|qrf|qr2|svd|hrd)\b'
+      - '(?i)\bcall\s+[sdcz](lahqr|trevc|steqr|orgqr|ormqr|geev|gesvd)\b'
+  confidence: high
+
+- id: blas
+  name: BLAS
+  category: library
+  match:
+    contentRegex:
+      - '(?i)\bcall\s+[sdcz]gemm\b'
+      - '(?i)\bcall\s+[sdcz](gemv|trsm|syrk|axpy)\b'
+  confidence: high
+
+- id: openmp
+  name: OpenMP
+  category: library
+  match:
+    contentRegex:
+      - '(?im)^\s*!\$omp\s'
+  confidence: high
+
+- id: mpi
+  name: MPI
+  category: library
+  match:
+    contentRegex:
+      - '(?i)include\s+[''"]mpif\.h'
+      - '(?im)^\s*use\s+mpi(_f08)?\b'
+      - '(?i)\bcall\s+MPI_[A-Z]'
+  confidence: high
+
+- id: fftw
+  name: FFTW
+  category: library
+  match:
+    contentRegex:
+      - '(?i)include\s+[''"]fftw3'
+      - '(?i)\b[sd]fftw_(plan|execute|destroy)'
+  confidence: high
+
+- id: petsc
+  name: PETSc
+  category: library
+  match:
+    contentRegex:
+      - '(?i)#include\s+[<"]petsc'
+      - '(?im)^\s*use\s+petsc'
+  confidence: high
+
+- id: coarray
+  name: Coarray Fortran
+  category: library
+  match:
+    contentRegex:
+      - '\bthis_image\s*\('
+      - '\bnum_images\s*\('
+  confidence: high
+
+- id: scalapack
+  name: ScaLAPACK
+  category: library
+  match:
+    contentRegex:
+      - '(?i)\bcall\s+blacs_'
+      - '(?i)\bcall\s+p[sdcz](gesv|getrf|gemm|potrf|syev|gemr2d)\b'
+  confidence: high
+
+- id: cl-ppcre
+  name: cl-ppcre
+  category: library
+  match:
+    contentRegex:
+      - '\bppcre:'
+      - '(?im):depends-on[^)]*cl-ppcre'
+  confidence: high
+
+- id: bordeaux-threads
+  name: Bordeaux Threads
+  category: library
+  match:
+    contentRegex:
+      - '\bbordeaux-threads\b'
+      - '\bbt:make-thread\b'
+  confidence: high
+
+- id: image-processing
+  name: Image Processing Toolbox
+  category: library
+  match:
+    contentRegex:
+      - '(?m)\b(imdilate|imerode|imfilter|imadjust|imbinarize|im2bw)\s*\('
+  confidence: high
+
+# --- Signal Processing Toolbox (line 154) ---
+# butter/pwelch/designfilt/filtfilt are distinctive (fft is base MATLAB — excluded).
+
+- id: signal-processing
+  name: Signal Processing Toolbox
+  category: library
+  match:
+    contentRegex:
+      - '(?m)\b(pwelch|designfilt|filtfilt|butter)\s*\('
+  confidence: high
+
+# --- Statistics and Machine Learning Toolbox (line 155) ---
+
+- id: statistics-ml
+  name: Statistics and Machine Learning Toolbox
+  category: library
+  match:
+    contentRegex:
+      - '(?m)\b(fitlm|fitcsvm|fitcecoc|fitctree|fitcknn|fitrtree)\s*\('
+  confidence: high
+
+# --- Control System Toolbox (line 157) ---
+# rlocus/bode/nyquist/pidtune are distinctive; tf('s') is the idiomatic transfer-fn form.
+# Bare tf(/ss( excluded — too FP-prone as variable names.
+
+- id: control-system
+  name: Control System Toolbox
+  category: library
+  match:
+    contentRegex:
+      - '(?m)\b(rlocus|bode|nyquist|pidtune|stepinfo)\s*\('
+      - "(?m)\\btf\\('s'\\)"
+  confidence: high
+
+# --- Optimization Toolbox (line 158) ---
+
+- id: optimization
+  name: Optimization Toolbox
+  category: library
+  match:
+    contentRegex:
+      - '(?m)\b(fmincon|linprog|quadprog|intlinprog|optimoptions)\s*\('
+  confidence: high
+
+# --- Parallel Computing Toolbox (line 159) ---
+
+- id: parallel-computing
+  name: Parallel Computing Toolbox
+  category: library
+  match:
+    contentRegex:
+      - '(?m)^\s*parfor\b'
+      - '(?m)\b(parpool|gpuArray)\s*\('
+  confidence: high
+
+- id: psreadline
+  name: PSReadLine
+  category: library
+  match:
+    contentRegex:
+      - '(?m)\bSet-PSReadLine(Option|KeyHandler)?\b'
+      - '(?m)\bImport-Module\s+PSReadLine\b'
+  confidence: high
+
+# --- PowerShellGet (line 316): Install-Module / Publish-Module / Find-Module ---
+
+- id: psframework
+  name: PSFramework
+  category: library
+  match:
+    contentRegex:
+      - '(?m)\bImport-Module\s+PSFramework\b'
+      - '(?m)\bWrite-PSFMessage\b'
+  confidence: high
+
+# --- Polaris (line 319): web framework. Import-Module Polaris / New-PolarisRoute / Start-Polaris ---
+
+- id: importexcel
+  name: ImportExcel
+  category: library
+  match:
+    contentRegex:
+      - '(?m)\bImport-Module\s+ImportExcel\b'
+      - '(?m)\b(Export|Import)-Excel\b'
+  confidence: high
+
+- id: 2htdp
+  name: big-bang (2htdp)
+  category: library
+  match:
+    contentRegex:
+      - '\(require\s+[^)]*\b2htdp/universe\b'
+  confidence: high
+
+- id: redex
+  name: Redex
+  category: library
+  match:
+    contentRegex:
+      - '\(require\s+[^)]*\bredex/reduction-semantics\b'
+      - '\(require\s+[^)]*\bredex/pict\b'
+  confidence: high
+
+- id: plot
+  name: plot
+  category: library
+  match:
+    contentRegex:
+      - '\(require\s+[^)]*\bplot(/(no-gui|pict|utils))?\b'
+  confidence: high
+
+- id: slideshow
+  name: Slideshow
+  category: library
+  match:
+    contentRegex:
+      - '(?m)^#lang\s+slideshow\b'
+      - '\(require\s+[^)]*\bslideshow(/code|/play|/face)?\b'
+  confidence: high
+
+- id: macro
+  name: SAS Macro Language
+  category: library
+  match:
+    contentRegex:
+      - '(?im)^\s*%macro\s+\w'
+  confidence: high
+
+- id: stat
+  name: SAS/STAT
+  category: library
+  match:
+    contentRegex:
+      - '(?im)^\s*proc\s+(reg|glm|mixed|logistic|glimmix|anova|phreg|genmod)\b'
+  confidence: high
+
+- id: graph
+  name: SAS/GRAPH
+  category: library
+  match:
+    contentRegex:
+      - '(?im)^\s*proc\s+g(plot|chart|map|slide|contour|3d)\b'
+  confidence: high
+
+- id: procsql
+  name: PROC SQL
+  category: library
+  match:
+    contentRegex:
+      - '(?im)^\s*proc\s+sql\b'
+  confidence: high
+
+- id: iml
+  name: SAS/IML
+  category: library
+  match:
+    contentRegex:
+      - '(?im)^\s*proc\s+iml\b'
+  confidence: high
+
+- id: bash-shflags
+  name: shFlags
+  category: library
+  match:
+    contentRegex:
+      - '(?m)^\s*DEFINE_(string|boolean|integer|float)\s'
+      - '(?m)^\s*\.\s+\S*shflags\b'
+  confidence: high
+
+- id: bash-dialog
+  name: dialog
+  category: library
+  match:
+    contentRegex:
+      - '\bdialog\s+--[a-z]'
+  confidence: medium
+
+- id: bash-whiptail
+  name: whiptail
+  category: library
+  match:
+    contentRegex:
+      - '\bwhiptail\s+--[a-z]'
+  confidence: high
+
+- id: uvm
+  name: UVM
+  category: library
+  match:
+    contentRegex:
+      - '(?m)^\s*import\s+uvm_pkg\b'
+      - '`uvm_component_utils\b'
+      - '`uvm_object_utils\b'
+  confidence: high

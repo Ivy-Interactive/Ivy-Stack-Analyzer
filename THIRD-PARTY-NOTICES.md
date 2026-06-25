@@ -12,12 +12,16 @@ repository.
 - **Source:** https://github.com/github-linguist/linguist
 - **License:** MIT
 - **Derived files:** `src/Ivy.StackAnalyzer/data/languages.yml`,
-  `src/Ivy.StackAnalyzer/data/vendor.yml`
+  `src/Ivy.StackAnalyzer/data/vendor.yml`,
+  `src/Ivy.StackAnalyzer/data/heuristics.yml`
 
 `languages.yml` is transformed from linguist's `lib/linguist/languages.yml`
 (language name, type, extensions, filenames, interpreters, color). `vendor.yml`
 is derived from linguist's `lib/linguist/vendor.yml` plus common build/output and
-lockfile patterns.
+lockfile patterns. `heuristics.yml` is ported from linguist's
+`lib/linguist/heuristics.yml` (content-disambiguation rules for extensions shared
+by multiple languages); the matching engine in `Scanning/Heuristics.cs` follows
+linguist's `lib/linguist/heuristics.rb` algorithm.
 
 ```
 The MIT License (MIT)

@@ -164,6 +164,19 @@ public sealed class RuleEngine
             if (hit is not null) evidence.Add($"script '{hit}'");
         }
 
+        // Source-content markers (e.g. C `#include <gtk/gtk.h>`, Swift `import UIKit`).
+        // The component's source text is read lazily on first access here.
+        if (m.ContentRegex.Count > 0)
+        {
+            var texts = ctx.SourceTexts.Value;
+            foreach (var cr in m.ContentRegex)
+            {
+                var rx = GetRegex(cr);
+                var hit = texts.FirstOrDefault(t => rx.IsMatch(t.Text));
+                if (hit is not null) evidence.Add($"source {hit.Path}");
+            }
+        }
+
         if (evidence.Count > beforeNonDep) direct = true;
 
         // Every facet above is a strong signal; dotenv (below) is weak.

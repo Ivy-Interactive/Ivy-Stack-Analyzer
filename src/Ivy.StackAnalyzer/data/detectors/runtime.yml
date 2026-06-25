@@ -36,3 +36,37 @@
       - { ecosystem: npm, name: electron }
       - { ecosystem: githubAction, name: samuelmeuli/action-electron-builder }
   confidence: high
+
+- id: deno
+  name: Deno
+  category: runtime
+  match:
+    files: [deno.json, deno.jsonc]
+  confidence: high
+
+- id: netframework
+  name: .NET Framework
+  category: runtime
+  match:
+    properties:
+      - { name: TargetFrameworkVersion, value: 'v4.8' }
+      - { name: TargetFrameworkVersion, value: 'v4.8.1' }
+      - { name: TargetFrameworkVersion, value: 'v4.7.2' }
+      - { name: TargetFrameworkVersion, value: 'v4.7.1' }
+      - { name: TargetFrameworkVersion, value: 'v4.7' }
+      - { name: TargetFrameworkVersion, value: 'v4.6.2' }
+      - { name: TargetFrameworkVersion, value: 'v4.6.1' }
+      - { name: TargetFrameworkVersion, value: 'v4.6' }
+      - { name: TargetFrameworkVersion, value: 'v4.5.2' }
+      - { name: TargetFrameworkVersion, value: 'v4.5.1' }
+      - { name: TargetFrameworkVersion, value: 'v4.5' }
+      - { name: TargetFrameworkVersion, value: 'v4.0' }
+      - { name: TargetFrameworkVersion, value: 'v3.5' }
+      - { name: TargetFrameworkVersion, value: 'v2.0' }
+  confidence: high
+
+# Windows Forms in classic non-SDK projects. The dotnet.yml `windows-forms` rule
+# only matches the SDK-style <UseWindowsForms>true</UseWindowsForms> property;
+# legacy .vbproj files instead just <Reference Include="System.Windows.Forms"/>.
+# `Inherits System.Windows.Forms.Form` in VB source is the unambiguous designer
+# marker of an actual WinForms app (a bare Imports would be too loose).

@@ -25,6 +25,15 @@ public sealed class ManifestParserRegistry
         new GemfileParser(),
         new PubspecParser(),
         new MixParser(),
+        new JuliaProjectParser(),
+        new CrystalShardParser(),
+        new NimbleParser(),
+        new CpanfileParser(),
+        new RebarConfigParser(),
+        new OpamParser(),
+        new SwiftPackageParser(),
+        new ZigZonParser(),
+        new CabalParser(),
     ];
 
     /// <summary>The parser for a file, or <c>null</c> if none handles it.</summary>

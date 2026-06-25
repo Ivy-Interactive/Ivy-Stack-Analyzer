@@ -1084,3 +1084,70 @@
       - { ecosystem: docker, name: victoriametrics/vminsert }
       - { ecosystem: docker, name: victoriametrics/vmstorage }
   confidence: high
+
+- id: mnesia
+  name: Mnesia
+  category: database
+  match:
+    contentRegex:
+      - '\bmnesia:(create_schema|create_table|transaction|dirty_read|dirty_write|activity|table_info)\s*\('
+  confidence: high
+
+- id: datomic
+  name: Datomic
+  category: database
+  match:
+    contentRegex:
+      - '(?m)\[com\.datomic/(datomic-pro|datomic-free|peer|client|clj-client|local)\b'
+      - '(?m)com\.datomic/[a-z-]+\s+\{:mvn/version'
+      - '(?m)\(:require\b[^)]*\[datomic\.(api|client)\b'
+  confidence: high
+
+- id: ims
+  name: IMS
+  category: database
+  match:
+    contentRegex:
+      - '(?im)^\s*EXEC\s+DLI\b'
+      - '(?i)\bCBLTDLI\b'
+  confidence: high
+
+- id: db2
+  name: Db2
+  category: database
+  match:
+    contentRegex:
+      - '(?im)^\s*EXEC\s+SQL\b'
+  confidence: high
+
+- id: oracle
+  name: Oracle Database
+  category: database
+  match:
+    deps:
+      - { ecosystem: nuget, name: Oracle.ManagedDataAccess }
+      - { ecosystem: nuget, name: Oracle.ManagedDataAccess.Core }
+      - { ecosystem: nuget, name: Oracle.EntityFrameworkCore }
+      - { ecosystem: nuget, name: Oracle.VectorData }
+      - { ecosystem: pypi, name: cx_Oracle }
+      - { ecosystem: pypi, name: oracledb }
+      - { ecosystem: npm, name: oracledb }
+      - { ecosystem: maven, name: "com.oracle.database.jdbc:ojdbc8" }
+      - { ecosystem: maven, name: "com.oracle.database.jdbc:ojdbc11" }
+      - { ecosystem: maven, name: "com.oracle.ojdbc:ojdbc8" }
+      - { ecosystem: rubygems, name: ruby-oci8 }
+      - { ecosystem: go, name: github.com/sijms/go-ora/v2 }
+    depPrefix:
+      - { ecosystem: maven, prefix: "com.oracle.database.jdbc:" }
+    depsRegex:
+      - { ecosystem: docker, pattern: 'container-registry\.oracle\.com/database' }
+  confidence: high
+
+- id: sqlcipher
+  name: SQLite
+  category: database
+  match:
+    deps:
+      - { ecosystem: npm, name: "@signalapp/sqlcipher" }
+      - { ecosystem: npm, name: "@journeyapps/sqlcipher" }
+  confidence: high

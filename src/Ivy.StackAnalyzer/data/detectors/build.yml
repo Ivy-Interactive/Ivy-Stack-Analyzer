@@ -292,3 +292,122 @@
     deps:
       - { ecosystem: npm, name: webpack }
   confidence: high
+
+- id: rebar3
+  name: Rebar3
+  category: build
+  match:
+    files: [rebar.config, rebar.lock]
+  confidence: high
+
+- id: fake
+  name: FAKE
+  category: build
+  match:
+    deps:
+      - { ecosystem: nuget, name: "FAKE" }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Fake." }
+    files: [build.fsx]
+  confidence: high
+
+- id: gradle
+  name: Gradle
+  category: build
+  match:
+    files: [build.gradle, build.gradle.kts, settings.gradle, settings.gradle.kts]
+  confidence: high
+
+- id: dune
+  name: Dune
+  category: build
+  match:
+    files: [dune-project]
+    deps:
+      - { ecosystem: opam, name: dune }
+  confidence: high
+
+- id: nasm
+  name: NASM
+  category: build
+  match:
+    # nasm invoked on an .asm source in a build script (NASM/YASM share directives,
+    # so a bare directive can't tell them apart -- the toolchain call can).
+    contentRegex:
+      - '\bnasm\s+(-[^\s]+\s+)*[^\s;]+\.asm\b'
+  confidence: high
+
+- id: yasm
+  name: YASM
+  category: build
+  match:
+    contentRegex:
+      - '\bwhich\s+yasm\b'
+      - '(?m)^[^;\n]*\binstall\b[^;\n]*\byasm\b'
+  confidence: high
+
+- id: masm
+  name: MASM
+  category: build
+  match:
+    # MASM directives (Intel, leading-dot .MODEL/.CODE) + casemap option.
+    contentRegex:
+      - '(?im)^\s*\.model\s+(flat|small|tiny|compact|medium|large|huge)\b'
+      - '(?im)^\s*option\s+casemap\b'
+  confidence: high
+
+- id: gas
+  name: GAS (GNU Assembler)
+  category: build
+  match:
+    # GNU-specific directive spellings (.section / .globl). HelloSilicon uses
+    # only .global/.text (no .section/.globl), so it stays out (LLVM/Apple as).
+    contentRegex:
+      - '(?im)^\s*\.section\s+\.(text|data|bss|rodata)\b'
+      - '(?im)^\s*\.globl\b'
+  confidence: high
+
+- id: fasm
+  name: FASM
+  category: build
+  match:
+    # use16/use32/use64 are flat-assembler-only (NASM/YASM use BITS). 'format'
+    # alone leaks into a mixed-dialect teaching repo, so anchor on use{16,32,64}.
+    contentRegex:
+      - '(?im)^\s*use(16|32|64)\b'
+  confidence: high
+
+- id: tasm
+  name: TASM
+  category: build
+  match:
+    # Turbo Assembler IDEAL mode -- a TASM-exclusive directive.
+    contentRegex:
+      - '(?im)^\s*ideal\b'
+  confidence: high
+
+- id: goasm
+  name: GoAsm
+  category: build
+  match:
+    # GoAsm/GoLink toolchain named in the build (e.g. Makefile ASM = GoAsm).
+    contentRegex:
+      - '\bGoAsm\b'
+      - '\bGoLink\b'
+  confidence: high
+
+- id: leiningen
+  name: Leiningen
+  category: build
+  match:
+    files: [project.clj]
+  confidence: high
+
+- id: asdf-lisp
+  name: ASDF
+  category: build
+  match:
+    contentRegex:
+      - '\(asdf:defsystem\b'
+      - '(?im)^\s*\(defsystem\s'
+  confidence: high

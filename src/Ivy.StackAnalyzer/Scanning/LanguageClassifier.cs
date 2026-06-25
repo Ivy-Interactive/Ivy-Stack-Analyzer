@@ -19,8 +19,18 @@ public sealed record ClassifiedFile
 public sealed class LanguageClassifier
 {
     private readonly DataStore _data;
+    private readonly Heuristics _heuristics;
 
-    public LanguageClassifier(DataStore data) => _data = data;
+    // Bytes of a file's head consulted for content heuristics on an ambiguous
+    // extension. Generous enough to reach the disambiguating marker, bounded so a
+    // huge single-line blob can't be slurped.
+    private const int HeuristicReadChars = 64 * 1024;
+
+    public LanguageClassifier(DataStore data)
+    {
+        _data = data;
+        _heuristics = new Heuristics(data.HeuristicsData);
+    }
 
     public ClassifiedFile Classify(ScannedFile file)
     {
@@ -66,7 +76,16 @@ public sealed class LanguageClassifier
         // 2. Extension
         var ext = file.Extension;
         if (ext.Length > 0 && _data.ByExtension.TryGetValue(ext, out var candidates))
+        {
+            // When an extension is shared by several languages, consult content
+            // heuristics (linguist-style) before falling back to the popularity pick.
+            if (candidates.Count >= 2)
+            {
+                var disambiguated = Disambiguate(file, ext);
+                if (disambiguated is not null) return disambiguated;
+            }
             return PickBest(candidates);
+        }
 
         // 3. Shebang interpreter (only when extension didn't resolve)
         var interp = ReadShebangInterpreter(file.FullPath);
@@ -90,6 +109,31 @@ public sealed class LanguageClassifier
         "Vue", "Svelte", "Dart", "Elixir", "Shell", "PowerShell", "SQL", "XML",
         "Objective-C", "Dockerfile", "Text",
     ];
+
+    /// <summary>Resolve an ambiguous extension by content. Returns the first heuristic
+    /// language we actually know (have a definition for), or null to fall back.</summary>
+    private string? Disambiguate(ScannedFile file, string ext)
+    {
+        var langs = _heuristics.Disambiguate(ext, ReadHead(file.FullPath, file.Length));
+        return langs?.FirstOrDefault(_data.Languages.ContainsKey);
+    }
+
+    private static string ReadHead(string fullPath, long fileLength)
+    {
+        try
+        {
+            using var reader = new StreamReader(fullPath);
+            // bytes >= chars, so sizing to the file length never truncates below the cap.
+            var size = (int)Math.Min(HeuristicReadChars, Math.Max(1, fileLength));
+            var buf = new char[size];
+            int n = reader.Read(buf, 0, buf.Length);
+            if (n <= 0) return "";
+            // Normalize CRLF/CR -> LF so heuristic `$`/`^` line anchors (linguist's
+            // patterns assume git-normalized LF blobs) match on Windows-authored files.
+            return new string(buf, 0, n).Replace("\r\n", "\n").Replace('\r', '\n');
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { return ""; }
+    }
 
     private string PickBest(List<string> candidates)
     {

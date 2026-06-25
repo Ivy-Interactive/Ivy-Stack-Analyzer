@@ -171,4 +171,25 @@ public class ComponentDetectorTests
         // a real product component is not auxiliary
         Assert.False(byPath["apps/api"].IsAuxiliary);
     }
+
+    [Fact]
+    public void Source_sampler_includes_code_skips_data_binary_oversized_and_truncates()
+    {
+        const int readCap = 128 * 1024;   // SourceFileReadCap
+        using var repo = new TempRepo();
+        repo.Write("main.c", "#include <stdio.h>\nint main(void){return 0;}\n") // programming -> included
+            .Write("config.json", "{ \"a\": 1 }\n")                              // data type -> excluded
+            .Write("big.c", new string('a', 600 * 1024))                         // > 512KB -> excluded
+            .Write("trunc.c", new string('b', 200 * 1024))                       // included but truncated
+            .Write("weird.c", "\0\0\0 not really source \0");                    // binary -> Language null -> excluded
+
+        var root = Detect(repo).Single(c => c.RelativePath == ".");
+        var sampled = root.SourceTexts.Value.ToDictionary(s => s.Path, s => s.Text);
+
+        Assert.Contains("main.c", sampled.Keys);
+        Assert.DoesNotContain("config.json", sampled.Keys); // data languages are not sampled
+        Assert.DoesNotContain("big.c", sampled.Keys);       // over the per-file byte cap
+        Assert.DoesNotContain("weird.c", sampled.Keys);     // NUL bytes -> classified as binary
+        Assert.Equal(readCap, sampled["trunc.c"].Length);   // truncated to the read cap
+    }
 }

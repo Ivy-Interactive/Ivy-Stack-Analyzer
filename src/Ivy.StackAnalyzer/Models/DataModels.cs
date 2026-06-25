@@ -57,6 +57,14 @@ public sealed class MatchSpec
     /// <summary>Regexes matched against run-script command strings (e.g. <c>package.json</c>
     /// <c>scripts</c> values). Detects tools invoked only via a script, such as <c>bun test</c>.</summary>
     public List<string> ScriptsRegex { get; set; } = [];
+
+    /// <summary>Regexes matched against the <em>text content</em> of a component's source
+    /// files (a bounded sample). The escape hatch for technologies whose only on-disk
+    /// signal lives in source code — a C <c>#include &lt;gtk/gtk.h&gt;</c>, a Swift
+    /// <c>import UIKit</c>, an assembler directive. Use only unambiguous markers: a
+    /// content match counts as direct, high-confidence evidence, so a loose pattern
+    /// becomes a false positive. Reading is lazy — costs nothing unless a rule needs it.</summary>
+    public List<string> ContentRegex { get; set; } = [];
 }
 
 /// <summary>A technology detection rule as loaded from <c>detectors/*.yml</c>.</summary>

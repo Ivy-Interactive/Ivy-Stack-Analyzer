@@ -13,6 +13,7 @@
   category: framework
   match:
     deps:
+      - { ecosystem: go, name: github.com/labstack/echo/v5 }
       - { ecosystem: go, name: github.com/labstack/echo/v4 }
       - { ecosystem: go, name: github.com/labstack/echo }
   confidence: high
@@ -66,4 +67,38 @@
   category: orm
   match:
     files: ["sqlc.yaml", "sqlc.yml", "sqlc.json"]
+  confidence: high
+
+- id: beego
+  name: Beego
+  category: framework
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/beego/beego }
+      - { ecosystem: go, name: github.com/beego/beego/v2 }
+      - { ecosystem: go, name: github.com/astaxie/beego }
+  confidence: high
+
+- id: gorilla
+  name: Gorilla
+  category: framework
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/gorilla/mux }
+  confidence: high
+
+- id: revel
+  name: Revel
+  category: framework
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/revel/revel }
+  confidence: high
+
+- id: buffalo
+  name: Buffalo
+  category: framework
+  match:
+    deps:
+      - { ecosystem: go, name: github.com/gobuffalo/buffalo }
   confidence: high

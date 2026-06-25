@@ -26,6 +26,10 @@ public sealed class DataStore
     public IReadOnlyList<RuleDef> Rules { get; }
     public InfraData Infra { get; }
 
+    /// <summary>Content-based disambiguation rules (github-linguist <c>heuristics.yml</c>)
+    /// used to resolve extensions claimed by more than one language.</summary>
+    public HeuristicsFile HeuristicsData { get; }
+
     // Indexes built from Languages for fast per-file classification.
     public IReadOnlyDictionary<string, List<string>> ByExtension { get; }
     public IReadOnlyDictionary<string, string> ByFilename { get; }
@@ -39,13 +43,15 @@ public sealed class DataStore
         List<Regex> vendorPatterns,
         List<Regex> documentationPatterns,
         List<RuleDef> rules,
-        InfraData infra)
+        InfraData infra,
+        HeuristicsFile heuristics)
     {
         Languages = languages;
         VendorPatterns = vendorPatterns;
         DocumentationPatterns = documentationPatterns;
         Rules = rules;
         Infra = infra;
+        HeuristicsData = heuristics;
 
         var byExt = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
         var byFile = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -70,6 +76,12 @@ public sealed class DataStore
         .IgnoreUnmatchedProperties()
         .Build();
 
+    // heuristics.yml uses linguist's snake_case keys (named_pattern, negative_pattern).
+    private static readonly IDeserializer HeuristicsYaml = new DeserializerBuilder()
+        .WithNamingConvention(UnderscoredNamingConvention.Instance)
+        .IgnoreUnmatchedProperties()
+        .Build();
+
     /// <summary>Load the built-in data, optionally overlaid with user directories.</summary>
     public static DataStore Load(IReadOnlyList<string>? additionalDirectories = null)
     {
@@ -80,6 +92,7 @@ public sealed class DataStore
         var documentation = LoadDocumentation(asm);
         var rules = LoadRules(asm);
         var infra = LoadInfra(asm);
+        var heuristics = LoadHeuristics(asm);
 
         // Overlay user-supplied directories (later wins / appends). A malformed
         // user file is skipped rather than aborting the whole run.
@@ -123,9 +136,21 @@ public sealed class DataStore
                     foreach (var (k, v) in userInfra.Images) infra.Images[k] = v; // image mappings: user wins
                 }
             }
+
+            var heuristicsFile = Path.Combine(dir, "heuristics.yml");
+            if (File.Exists(heuristicsFile))
+            {
+                var userHeuristics = TryDeserializeHeuristics(heuristicsFile);
+                if (userHeuristics is not null)
+                {
+                    // User groups are tried first; user named-patterns win.
+                    heuristics.Disambiguations.InsertRange(0, userHeuristics.Disambiguations);
+                    foreach (var (k, v) in userHeuristics.NamedPatterns) heuristics.NamedPatterns[k] = v;
+                }
+            }
         }
 
-        return new DataStore(languages, vendor, documentation, rules, infra);
+        return new DataStore(languages, vendor, documentation, rules, infra, heuristics);
     }
 
     private static T? TryDeserialize<T>(string path) where T : class
@@ -135,6 +160,21 @@ public sealed class DataStore
         {
             return null;
         }
+    }
+
+    private static HeuristicsFile? TryDeserializeHeuristics(string path)
+    {
+        try { return HeuristicsYaml.Deserialize<HeuristicsFile>(File.ReadAllText(path)); }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or YamlDotNet.Core.YamlException)
+        {
+            return null;
+        }
+    }
+
+    private static HeuristicsFile LoadHeuristics(Assembly asm)
+    {
+        var text = ReadResource(asm, ".data.heuristics.yml");
+        return HeuristicsYaml.Deserialize<HeuristicsFile>(text) ?? new HeuristicsFile();
     }
 
     private static InfraData LoadInfra(Assembly asm)

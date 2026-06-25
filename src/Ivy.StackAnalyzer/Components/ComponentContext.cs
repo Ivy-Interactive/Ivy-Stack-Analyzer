@@ -47,4 +47,13 @@ public sealed class ComponentContext
     /// <summary>Run-script command strings across this component's manifests (e.g. <c>package.json</c>
     /// <c>scripts</c> values). Used to detect tools invoked only via a script, such as <c>bun test</c>.</summary>
     public IReadOnlySet<string> Scripts { get; init; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>A bounded sample of this component's source files as (relativePath, text),
+    /// loaded lazily on first access (so the read cost is paid only when a rule actually
+    /// uses <c>contentRegex</c>). Default is empty for hand-built contexts in tests.</summary>
+    public Lazy<IReadOnlyList<SourceText>> SourceTexts { get; init; }
+        = new(() => []);
 }
+
+/// <summary>A source file's repo-relative path and its (possibly truncated) text.</summary>
+public sealed record SourceText(string Path, string Text);

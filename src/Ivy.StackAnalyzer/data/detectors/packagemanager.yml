@@ -72,3 +72,52 @@
   match:
     files: [yarn.lock]
   confidence: high
+
+- id: paket
+  name: Paket
+  category: packagemanager
+  match:
+    files: [paket.dependencies]
+  confidence: high
+
+- id: luarocks
+  name: LuaRocks
+  category: packagemanager
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.rockspec$'
+  confidence: high
+
+- id: nimble
+  name: Nimble
+  category: packagemanager
+  match:
+    filesRegex:
+      - '(^|/)[^/]+\.nimble$'
+  confidence: high
+
+- id: alire
+  name: Alire
+  category: packagemanager
+  match:
+    files: [alire.toml]
+  confidence: high
+
+- id: quicklisp
+  name: Quicklisp
+  category: packagemanager
+  match:
+    contentRegex:
+      - '\(ql:quickload\b'
+      - '\(quicklisp(-client)?:'
+  confidence: high
+
+- id: powershellget
+  name: PowerShellGet
+  category: packagemanager
+  match:
+    contentRegex:
+      - '(?m)\b(Install-Module|Publish-Module|Find-Module)\b'
+  confidence: high
+
+# --- Pode (line 317): web framework. Import-Module Pode / Start-PodeServer / Add-PodeRoute ---

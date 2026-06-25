@@ -102,12 +102,15 @@ A seven-stage pipeline (`Pipeline.cs`):
 1. **Walk** — `FileSystemScanner` enumerates files, pruning vendored/generated dirs
    (`data/vendor.yml`) and honoring `.gitignore`.
 2. **Classify** — `LanguageClassifier` resolves each file's language via
-   `data/languages.yml` (filename → extension → shebang).
+   `data/languages.yml` (filename → extension → shebang). Extensions shared by
+   several languages (`.m`, `.pl`, `.v`, `.h`, …) are disambiguated by content using
+   a github-linguist-style heuristics layer (`data/heuristics.yml`, `Heuristics.cs`).
 3. **Componentize** — `ComponentDetector` turns manifest-bearing directories into
    components, attributes every file to its nearest-ancestor root, and flags
    monorepo aggregators (`IsWorkspaceRoot`) and auxiliary subtrees (`IsAuxiliary`).
 4. **Parse** — `IManifestParser` registry extracts dependencies (npm, NuGet, PyPI,
-   Go, Cargo, Maven, Gradle, Composer, RubyGems, Pub, Hex).
+   Go, Cargo, Maven/Gradle — incl. `libs.versions.toml` catalogs, Composer, RubyGems,
+   Pub, Hex, plus Julia, Crystal, Nim, CPAN, Rebar, opam/dune, Swift PM, Zig, Cabal).
 5. **Detect** — `RuleEngine` matches `data/detectors/*.yml` against each component,
    applying `supersedes` ranking; `ITechnologyDetector` is the code escape hatch.
 6. **Infra** — `InfraScanner` surfaces Docker, Compose, Kubernetes, Helm,
@@ -124,7 +127,10 @@ A seven-stage pipeline (`Pipeline.cs`):
 | Bespoke logic | Implement `ITechnologyDetector` |
 
 The `MatchSpec` rule schema is a **superset** of specfy's format, adding `sdk`
-(MSBuild SDK attribute), `depPrefix`, `pathGlobs`, and `supersedes`.
+(MSBuild SDK attribute), `depPrefix`, `pathGlobs`, `supersedes`, and `contentRegex`
+(a regex matched against a bounded sample of a component's source text — the escape
+hatch for technologies whose only on-disk signal lives in source code, e.g. a C
+`#include` or a Swift `import`).
 
 ## Attribution & licensing
 

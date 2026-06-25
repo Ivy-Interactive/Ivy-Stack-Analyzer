@@ -49,10 +49,13 @@
   name: WPF
   category: framework
   match:
-    pathGlobs: ["**/*.xaml"]
+    # UseWPF + the WPF desktop dep are WPF-specific. A bare **/*.xaml glob is NOT:
+    # MAUI, Xamarin, Avalonia, WinUI and Uno all ship .xaml too, so it false-positives.
+    properties:
+      - { name: UseWPF, value: 'true' }
     deps:
       - { ecosystem: nuget, name: "Microsoft.WindowsDesktop.App.WPF" }
-  confidence: medium
+  confidence: high
 
 - id: worker-service
   name: .NET Worker Service
@@ -186,4 +189,34 @@
   match:
     deps:
       - { ecosystem: nuget, name: "AutoMapper" }
+  confidence: high
+
+- id: xamarin
+  name: Xamarin
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Xamarin.Forms" }
+      - { ecosystem: nuget, name: "Xamarin.Essentials" }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Xamarin.Forms." }
+  confidence: high
+
+- id: unity
+  name: Unity
+  category: framework
+  match:
+    extensions: ['.unity', '.asmdef']
+    filesRegex: ['(^|/)ProjectSettings/ProjectVersion\.txt$']
+  confidence: high
+
+- id: signalr
+  name: SignalR
+  category: framework
+  match:
+    deps:
+      - { ecosystem: nuget, name: "Microsoft.AspNet.SignalR" }
+      - { ecosystem: nuget, name: "Microsoft.AspNet.SignalR.Core" }
+    depPrefix:
+      - { ecosystem: nuget, prefix: "Microsoft.AspNetCore.SignalR" }
   confidence: high
