@@ -7,9 +7,9 @@ name = "mylib"
 version = "0.1.0"
 description = "A small numerical helper library."
 dependencies = [
-    "numpy>=1.26",
-    "scipy>=1.13",
+    "numpy>=2.5.5",
+    "scipy>=1.18.1",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0", "mypy>=1.10"]
+dev = ["pytest>=9.2.0", "mypy>=2.4.1"]
